@@ -2,21 +2,21 @@
 
 ## Installation:
 
-Add [ix-icons.1.0.0.tar.gz](../../dist/ix-icons.1.0.0.tar.gz) to /lib within angular project.
+1. Add [ix-icons.1.0.0.tar.gz](../../dist/ix-icons.1.0.0.tar.gz) to /lib within angular project.
 
-Update package.json/dependencies with
+2. Update package.json/dependencies with
 
 ```
 "ix-icons": "file:./lib/ix-icons.1.0.0.tar.gz"
 ```
 
-run:
+3. run:
 
 ```
 npm i
 ```
 
-Update angular.json/assets with
+4. Update angular.json/assets with
 
 ```
 {
@@ -26,6 +26,8 @@ Update angular.json/assets with
 }
 ```
 
+5. Add **IxIconModule** to Module Imports
+
 ## Available icons
 
 - ix-export
@@ -33,3 +35,7 @@ Update angular.json/assets with
 - ix-file-doc
 - ix-file-excel
 - ix-file-pdf
+
+## Add to layout with
+
+    <mat-icon svgIcon="ix-file-html"></mat-icon>
