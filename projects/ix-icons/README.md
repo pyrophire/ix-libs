@@ -26,7 +26,7 @@ npm i
 }
 ```
 
-5. Add **IxIconModule** to Module Imports
+5. Add **IxIconsModule** to Module Imports
 
 ## Available icons
 
