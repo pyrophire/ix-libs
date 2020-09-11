@@ -2,7 +2,7 @@
 
 ## Installation:
 
-Add [ix-icons.1.0.0.tar.gz](../dist/ix-icons.1.0.0.tar.gz) to /lib within angular project.
+Add [ix-icons.1.0.0.tar.gz](../../dist/ix-icons.1.0.0.tar.gz) to /lib within angular project.
 
 Update package.json/dependencies with
 
