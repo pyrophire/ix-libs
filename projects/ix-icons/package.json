@@ -1,0 +1,18 @@
+{
+  "name": "@ix/icons",
+  "version": "0.0.1",
+  "peerDependencies": {
+    "@angular/animations": "~10.0.0",
+    "@angular/cdk": "^10.2.0",
+    "@angular/common": "~10.0.0",
+    "@angular/compiler": "~10.0.0",
+    "@angular/core": "~10.0.0",
+    "@angular/forms": "~10.0.0",
+    "@angular/material": "^10.2.0",
+    "@angular/platform-browser": "~10.0.0",
+    "@angular/platform-browser-dynamic": "~10.0.0"
+  },
+  "dependencies": {
+    "tslib": "^2.0.0"
+  }
+}
