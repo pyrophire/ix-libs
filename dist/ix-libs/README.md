@@ -1,23 +1,23 @@
+
 # Ix-Libs
+  - [Ix-Icons](#ix-icons)
+    - [Installation](#installation)
+    - [Available icons](#available-icons)
+  - [Ix-Scroll](#ix-scroll)
+    - [Installation](#installation-1)
+    - [Notes](#notes)
 
 ## Ix-Icons
 
-### Installation:
+### Installation
 
-1. Add .npmrc with the following
-
-```
-registry=http://istfs:8080/tfs/DefaultCollection/_packaging/IX-libs/npm/registry/
-always-auth=true
-```
-
-2. run:
+1. Run
 
 ```
-npm install @ix/icons
+npm install --save ix-libs
 ```
 
-3. Update angular.json/assets with
+2. Update angular.json/assets with
 
 ```
 {
@@ -27,7 +27,15 @@ npm install @ix/icons
 }
 ```
 
-4. Add **IxIconsModule** to Module Imports
+3. Add to Module Imports
+```
+import { IxIconsModule } from 'ix-libs';
+```
+
+4. Add to layout with
+```
+<mat-icon svgIcon="ix-file-html"></mat-icon>
+```
 
 ### Available icons
 
@@ -37,34 +45,35 @@ npm install @ix/icons
 - ix-file-doc
 - ix-file-excel
 - ix-file-pdf
+  
 
-### Add to layout with
+## Ix-Scroll
 
-    <mat-icon svgIcon="ix-file-html"></mat-icon>
+### Installation
 
-## Ix-Scroll (1.0.0)
-
-### Installation:
-
-1. Add .npmrc with the following
+1. Run
 
 ```
-registry=http://istfs:8080/tfs/DefaultCollection/_packaging/IX-libs/npm/registry/
-always-auth=true
+npm install --save ix-libs
+```
+2. Add to Module Imports
+```
+import { IxIconsModule } from 'ix-libs';
 ```
 
-2. run:
+3. Add to layout with
 
 ```
-npm install @ix/scroll
+<ix-scroll-top-button [color]="accent" ></ix-scroll-top-button>
 ```
 
-4. Add **IxScrollModule** to Module Imports
-
-### Add to layout with
-
-```
-<ix-scroll-top-button [color]="accent"></ix-scroll-top-button>
-```
-
-_Note: [color] can be accent or primary_
+### Notes
+* Color property
+    * `undefined`: default mat-fab-button coloring
+    * `primary`: Primary color of Angular Material theme
+    * `accent`: Accent color of Angular Material theme
+* scrollableElementId property
+    * Used to set id of `<body>`
+    * Pass in a preset `id` property to prevent it being changed to `id="ix-scroll-container"` by default
+* Required styles
+    * `<body>` element must have `height: 100%; overflow: auto` to ensure the body element is the scrollable element and not the html.
