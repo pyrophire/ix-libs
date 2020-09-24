@@ -1,16 +1,11 @@
 {
-  "name": "ix-icons",
+  "name": "ix-libs",
   "version": "1.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e",
-    "build-icons": "ng build ix-icons; cd dist; tar -czf ix-icons.1.0.0.tar.gz ix-icons"
+    "build": "ng build ix-libs --prod; cd dist; tar -czf ix-libs.$npm_package_version.tar.gz ix-libs",
+    "publish": "cd projects/ix-libs; npm publish"
   },
-  "private": true,
   "dependencies": {
     "@angular/animations": "~10.0.0",
     "@angular/cdk": "^10.2.0",
@@ -28,6 +23,7 @@
     "zone.js": "~0.10.3"
   },
   "devDependencies": {
+    "concurrently": "^1.0.0",
     "@angular-devkit/build-angular": "~0.1000.8",
     "@angular-devkit/build-ng-packagr": "~0.1000.8",
     "@angular/cli": "~10.0.0",

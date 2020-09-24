@@ -1,0 +1,26 @@
+{
+  "name": "ix-libs",
+  "version": "1.0.0",
+  "peerDependencies": {
+    "@angular/animations": "~10.0.0",
+    "@angular/cdk": "^10.2.0",
+    "@angular/common": "~10.0.0",
+    "@angular/compiler": "~10.0.0",
+    "@angular/core": "~10.0.0",
+    "@angular/forms": "~10.0.0",
+    "@angular/material": "^10.2.0",
+    "@angular/platform-browser": "~10.0.0",
+    "@angular/platform-browser-dynamic": "~10.0.0"
+  },
+  "dependencies": {
+    "tslib": "^2.0.0"
+  },
+  "main": "bundles/ix-libs.umd.js",
+  "module": "fesm2015/ix-libs.js",
+  "es2015": "fesm2015/ix-libs.js",
+  "esm2015": "esm2015/ix-libs.js",
+  "fesm2015": "fesm2015/ix-libs.js",
+  "typings": "ix-libs.d.ts",
+  "metadata": "ix-libs.metadata.json",
+  "sideEffects": false
+}

@@ -1,0 +1,8 @@
+/*
+ * Public API Surface of ix-icons
+ */
+export * from './lib/ix-icons/ix-icons.module';
+export * from './lib/ix-scroll/ix-scroll.module';
+export * from './lib/ix-scroll/ix-scroll.service';
+export * from './lib/ix-scroll/ix-scroll.component';
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicHVibGljLWFwaS5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uLy4uL3Byb2plY3RzL2l4LWxpYnMvc3JjL3B1YmxpYy1hcGkudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7O0dBRUc7QUFFSCxjQUFjLGdDQUFnQyxDQUFDO0FBQy9DLGNBQWMsa0NBQWtDLENBQUM7QUFDakQsY0FBYyxtQ0FBbUMsQ0FBQztBQUNsRCxjQUFjLHFDQUFxQyxDQUFDIiwic291cmNlc0NvbnRlbnQiOlsiLypcbiAqIFB1YmxpYyBBUEkgU3VyZmFjZSBvZiBpeC1pY29uc1xuICovXG5cbmV4cG9ydCAqIGZyb20gJy4vbGliL2l4LWljb25zL2l4LWljb25zLm1vZHVsZSc7XG5leHBvcnQgKiBmcm9tICcuL2xpYi9peC1zY3JvbGwvaXgtc2Nyb2xsLm1vZHVsZSc7XG5leHBvcnQgKiBmcm9tICcuL2xpYi9peC1zY3JvbGwvaXgtc2Nyb2xsLnNlcnZpY2UnO1xuZXhwb3J0ICogZnJvbSAnLi9saWIvaXgtc2Nyb2xsL2l4LXNjcm9sbC5jb21wb25lbnQnO1xuIl19

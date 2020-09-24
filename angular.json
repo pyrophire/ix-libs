@@ -3,38 +3,38 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ix-icons": {
+    "ix-libs": {
       "projectType": "library",
-      "root": "projects/ix-icons",
-      "sourceRoot": "projects/ix-icons/src",
+      "root": "projects/ix-libs",
+      "sourceRoot": "projects/ix-libs/src",
       "prefix": "lib",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "tsConfig": "projects/ix-icons/tsconfig.lib.json",
-            "project": "projects/ix-icons/ng-package.json"
+            "tsConfig": "projects/ix-libs/tsconfig.lib.json",
+            "project": "projects/ix-libs/ng-package.json"
           },
           "configurations": {
             "production": {
-              "tsConfig": "projects/ix-icons/tsconfig.lib.prod.json"
+              "tsConfig": "projects/ix-libs/tsconfig.lib.prod.json"
             }
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/ix-icons/src/test.ts",
-            "tsConfig": "projects/ix-icons/tsconfig.spec.json",
-            "karmaConfig": "projects/ix-icons/karma.conf.js"
+            "main": "projects/ix-libs/src/test.ts",
+            "tsConfig": "projects/ix-libs/tsconfig.spec.json",
+            "karmaConfig": "projects/ix-libs/karma.conf.js"
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "projects/ix-icons/tsconfig.lib.json",
-              "projects/ix-icons/tsconfig.spec.json"
+              "projects/ix-libs/tsconfig.lib.json",
+              "projects/ix-libs/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**"
@@ -44,5 +44,5 @@
       }
     }
   },
-  "defaultProject": "ix-icons"
+  "defaultProject": "ix-libs"
 }

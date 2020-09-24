@@ -1,0 +1,18 @@
+html,
+body {
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  width: 100vw;
+  overflow-x: hidden;
+}
+button.scroll-top {
+  position: fixed;
+  bottom: 8px;
+  right: 16px;
+  transition: all ease-in-out 0.25s;
+  transform: scale(1);
+  &.hidden {
+    transform: scale(0);
+  }
+}

@@ -19,6 +19,10 @@
       "ix-icons": [
         "dist/ix-icons/ix-icons",
         "dist/ix-icons"
+      ],
+      "ix-scroll": [
+        "dist/ix-scroll/ix-scroll",
+        "dist/ix-scroll"
       ]
     }
   }
