@@ -16,7 +16,7 @@ import { ScrollButtonService } from './ix-scroll.service';
 export class ScrollTopButtonComponent implements OnInit {
   @Input() color: 'primary' | 'accent';
   @Input() scrollableElementId: string;
-  isScrollable = false;
+  @Input() isScrollable = false;
   constructor(
     private ngZone: NgZone,
     public scrollButtonService: ScrollButtonService

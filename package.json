@@ -1,9 +1,9 @@
 {
   "name": "ix-libs",
-  "version": "1.0.0",
+  "version": "1.1.2",
   "scripts": {
     "ng": "ng",
-    "build": "ng build ix-libs --prod; cd dist; tar -czf ix-libs.$npm_package_version.tar.gz ix-libs",
+    "build": "rimraf dist; ng build ix-libs --prod; cd dist; tar -czf ix-libs.$npm_package_version.tar.gz ix-libs",
     "publish": "cd projects/ix-libs; npm publish"
   },
   "dependencies": {
@@ -12,6 +12,7 @@
     "@angular/common": "~10.0.0",
     "@angular/compiler": "~10.0.0",
     "@angular/core": "~10.0.0",
+    "@angular/flex-layout": "^10.0.0-beta.32",
     "@angular/forms": "~10.0.0",
     "@angular/material": "^10.2.0",
     "@angular/platform-browser": "~10.0.0",

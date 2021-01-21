@@ -1,9 +1,12 @@
-import { NgModule, ɵɵdefineInjectable, Injectable, Component, NgZone, Input, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule, ɵɵdefineInjectable, Injectable, Component, NgZone, Input, CUSTOM_ELEMENTS_SCHEMA, ɵɵinject, Inject } from '@angular/core';
 import { MatIconRegistry, MatIconModule } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
-import { of } from 'rxjs';
+import { of, ReplaySubject } from 'rxjs';
 import { MatButtonModule } from '@angular/material/button';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DOCUMENT } from '@angular/common';
+import { MediaObserver as MediaObserver$1 } from '@angular/flex-layout';
+import { filter, map } from 'rxjs/operators';
+import { MediaObserver } from '@angular/flex-layout/core';
 
 class IxIconsModule {
     constructor(iconRegistry, sanitizer) {
@@ -121,7 +124,8 @@ ScrollTopButtonComponent.ctorParameters = () => [
 ];
 ScrollTopButtonComponent.propDecorators = {
     color: [{ type: Input }],
-    scrollableElementId: [{ type: Input }]
+    scrollableElementId: [{ type: Input }],
+    isScrollable: [{ type: Input }]
 };
 
 class IxScrollModule {
@@ -135,6 +139,231 @@ IxScrollModule.decorators = [
             },] }
 ];
 
+class IxMediaQueryService {
+    constructor(media) {
+        this.media = media;
+        this.media
+            .asObservable()
+            .pipe(filter((changes) => changes.length > 0), map((changes) => {
+            this.medias = changes;
+            return changes[0];
+        }))
+            .subscribe((change) => {
+            this.mq = change.mqAlias;
+            this.mediaQuery = change.mediaQuery;
+            this.suffix = change.suffix;
+        });
+    }
+    _mediaChecker(mediaArray, mqString) {
+        let exists;
+        mediaArray.forEach((med) => {
+            if (med.mqAlias === mqString) {
+                exists = true;
+            }
+        });
+        return exists;
+    }
+    has(mqString) {
+        if (this.medias) {
+            return this._mediaChecker(this.medias, mqString);
+        }
+        else {
+            this.media.asObservable().pipe(filter((changes) => changes.length > 0), map((changes) => {
+                this._mediaChecker(changes, mqString);
+            }));
+        }
+    }
+}
+IxMediaQueryService.ɵprov = ɵɵdefineInjectable({ factory: function IxMediaQueryService_Factory() { return new IxMediaQueryService(ɵɵinject(MediaObserver)); }, token: IxMediaQueryService, providedIn: "root" });
+IxMediaQueryService.decorators = [
+    { type: Injectable, args: [{
+                providedIn: 'root',
+            },] }
+];
+IxMediaQueryService.ctorParameters = () => [
+    { type: MediaObserver$1 }
+];
+
+/**
+ * This is a shim for the Window.localStorage api.
+ * See https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage
+ *
+ * This service performs feature detection of Window.localStorage. If
+ * Window.localStorage is available then the functions are passed through.
+ * If Window.localStorage is not available then items are stored on
+ * an object on Window named Window.{storageKey}. And all methods act on that
+ * object. The {storageKey} variable is stored in environments.storageKey.
+ *
+ * This service only supports Window.localStorage as Window.localStorage
+ * is controlled by the browser and cannot be truely shimed beyond the sesssion.
+ */
+class LocalStorageService {
+    constructor() {
+        this.localStorageFeatureAvailable = this.storageAvailable('localStorage');
+        if (!this.localStorageFeatureAvailable) {
+            console.warn('Window.localStorage is NOT available. Falling back to object storage.');
+            window[`ix`] = {};
+        }
+    }
+    /**
+     * Save data to localStorage
+     * @param key the key of the stored item
+     * @param value the value being stored
+     */
+    setItem(key, value) {
+        // pass through
+        if (this.localStorageFeatureAvailable) {
+            window.localStorage.setItem(key, value);
+            return;
+        }
+        // fallback
+        if (!this.localStorageFeatureAvailable) {
+            window[`ix`][key] = value;
+        }
+    }
+    /**
+     * Get saved data from localStorage
+     * @param key the key of the stored item
+     */
+    getItem(key) {
+        // pass through
+        if (this.localStorageFeatureAvailable) {
+            return window.localStorage.getItem(key);
+        }
+        // fallback
+        if (!this.localStorageFeatureAvailable) {
+            return window[`ix`][key];
+        }
+    }
+    /**
+     * Remove saved data from localStorage
+     * @param key the key of the stored item
+     */
+    removeItem(key) {
+        // pass through
+        if (this.localStorageFeatureAvailable) {
+            window.localStorage.removeItem(key);
+            return;
+        }
+        // fallback
+        if (!this.localStorageFeatureAvailable) {
+            window[`ix`][key] = null;
+        }
+    }
+    /**
+     * Remove all saved data from localStorage
+     */
+    clear() {
+        // pass through
+        if (this.localStorageFeatureAvailable) {
+            window.localStorage.clear();
+            return;
+        }
+        // fallback
+        if (!this.localStorageFeatureAvailable) {
+            window[`ix`] = {};
+        }
+    }
+    iCanUseLocalStorageApi() {
+        return this.storageAvailable('localStorage');
+    }
+    storageAvailable(type) {
+        var storage;
+        try {
+            storage = window[type];
+            var x = '__storage_test__';
+            storage.setItem(x, x);
+            storage.removeItem(x);
+            return true;
+        }
+        catch (e) {
+            return false;
+        }
+    }
+}
+LocalStorageService.ɵprov = ɵɵdefineInjectable({ factory: function LocalStorageService_Factory() { return new LocalStorageService(); }, token: LocalStorageService, providedIn: "root" });
+LocalStorageService.decorators = [
+    { type: Injectable, args: [{
+                providedIn: 'root',
+            },] }
+];
+LocalStorageService.ctorParameters = () => [];
+
+class IxDarkService {
+    constructor(document, sorageService) {
+        this.document = document;
+        this.themeStream = new ReplaySubject();
+        this.prefersDark =
+            window.matchMedia &&
+                window.matchMedia('(prefers-color-scheme: dark)').matches;
+        this.sorageService = sorageService;
+        this.localStorageLightDark = sorageService.getItem('DarkModePref');
+    }
+    // ******************************************************************************
+    // This service requires Angular Material's theming to have two themes
+    // with .light and .dark wrapping classes.
+    // It is possible to use this service outside of Angular Material, but
+    // native framework element coloring will not be affected without
+    // custom css overwrites.
+    // ******************************************************************************
+    // used onInit()
+    setDarkModePreference() {
+        if (this.localStorageLightDark) {
+            this.document.body.classList.add(this.localStorageLightDark);
+            this._toggleBodyClasses(this.localStorageLightDark);
+            if (this.localStorageLightDark === 'dark') {
+                this._toggleBodyClasses('dark');
+                this.themeStream.next('dark');
+            }
+            else {
+                this._toggleBodyClasses('light');
+                this.themeStream.next('light');
+            }
+        }
+        else if (this.prefersDark) {
+            this._toggleBodyClasses('dark');
+            this.themeStream.next('dark');
+        }
+        else {
+            this._toggleBodyClasses('light');
+            this.themeStream.next('light');
+        }
+    }
+    // used to toggle light/dark themes
+    toggleDarkLightMode() {
+        if (this.localStorageLightDark === 'light') {
+            this._toggleBodyClasses('dark');
+            this.themeStream.next('dark');
+        }
+        else {
+            this._toggleBodyClasses('light');
+            this.themeStream.next('light');
+        }
+    }
+    _toggleBodyClasses(colorToSet) {
+        this.sorageService.setItem('DarkModePref', colorToSet);
+        this.localStorageLightDark = this.sorageService.getItem('DarkModePref');
+        if (colorToSet.toLowerCase() === 'dark') {
+            this.document.body.classList.remove('light');
+            this.document.body.classList.add(colorToSet);
+        }
+        else if (colorToSet.toLowerCase() === 'light') {
+            this.document.body.classList.remove('dark');
+            this.document.body.classList.add(colorToSet);
+        }
+    }
+}
+IxDarkService.ɵprov = ɵɵdefineInjectable({ factory: function IxDarkService_Factory() { return new IxDarkService(ɵɵinject(DOCUMENT), ɵɵinject(LocalStorageService)); }, token: IxDarkService, providedIn: "root" });
+IxDarkService.decorators = [
+    { type: Injectable, args: [{
+                providedIn: 'root',
+            },] }
+];
+IxDarkService.ctorParameters = () => [
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] },
+    { type: LocalStorageService }
+];
+
 /*
  * Public API Surface of ix-icons
  */
@@ -143,5 +372,5 @@ IxScrollModule.decorators = [
  * Generated bundle index. Do not edit.
  */
 
-export { IxIconsModule, IxScrollModule, ScrollButtonService, ScrollTopButtonComponent };
+export { IxDarkService, IxIconsModule, IxMediaQueryService, IxScrollModule, ScrollButtonService, ScrollTopButtonComponent, LocalStorageService as ɵa };
 //# sourceMappingURL=ix-libs.js.map

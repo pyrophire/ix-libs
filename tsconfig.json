@@ -8,16 +8,7 @@
   "files": [],
   "references": [
     {
-      "path": "./projects/ix-icons/tsconfig.lib.json"
-    },
-    {
-      "path": "./projects/ix-icons/tsconfig.spec.json"
-    },
-    {
-      "path": "./projects/ix-scroll/tsconfig.lib.json"
-    },
-    {
-      "path": "./projects/ix-scroll/tsconfig.spec.json"
+      "path": "./projects/ix-libs/tsconfig.spec.json"
     }
 ]
 }
