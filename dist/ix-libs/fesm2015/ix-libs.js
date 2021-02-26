@@ -9,6 +9,7 @@ import { filter, map } from 'rxjs/operators';
 import { MediaObserver } from '@angular/flex-layout/core';
 
 class IxIconsModule {
+    // To use: <mat-icon svgIcon="ix-file-pdf"></mat-icon>
     constructor(iconRegistry, sanitizer) {
         iconRegistry.addSvgIcon('ix-file-pdf', sanitizer.bypassSecurityTrustResourceUrl('ix-img/file_pdf.svg'));
         iconRegistry.addSvgIcon('ix-file-doc', sanitizer.bypassSecurityTrustResourceUrl('ix-img/file_doc.svg'));
@@ -163,6 +164,7 @@ class IxMediaQueryService {
         });
         return exists;
     }
+    // used to check if viewport has a media query size
     has(mqString) {
         if (this.medias) {
             return this._mediaChecker(this.medias, mqString);
@@ -306,7 +308,10 @@ class IxDarkService {
     // native framework element coloring will not be affected without
     // custom css overwrites.
     // ******************************************************************************
-    // used onInit()
+    // used onInit() to evaluate users system preferences
+    // if they have a preset preferences in localstorage or window.storage
+    // it will apply that theme, if not it will check system settings
+    // if they have dark mode enabled, it will apply the dark mode to the app
     setDarkModePreference() {
         if (this.localStorageLightDark) {
             this.document.body.classList.add(this.localStorageLightDark);
@@ -364,13 +369,58 @@ IxDarkService.ctorParameters = () => [
     { type: LocalStorageService }
 ];
 
+class ThemeButtonComponent {
+    constructor(ngZone, darkService) {
+        this.ngZone = ngZone;
+        this.darkService = darkService;
+    }
+    // will switch themes using the IxDark service
+    toggleDarkMode() {
+        this.darkService.toggleDarkLightMode();
+    }
+    // will subscribe to themes to animate icon
+    _subToTheme() {
+        this.darkService.themeStream.subscribe((ev) => {
+            this.theme = ev;
+        });
+    }
+    // will setup themes with IxDark service
+    ngOnInit() {
+        this._subToTheme();
+        this.darkService.setDarkModePreference();
+    }
+}
+ThemeButtonComponent.decorators = [
+    { type: Component, args: [{
+                // tslint:disable-next-line: component-selector
+                selector: 'ix-theme-button',
+                template: "<button mat-icon-button id=\"dark-mode-button\" (click)=\"toggleDarkMode()\">\n  <mat-icon [ngClass]=\"{'dark-button': theme === 'dark', 'light-button': theme === 'light'}\">\n    brightness_6\n  </mat-icon>\n</button>\n",
+                styles: ["#dark-mode-button mat-icon.light-button{transform:rotate(0deg);transition:transform 225ms cubic-bezier(.4,0,.2,1)}#dark-mode-button mat-icon.dark-button{transform:rotate(180deg);transition:transform 225ms cubic-bezier(.4,0,.2,1)}"]
+            },] }
+];
+ThemeButtonComponent.ctorParameters = () => [
+    { type: NgZone },
+    { type: IxDarkService }
+];
+
+class IxThemeButtonModule {
+}
+IxThemeButtonModule.decorators = [
+    { type: NgModule, args: [{
+                declarations: [ThemeButtonComponent],
+                imports: [MatButtonModule, MatIconModule, CommonModule],
+                exports: [ThemeButtonComponent],
+                schemas: [CUSTOM_ELEMENTS_SCHEMA],
+            },] }
+];
+
 /*
- * Public API Surface of ix-icons
+ * Public API Surface of ix-libs
  */
 
 /**
  * Generated bundle index. Do not edit.
  */
 
-export { IxDarkService, IxIconsModule, IxMediaQueryService, IxScrollModule, ScrollButtonService, ScrollTopButtonComponent, LocalStorageService as ɵa };
+export { IxDarkService, IxIconsModule, IxMediaQueryService, IxScrollModule, IxThemeButtonModule, ScrollButtonService, ScrollTopButtonComponent, ThemeButtonComponent, LocalStorageService as ɵa };
 //# sourceMappingURL=ix-libs.js.map

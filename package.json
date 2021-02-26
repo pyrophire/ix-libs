@@ -1,6 +1,6 @@
 {
   "name": "ix-libs",
-  "version": "1.1.2",
+  "version": "1.2.2",
   "scripts": {
     "ng": "ng",
     "build": "rimraf dist; ng build ix-libs --prod; cd dist; tar -czf ix-libs.$npm_package_version.tar.gz ix-libs",

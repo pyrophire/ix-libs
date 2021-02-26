@@ -7,5 +7,5 @@ export declare class IxMediaQueryService {
     private medias;
     constructor(media: MediaObserver);
     private _mediaChecker;
-    has(mqString: any): any;
+    has(mqString: any): boolean;
 }

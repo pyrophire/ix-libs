@@ -7,6 +7,7 @@ import { DomSanitizer } from '@angular/platform-browser';
   exports: [],
 })
 export class IxIconsModule {
+  // To use: <mat-icon svgIcon="ix-file-pdf"></mat-icon>
   constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
     iconRegistry.addSvgIcon(
       'ix-file-pdf',

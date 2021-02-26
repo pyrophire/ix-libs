@@ -28,7 +28,7 @@ export class IxMediaQueryService {
       });
   }
 
-  private _mediaChecker(mediaArray: MediaChange[], mqString: string) {
+  private _mediaChecker(mediaArray: MediaChange[], mqString: string): boolean {
     let exists;
     mediaArray.forEach((med) => {
       if (med.mqAlias === mqString) {
@@ -38,7 +38,8 @@ export class IxMediaQueryService {
     return exists;
   }
 
-  public has(mqString) {
+  // used to check if viewport has a media query size
+  public has(mqString): boolean {
     if (this.medias) {
       return this._mediaChecker(this.medias, mqString);
     } else {

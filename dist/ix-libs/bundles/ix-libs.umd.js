@@ -5,6 +5,7 @@
 }(this, (function (exports, i0, icon, platformBrowser, rxjs, button, i1, flexLayout, operators, i1$1) { 'use strict';
 
     var IxIconsModule = /** @class */ (function () {
+        // To use: <mat-icon svgIcon="ix-file-pdf"></mat-icon>
         function IxIconsModule(iconRegistry, sanitizer) {
             iconRegistry.addSvgIcon('ix-file-pdf', sanitizer.bypassSecurityTrustResourceUrl('ix-img/file_pdf.svg'));
             iconRegistry.addSvgIcon('ix-file-doc', sanitizer.bypassSecurityTrustResourceUrl('ix-img/file_doc.svg'));
@@ -170,6 +171,7 @@
             });
             return exists;
         };
+        // used to check if viewport has a media query size
         IxMediaQueryService.prototype.has = function (mqString) {
             var _this = this;
             if (this.medias) {
@@ -316,7 +318,10 @@
         // native framework element coloring will not be affected without
         // custom css overwrites.
         // ******************************************************************************
-        // used onInit()
+        // used onInit() to evaluate users system preferences
+        // if they have a preset preferences in localstorage or window.storage
+        // it will apply that theme, if not it will check system settings
+        // if they have dark mode enabled, it will apply the dark mode to the app
         IxDarkService.prototype.setDarkModePreference = function () {
             if (this.localStorageLightDark) {
                 this.document.body.classList.add(this.localStorageLightDark);
@@ -375,8 +380,58 @@
         { type: LocalStorageService }
     ]; };
 
+    var ThemeButtonComponent = /** @class */ (function () {
+        function ThemeButtonComponent(ngZone, darkService) {
+            this.ngZone = ngZone;
+            this.darkService = darkService;
+        }
+        // will switch themes using the IxDark service
+        ThemeButtonComponent.prototype.toggleDarkMode = function () {
+            this.darkService.toggleDarkLightMode();
+        };
+        // will subscribe to themes to animate icon
+        ThemeButtonComponent.prototype._subToTheme = function () {
+            var _this = this;
+            this.darkService.themeStream.subscribe(function (ev) {
+                _this.theme = ev;
+            });
+        };
+        // will setup themes with IxDark service
+        ThemeButtonComponent.prototype.ngOnInit = function () {
+            this._subToTheme();
+            this.darkService.setDarkModePreference();
+        };
+        return ThemeButtonComponent;
+    }());
+    ThemeButtonComponent.decorators = [
+        { type: i0.Component, args: [{
+                    // tslint:disable-next-line: component-selector
+                    selector: 'ix-theme-button',
+                    template: "<button mat-icon-button id=\"dark-mode-button\" (click)=\"toggleDarkMode()\">\n  <mat-icon [ngClass]=\"{'dark-button': theme === 'dark', 'light-button': theme === 'light'}\">\n    brightness_6\n  </mat-icon>\n</button>\n",
+                    styles: ["#dark-mode-button mat-icon.light-button{transform:rotate(0deg);transition:transform 225ms cubic-bezier(.4,0,.2,1)}#dark-mode-button mat-icon.dark-button{transform:rotate(180deg);transition:transform 225ms cubic-bezier(.4,0,.2,1)}"]
+                },] }
+    ];
+    ThemeButtonComponent.ctorParameters = function () { return [
+        { type: i0.NgZone },
+        { type: IxDarkService }
+    ]; };
+
+    var IxThemeButtonModule = /** @class */ (function () {
+        function IxThemeButtonModule() {
+        }
+        return IxThemeButtonModule;
+    }());
+    IxThemeButtonModule.decorators = [
+        { type: i0.NgModule, args: [{
+                    declarations: [ThemeButtonComponent],
+                    imports: [button.MatButtonModule, icon.MatIconModule, i1.CommonModule],
+                    exports: [ThemeButtonComponent],
+                    schemas: [i0.CUSTOM_ELEMENTS_SCHEMA],
+                },] }
+    ];
+
     /*
-     * Public API Surface of ix-icons
+     * Public API Surface of ix-libs
      */
 
     /**
@@ -387,8 +442,10 @@
     exports.IxIconsModule = IxIconsModule;
     exports.IxMediaQueryService = IxMediaQueryService;
     exports.IxScrollModule = IxScrollModule;
+    exports.IxThemeButtonModule = IxThemeButtonModule;
     exports.ScrollButtonService = ScrollButtonService;
     exports.ScrollTopButtonComponent = ScrollTopButtonComponent;
+    exports.ThemeButtonComponent = ThemeButtonComponent;
     exports.ɵa = LocalStorageService;
 
     Object.defineProperty(exports, '__esModule', { value: true });

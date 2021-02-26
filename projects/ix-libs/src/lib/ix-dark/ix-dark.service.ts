@@ -32,8 +32,11 @@ export class IxDarkService {
   // custom css overwrites.
   // ******************************************************************************
 
-  // used onInit()
-  public setDarkModePreference() {
+  // used onInit() to evaluate users system preferences
+  // if they have a preset preferences in localstorage or window.storage
+  // it will apply that theme, if not it will check system settings
+  // if they have dark mode enabled, it will apply the dark mode to the app
+  public setDarkModePreference(): void {
     if (this.localStorageLightDark) {
       this.document.body.classList.add(this.localStorageLightDark);
       this._toggleBodyClasses(this.localStorageLightDark);
@@ -54,7 +57,7 @@ export class IxDarkService {
   }
 
   // used to toggle light/dark themes
-  public toggleDarkLightMode() {
+  public toggleDarkLightMode(): void {
     if (this.localStorageLightDark === 'light') {
       this._toggleBodyClasses('dark');
       this.themeStream.next('dark');
@@ -64,7 +67,7 @@ export class IxDarkService {
     }
   }
 
-  private _toggleBodyClasses(colorToSet) {
+  private _toggleBodyClasses(colorToSet): void {
     this.sorageService.setItem('DarkModePref', colorToSet);
     this.localStorageLightDark = this.sorageService.getItem('DarkModePref');
     if (colorToSet.toLowerCase() === 'dark') {
