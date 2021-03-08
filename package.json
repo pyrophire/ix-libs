@@ -1,11 +1,10 @@
 {
   "name": "ix-libs",
-  "version": "1.3.0",
+  "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "build": "rimraf dist; cd projects/ix-libs; ng build ix-libs --prod",
-    "pack": "npm pack",
-    "publish": "cd projects/ix-libs; npm publish",
+    "build": "rimraf dist; ng build ix-libs --prod",
+    "pack": "cd dist/ix-libs && npm pack",
     "package": "npm run build && npm run pack"
   },
   "dependencies": {
