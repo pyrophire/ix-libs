@@ -5,7 +5,9 @@
     "ng": "ng",
     "build": "rimraf dist; ng build ix-libs --prod",
     "pack": "cd dist/ix-libs && npm pack",
-    "package": "npm run build && npm run pack"
+    "package": "npm run build && npm run pack",
+    "readme": "cp .README.md /projects/ix-libs",
+    "publish": "cd dist/ix-libs && npm publish"
   },
   "dependencies": {
     "@angular/animations": "~10.0.0",
