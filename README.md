@@ -225,6 +225,7 @@ import { IxLocalStorageService, IxSessionStorageService } from 'ix-libs';
      * Get saved data from localStorage/sessionStorage
      * `@param key` the key of the stored item
    * `removeItem(key: string): void`
+     * Remove saved data from localStorage/sessionStorage
      * `@param key` the key of the stored item
    * `clear(): void`
      * Remove all saved data from localStorage/sessionStorage
