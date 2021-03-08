@@ -1,5 +1,5 @@
 /**
  * Generated bundle index. Do not edit.
  */
+/// <amd-module name="ix-libs" />
 export * from './public-api';
-export { LocalStorageService as ɵa } from './lib/shared/storage.service';

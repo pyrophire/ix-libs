@@ -1,12 +1,11 @@
-import { NgModule, ɵɵdefineInjectable, Injectable, Component, NgZone, Input, CUSTOM_ELEMENTS_SCHEMA, ɵɵinject, Inject } from '@angular/core';
-import { MatIconRegistry, MatIconModule } from '@angular/material/icon';
+import { ɵɵdefineNgModule, ɵɵdefineInjector, ɵɵinject, ɵsetClassMetadata, NgModule, ɵɵdefineInjectable, Injectable, ɵɵdirectiveInject, NgZone, ɵɵdefineComponent, ɵɵelementStart, ɵɵlistener, ɵɵtext, ɵɵelementEnd, ɵɵproperty, ɵɵpureFunction3, Component, Input, ɵɵsetNgModuleScope, CUSTOM_ELEMENTS_SCHEMA, Inject, ɵɵadvance, ɵɵpureFunction2 } from '@angular/core';
+import { MatIconRegistry, MatIcon, MatIconModule } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { of, ReplaySubject } from 'rxjs';
-import { MatButtonModule } from '@angular/material/button';
-import { CommonModule, DOCUMENT } from '@angular/common';
-import { MediaObserver as MediaObserver$1 } from '@angular/flex-layout';
+import { MatButton, MatButtonModule } from '@angular/material/button';
+import { NgClass, CommonModule, DOCUMENT } from '@angular/common';
+import { MediaObserver } from '@angular/flex-layout';
 import { filter, map } from 'rxjs/operators';
-import { MediaObserver } from '@angular/flex-layout/core';
 
 class IxIconsModule {
     // To use: <mat-icon svgIcon="ix-file-pdf"></mat-icon>
@@ -19,16 +18,15 @@ class IxIconsModule {
         iconRegistry.addSvgIcon('ix-dialog', sanitizer.bypassSecurityTrustResourceUrl('ix-img/dialog.svg'));
     }
 }
-IxIconsModule.decorators = [
-    { type: NgModule, args: [{
+/** @nocollapse */ IxIconsModule.ɵmod = ɵɵdefineNgModule({ type: IxIconsModule });
+/** @nocollapse */ IxIconsModule.ɵinj = ɵɵdefineInjector({ factory: function IxIconsModule_Factory(t) { return new (t || IxIconsModule)(ɵɵinject(MatIconRegistry), ɵɵinject(DomSanitizer)); } });
+/*@__PURE__*/ (function () { ɵsetClassMetadata(IxIconsModule, [{
+        type: NgModule,
+        args: [{
                 declarations: [],
                 exports: [],
-            },] }
-];
-IxIconsModule.ctorParameters = () => [
-    { type: MatIconRegistry },
-    { type: DomSanitizer }
-];
+            }]
+    }], function () { return [{ type: MatIconRegistry }, { type: DomSanitizer }]; }, null); })();
 
 class ScrollButtonService {
     constructor() { }
@@ -63,14 +61,16 @@ class ScrollButtonService {
         }
     }
 }
-ScrollButtonService.ɵprov = ɵɵdefineInjectable({ factory: function ScrollButtonService_Factory() { return new ScrollButtonService(); }, token: ScrollButtonService, providedIn: "root" });
-ScrollButtonService.decorators = [
-    { type: Injectable, args: [{
+/** @nocollapse */ ScrollButtonService.ɵfac = function ScrollButtonService_Factory(t) { return new (t || ScrollButtonService)(); };
+/** @nocollapse */ ScrollButtonService.ɵprov = ɵɵdefineInjectable({ token: ScrollButtonService, factory: ScrollButtonService.ɵfac, providedIn: 'root' });
+/*@__PURE__*/ (function () { ɵsetClassMetadata(ScrollButtonService, [{
+        type: Injectable,
+        args: [{
                 providedIn: 'root',
-            },] }
-];
-ScrollButtonService.ctorParameters = () => [];
+            }]
+    }], function () { return []; }, null); })();
 
+const _c0 = function (a0, a1, a2) { return { "hidden": a0, "mat-primary": a1, "mat-accent": a2 }; };
 class ScrollTopButtonComponent {
     constructor(ngZone, scrollButtonService) {
         this.ngZone = ngZone;
@@ -111,34 +111,47 @@ class ScrollTopButtonComponent {
         }, 500);
     }
 }
-ScrollTopButtonComponent.decorators = [
-    { type: Component, args: [{
+/** @nocollapse */ ScrollTopButtonComponent.ɵfac = function ScrollTopButtonComponent_Factory(t) { return new (t || ScrollTopButtonComponent)(ɵɵdirectiveInject(NgZone), ɵɵdirectiveInject(ScrollButtonService)); };
+/** @nocollapse */ ScrollTopButtonComponent.ɵcmp = ɵɵdefineComponent({ type: ScrollTopButtonComponent, selectors: [["ix-scroll-button"]], inputs: { color: "color", scrollableElementId: "scrollableElementId", isScrollable: "isScrollable" }, decls: 3, vars: 5, consts: [["mat-mini-fab", "", 1, "scroll-top", 3, "ngClass", "click"]], template: function ScrollTopButtonComponent_Template(rf, ctx) { if (rf & 1) {
+        ɵɵelementStart(0, "button", 0);
+        ɵɵlistener("click", function ScrollTopButtonComponent_Template_button_click_0_listener() { return ctx.scrollToTop(); });
+        ɵɵelementStart(1, "mat-icon");
+        ɵɵtext(2, "arrow_upward");
+        ɵɵelementEnd();
+        ɵɵelementEnd();
+    } if (rf & 2) {
+        ɵɵproperty("ngClass", ɵɵpureFunction3(1, _c0, !ctx.isScrollable, ctx.color === "primary", ctx.color === "accent"));
+    } }, directives: [MatButton, NgClass, MatIcon], styles: ["body[_ngcontent-%COMP%], html[_ngcontent-%COMP%]{height:100%;margin:0;overflow-x:hidden;padding:0;width:100vw}button.scroll-top[_ngcontent-%COMP%]{bottom:8px;position:fixed;right:16px;transform:scale(1);transition:all .25s ease-in-out}button.scroll-top.hidden[_ngcontent-%COMP%]{transform:scale(0)}"] });
+/*@__PURE__*/ (function () { ɵsetClassMetadata(ScrollTopButtonComponent, [{
+        type: Component,
+        args: [{
                 // tslint:disable-next-line: component-selector
                 selector: 'ix-scroll-button',
-                template: "<button mat-mini-fab class=\"scroll-top\" (click)=\"scrollToTop()\"\n  [ngClass]=\"{'hidden': !isScrollable, 'mat-primary': color === 'primary', 'mat-accent': color === 'accent'}\">\n  <mat-icon>arrow_upward</mat-icon>\n</button>\n",
-                styles: ["body,html{height:100%;margin:0;overflow-x:hidden;padding:0;width:100vw}button.scroll-top{bottom:8px;position:fixed;right:16px;transform:scale(1);transition:all .25s ease-in-out}button.scroll-top.hidden{transform:scale(0)}"]
-            },] }
-];
-ScrollTopButtonComponent.ctorParameters = () => [
-    { type: NgZone },
-    { type: ScrollButtonService }
-];
-ScrollTopButtonComponent.propDecorators = {
-    color: [{ type: Input }],
-    scrollableElementId: [{ type: Input }],
-    isScrollable: [{ type: Input }]
-};
+                templateUrl: './ix-scroll.component.html',
+                styleUrls: ['./ix-scroll.component.scss'],
+            }]
+    }], function () { return [{ type: NgZone }, { type: ScrollButtonService }]; }, { color: [{
+            type: Input
+        }], scrollableElementId: [{
+            type: Input
+        }], isScrollable: [{
+            type: Input
+        }] }); })();
 
 class IxScrollModule {
 }
-IxScrollModule.decorators = [
-    { type: NgModule, args: [{
+/** @nocollapse */ IxScrollModule.ɵmod = ɵɵdefineNgModule({ type: IxScrollModule });
+/** @nocollapse */ IxScrollModule.ɵinj = ɵɵdefineInjector({ factory: function IxScrollModule_Factory(t) { return new (t || IxScrollModule)(); }, imports: [[MatButtonModule, MatIconModule, CommonModule]] });
+(function () { (typeof ngJitMode === "undefined" || ngJitMode) && ɵɵsetNgModuleScope(IxScrollModule, { declarations: [ScrollTopButtonComponent], imports: [MatButtonModule, MatIconModule, CommonModule], exports: [ScrollTopButtonComponent] }); })();
+/*@__PURE__*/ (function () { ɵsetClassMetadata(IxScrollModule, [{
+        type: NgModule,
+        args: [{
                 declarations: [ScrollTopButtonComponent],
                 imports: [MatButtonModule, MatIconModule, CommonModule],
                 exports: [ScrollTopButtonComponent],
                 schemas: [CUSTOM_ELEMENTS_SCHEMA],
-            },] }
-];
+            }]
+    }], null, null); })();
 
 class IxMediaQueryService {
     constructor(media) {
@@ -176,15 +189,14 @@ class IxMediaQueryService {
         }
     }
 }
-IxMediaQueryService.ɵprov = ɵɵdefineInjectable({ factory: function IxMediaQueryService_Factory() { return new IxMediaQueryService(ɵɵinject(MediaObserver)); }, token: IxMediaQueryService, providedIn: "root" });
-IxMediaQueryService.decorators = [
-    { type: Injectable, args: [{
+/** @nocollapse */ IxMediaQueryService.ɵfac = function IxMediaQueryService_Factory(t) { return new (t || IxMediaQueryService)(ɵɵinject(MediaObserver)); };
+/** @nocollapse */ IxMediaQueryService.ɵprov = ɵɵdefineInjectable({ token: IxMediaQueryService, factory: IxMediaQueryService.ɵfac, providedIn: 'root' });
+/*@__PURE__*/ (function () { ɵsetClassMetadata(IxMediaQueryService, [{
+        type: Injectable,
+        args: [{
                 providedIn: 'root',
-            },] }
-];
-IxMediaQueryService.ctorParameters = () => [
-    { type: MediaObserver$1 }
-];
+            }]
+    }], function () { return [{ type: MediaObserver }]; }, null); })();
 
 /**
  * This is a shim for the Window.localStorage api.
@@ -199,7 +211,7 @@ IxMediaQueryService.ctorParameters = () => [
  * This service only supports Window.localStorage as Window.localStorage
  * is controlled by the browser and cannot be truely shimed beyond the sesssion.
  */
-class LocalStorageService {
+class IxLocalStorageService {
     constructor() {
         this.localStorageFeatureAvailable = this.storageAvailable('localStorage');
         if (!this.localStorageFeatureAvailable) {
@@ -283,13 +295,14 @@ class LocalStorageService {
         }
     }
 }
-LocalStorageService.ɵprov = ɵɵdefineInjectable({ factory: function LocalStorageService_Factory() { return new LocalStorageService(); }, token: LocalStorageService, providedIn: "root" });
-LocalStorageService.decorators = [
-    { type: Injectable, args: [{
+/** @nocollapse */ IxLocalStorageService.ɵfac = function IxLocalStorageService_Factory(t) { return new (t || IxLocalStorageService)(); };
+/** @nocollapse */ IxLocalStorageService.ɵprov = ɵɵdefineInjectable({ token: IxLocalStorageService, factory: IxLocalStorageService.ɵfac, providedIn: 'root' });
+/*@__PURE__*/ (function () { ɵsetClassMetadata(IxLocalStorageService, [{
+        type: Injectable,
+        args: [{
                 providedIn: 'root',
-            },] }
-];
-LocalStorageService.ctorParameters = () => [];
+            }]
+    }], function () { return []; }, null); })();
 
 class IxDarkService {
     constructor(document, sorageService) {
@@ -358,17 +371,125 @@ class IxDarkService {
         }
     }
 }
-IxDarkService.ɵprov = ɵɵdefineInjectable({ factory: function IxDarkService_Factory() { return new IxDarkService(ɵɵinject(DOCUMENT), ɵɵinject(LocalStorageService)); }, token: IxDarkService, providedIn: "root" });
-IxDarkService.decorators = [
-    { type: Injectable, args: [{
+/** @nocollapse */ IxDarkService.ɵfac = function IxDarkService_Factory(t) { return new (t || IxDarkService)(ɵɵinject(DOCUMENT), ɵɵinject(IxLocalStorageService)); };
+/** @nocollapse */ IxDarkService.ɵprov = ɵɵdefineInjectable({ token: IxDarkService, factory: IxDarkService.ɵfac, providedIn: 'root' });
+/*@__PURE__*/ (function () { ɵsetClassMetadata(IxDarkService, [{
+        type: Injectable,
+        args: [{
                 providedIn: 'root',
-            },] }
-];
-IxDarkService.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] },
-    { type: LocalStorageService }
-];
+            }]
+    }], function () { return [{ type: undefined, decorators: [{
+                type: Inject,
+                args: [DOCUMENT]
+            }] }, { type: IxLocalStorageService }]; }, null); })();
 
+/**
+ * This is a shim for the Window.sessionStorage api.
+ * See https://developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage
+ *
+ * This service performs feature detection of Window.sessionStorage. If
+ * Window.sessionStorage is available then the functions are passed through.
+ * If Window.sessionStorage is not available then items are stored on
+ * an object on Window named Window.{storageKey}. And all methods act on that
+ * object. The {storageKey} variable is stored in environments.storageKey.
+ *
+ * This service only supports Window.sessionStorage as Window.sessionStorage
+ * is controlled by the browser and cannot be truely shimed beyond the sesssion.
+ */
+class IxSessionStorageService {
+    constructor() {
+        this.sessionStorageFeatureAvailable = this.storageAvailable('sessionStorage');
+        if (!this.sessionStorageFeatureAvailable) {
+            console.warn('Window.sessionStorage is NOT available. Falling back to object storage.');
+            window[`ix`] = {};
+        }
+    }
+    /**
+     * Save data to sessionStorage
+     * @param key the key of the stored item
+     * @param value the value being stored
+     */
+    setItem(key, value) {
+        // pass through
+        if (this.sessionStorageFeatureAvailable) {
+            window.sessionStorage.setItem(key, value);
+            return;
+        }
+        // fallback
+        if (!this.sessionStorageFeatureAvailable) {
+            window[`ix`][key] = value;
+        }
+    }
+    /**
+     * Get saved data from sessionStorage
+     * @param key the key of the stored item
+     */
+    getItem(key) {
+        // pass through
+        if (this.sessionStorageFeatureAvailable) {
+            return window.sessionStorage.getItem(key);
+        }
+        // fallback
+        if (!this.sessionStorageFeatureAvailable) {
+            return window[`ix`][key];
+        }
+    }
+    /**
+     * Remove saved data from sessionStorage
+     * @param key the key of the stored item
+     */
+    removeItem(key) {
+        // pass through
+        if (this.sessionStorageFeatureAvailable) {
+            window.sessionStorage.removeItem(key);
+            return;
+        }
+        // fallback
+        if (!this.sessionStorageFeatureAvailable) {
+            window[`ix`][key] = null;
+        }
+    }
+    /**
+     * Remove all saved data from sessionStorage
+     */
+    clear() {
+        // pass through
+        if (this.sessionStorageFeatureAvailable) {
+            window.sessionStorage.clear();
+            return;
+        }
+        // fallback
+        if (!this.sessionStorageFeatureAvailable) {
+            window[`ix`] = {};
+        }
+    }
+    iCanUseSessionStorageApi() {
+        return this.storageAvailable('sessionStorage');
+    }
+    storageAvailable(type) {
+        var storage;
+        try {
+            storage = window[type];
+            var x = '__storage_test__';
+            storage.setItem(x, x);
+            storage.removeItem(x);
+            return true;
+        }
+        catch (e) {
+            return false;
+        }
+    }
+}
+/** @nocollapse */ IxSessionStorageService.ɵfac = function IxSessionStorageService_Factory(t) { return new (t || IxSessionStorageService)(); };
+/** @nocollapse */ IxSessionStorageService.ɵprov = ɵɵdefineInjectable({ token: IxSessionStorageService, factory: IxSessionStorageService.ɵfac, providedIn: 'root' });
+/*@__PURE__*/ (function () { ɵsetClassMetadata(IxSessionStorageService, [{
+        type: Injectable,
+        args: [{
+                providedIn: 'root',
+            }]
+    }], function () { return []; }, null); })();
+
+const _c0$1 = function (a0, a1) { return { "dark-button": a0, "light-button": a1 }; };
 class ThemeButtonComponent {
     constructor(ngZone, darkService) {
         this.ngZone = ngZone;
@@ -390,29 +511,42 @@ class ThemeButtonComponent {
         this.darkService.setDarkModePreference();
     }
 }
-ThemeButtonComponent.decorators = [
-    { type: Component, args: [{
+/** @nocollapse */ ThemeButtonComponent.ɵfac = function ThemeButtonComponent_Factory(t) { return new (t || ThemeButtonComponent)(ɵɵdirectiveInject(NgZone), ɵɵdirectiveInject(IxDarkService)); };
+/** @nocollapse */ ThemeButtonComponent.ɵcmp = ɵɵdefineComponent({ type: ThemeButtonComponent, selectors: [["ix-theme-button"]], decls: 3, vars: 4, consts: [["mat-icon-button", "", "id", "dark-mode-button", 3, "click"], [3, "ngClass"]], template: function ThemeButtonComponent_Template(rf, ctx) { if (rf & 1) {
+        ɵɵelementStart(0, "button", 0);
+        ɵɵlistener("click", function ThemeButtonComponent_Template_button_click_0_listener() { return ctx.toggleDarkMode(); });
+        ɵɵelementStart(1, "mat-icon", 1);
+        ɵɵtext(2, " brightness_6 ");
+        ɵɵelementEnd();
+        ɵɵelementEnd();
+    } if (rf & 2) {
+        ɵɵadvance(1);
+        ɵɵproperty("ngClass", ɵɵpureFunction2(1, _c0$1, ctx.theme === "dark", ctx.theme === "light"));
+    } }, directives: [MatButton, MatIcon, NgClass], styles: ["#dark-mode-button[_ngcontent-%COMP%]   mat-icon.light-button[_ngcontent-%COMP%]{transform:rotate(0deg);transition:transform 225ms cubic-bezier(.4,0,.2,1)}#dark-mode-button[_ngcontent-%COMP%]   mat-icon.dark-button[_ngcontent-%COMP%]{transform:rotate(180deg);transition:transform 225ms cubic-bezier(.4,0,.2,1)}"] });
+/*@__PURE__*/ (function () { ɵsetClassMetadata(ThemeButtonComponent, [{
+        type: Component,
+        args: [{
                 // tslint:disable-next-line: component-selector
                 selector: 'ix-theme-button',
-                template: "<button mat-icon-button id=\"dark-mode-button\" (click)=\"toggleDarkMode()\">\n  <mat-icon [ngClass]=\"{'dark-button': theme === 'dark', 'light-button': theme === 'light'}\">\n    brightness_6\n  </mat-icon>\n</button>\n",
-                styles: ["#dark-mode-button mat-icon.light-button{transform:rotate(0deg);transition:transform 225ms cubic-bezier(.4,0,.2,1)}#dark-mode-button mat-icon.dark-button{transform:rotate(180deg);transition:transform 225ms cubic-bezier(.4,0,.2,1)}"]
-            },] }
-];
-ThemeButtonComponent.ctorParameters = () => [
-    { type: NgZone },
-    { type: IxDarkService }
-];
+                templateUrl: './ix-theme-button.component.html',
+                styleUrls: ['./ix-theme-button.component.scss'],
+            }]
+    }], function () { return [{ type: NgZone }, { type: IxDarkService }]; }, null); })();
 
 class IxThemeButtonModule {
 }
-IxThemeButtonModule.decorators = [
-    { type: NgModule, args: [{
+/** @nocollapse */ IxThemeButtonModule.ɵmod = ɵɵdefineNgModule({ type: IxThemeButtonModule });
+/** @nocollapse */ IxThemeButtonModule.ɵinj = ɵɵdefineInjector({ factory: function IxThemeButtonModule_Factory(t) { return new (t || IxThemeButtonModule)(); }, imports: [[MatButtonModule, MatIconModule, CommonModule]] });
+(function () { (typeof ngJitMode === "undefined" || ngJitMode) && ɵɵsetNgModuleScope(IxThemeButtonModule, { declarations: [ThemeButtonComponent], imports: [MatButtonModule, MatIconModule, CommonModule], exports: [ThemeButtonComponent] }); })();
+/*@__PURE__*/ (function () { ɵsetClassMetadata(IxThemeButtonModule, [{
+        type: NgModule,
+        args: [{
                 declarations: [ThemeButtonComponent],
                 imports: [MatButtonModule, MatIconModule, CommonModule],
                 exports: [ThemeButtonComponent],
                 schemas: [CUSTOM_ELEMENTS_SCHEMA],
-            },] }
-];
+            }]
+    }], null, null); })();
 
 /*
  * Public API Surface of ix-libs
@@ -422,5 +556,5 @@ IxThemeButtonModule.decorators = [
  * Generated bundle index. Do not edit.
  */
 
-export { IxDarkService, IxIconsModule, IxMediaQueryService, IxScrollModule, IxThemeButtonModule, ScrollButtonService, ScrollTopButtonComponent, ThemeButtonComponent, LocalStorageService as ɵa };
+export { IxDarkService, IxIconsModule, IxLocalStorageService, IxMediaQueryService, IxScrollModule, IxSessionStorageService, IxThemeButtonModule, ScrollButtonService, ScrollTopButtonComponent, ThemeButtonComponent };
 //# sourceMappingURL=ix-libs.js.map

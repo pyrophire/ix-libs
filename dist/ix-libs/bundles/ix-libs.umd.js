@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/material/icon'), require('@angular/platform-browser'), require('rxjs'), require('@angular/material/button'), require('@angular/common'), require('@angular/flex-layout'), require('rxjs/operators'), require('@angular/flex-layout/core')) :
-    typeof define === 'function' && define.amd ? define('ix-libs', ['exports', '@angular/core', '@angular/material/icon', '@angular/platform-browser', 'rxjs', '@angular/material/button', '@angular/common', '@angular/flex-layout', 'rxjs/operators', '@angular/flex-layout/core'], factory) :
-    (global = global || self, factory(global['ix-libs'] = {}, global.ng.core, global.ng.material.icon, global.ng.platformBrowser, global.rxjs, global.ng.material.button, global.ng.common, global.ng.flexLayout, global.rxjs.operators, global.ng.flexLayout.core));
-}(this, (function (exports, i0, icon, platformBrowser, rxjs, button, i1, flexLayout, operators, i1$1) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/material/icon'), require('@angular/platform-browser'), require('rxjs'), require('@angular/material/button'), require('@angular/common'), require('rxjs/operators'), require('@angular/flex-layout')) :
+    typeof define === 'function' && define.amd ? define('ix-libs', ['exports', '@angular/core', '@angular/material/icon', '@angular/platform-browser', 'rxjs', '@angular/material/button', '@angular/common', 'rxjs/operators', '@angular/flex-layout'], factory) :
+    (global = global || self, factory(global['ix-libs'] = {}, global.ng.core, global.ng.material.icon, global.ng.platformBrowser, global.rxjs, global.ng.material.button, global.ng.common, global.rxjs.operators, global.ng.flexLayout));
+}(this, (function (exports, i0, i1, i2, rxjs, i2$1, i3, operators, i1$1) { 'use strict';
 
     var IxIconsModule = /** @class */ (function () {
         // To use: <mat-icon svgIcon="ix-file-pdf"></mat-icon>
@@ -16,16 +16,17 @@
         }
         return IxIconsModule;
     }());
-    IxIconsModule.decorators = [
-        { type: i0.NgModule, args: [{
-                    declarations: [],
-                    exports: [],
-                },] }
-    ];
-    IxIconsModule.ctorParameters = function () { return [
-        { type: icon.MatIconRegistry },
-        { type: platformBrowser.DomSanitizer }
-    ]; };
+    /** @nocollapse */ IxIconsModule.ɵmod = i0.ɵɵdefineNgModule({ type: IxIconsModule });
+    /** @nocollapse */ IxIconsModule.ɵinj = i0.ɵɵdefineInjector({ factory: function IxIconsModule_Factory(t) { return new (t || IxIconsModule)(i0.ɵɵinject(i1.MatIconRegistry), i0.ɵɵinject(i2.DomSanitizer)); } });
+    /*@__PURE__*/ (function () {
+        i0.ɵsetClassMetadata(IxIconsModule, [{
+                type: i0.NgModule,
+                args: [{
+                        declarations: [],
+                        exports: [],
+                    }]
+            }], function () { return [{ type: i1.MatIconRegistry }, { type: i2.DomSanitizer }]; }, null);
+    })();
 
     var ScrollButtonService = /** @class */ (function () {
         function ScrollButtonService() {
@@ -62,14 +63,18 @@
         };
         return ScrollButtonService;
     }());
-    ScrollButtonService.ɵprov = i0.ɵɵdefineInjectable({ factory: function ScrollButtonService_Factory() { return new ScrollButtonService(); }, token: ScrollButtonService, providedIn: "root" });
-    ScrollButtonService.decorators = [
-        { type: i0.Injectable, args: [{
-                    providedIn: 'root',
-                },] }
-    ];
-    ScrollButtonService.ctorParameters = function () { return []; };
+    /** @nocollapse */ ScrollButtonService.ɵfac = function ScrollButtonService_Factory(t) { return new (t || ScrollButtonService)(); };
+    /** @nocollapse */ ScrollButtonService.ɵprov = i0.ɵɵdefineInjectable({ token: ScrollButtonService, factory: ScrollButtonService.ɵfac, providedIn: 'root' });
+    /*@__PURE__*/ (function () {
+        i0.ɵsetClassMetadata(ScrollButtonService, [{
+                type: i0.Injectable,
+                args: [{
+                        providedIn: 'root',
+                    }]
+            }], function () { return []; }, null);
+    })();
 
+    var _c0 = function (a0, a1, a2) { return { "hidden": a0, "mat-primary": a1, "mat-accent": a2 }; };
     var ScrollTopButtonComponent = /** @class */ (function () {
         function ScrollTopButtonComponent(ngZone, scrollButtonService) {
             var _this = this;
@@ -114,37 +119,57 @@
         };
         return ScrollTopButtonComponent;
     }());
-    ScrollTopButtonComponent.decorators = [
-        { type: i0.Component, args: [{
-                    // tslint:disable-next-line: component-selector
-                    selector: 'ix-scroll-button',
-                    template: "<button mat-mini-fab class=\"scroll-top\" (click)=\"scrollToTop()\"\n  [ngClass]=\"{'hidden': !isScrollable, 'mat-primary': color === 'primary', 'mat-accent': color === 'accent'}\">\n  <mat-icon>arrow_upward</mat-icon>\n</button>\n",
-                    styles: ["body,html{height:100%;margin:0;overflow-x:hidden;padding:0;width:100vw}button.scroll-top{bottom:8px;position:fixed;right:16px;transform:scale(1);transition:all .25s ease-in-out}button.scroll-top.hidden{transform:scale(0)}"]
-                },] }
-    ];
-    ScrollTopButtonComponent.ctorParameters = function () { return [
-        { type: i0.NgZone },
-        { type: ScrollButtonService }
-    ]; };
-    ScrollTopButtonComponent.propDecorators = {
-        color: [{ type: i0.Input }],
-        scrollableElementId: [{ type: i0.Input }],
-        isScrollable: [{ type: i0.Input }]
-    };
+    /** @nocollapse */ ScrollTopButtonComponent.ɵfac = function ScrollTopButtonComponent_Factory(t) { return new (t || ScrollTopButtonComponent)(i0.ɵɵdirectiveInject(i0.NgZone), i0.ɵɵdirectiveInject(ScrollButtonService)); };
+    /** @nocollapse */ ScrollTopButtonComponent.ɵcmp = i0.ɵɵdefineComponent({ type: ScrollTopButtonComponent, selectors: [["ix-scroll-button"]], inputs: { color: "color", scrollableElementId: "scrollableElementId", isScrollable: "isScrollable" }, decls: 3, vars: 5, consts: [["mat-mini-fab", "", 1, "scroll-top", 3, "ngClass", "click"]], template: function ScrollTopButtonComponent_Template(rf, ctx) {
+            if (rf & 1) {
+                i0.ɵɵelementStart(0, "button", 0);
+                i0.ɵɵlistener("click", function ScrollTopButtonComponent_Template_button_click_0_listener() { return ctx.scrollToTop(); });
+                i0.ɵɵelementStart(1, "mat-icon");
+                i0.ɵɵtext(2, "arrow_upward");
+                i0.ɵɵelementEnd();
+                i0.ɵɵelementEnd();
+            }
+            if (rf & 2) {
+                i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction3(1, _c0, !ctx.isScrollable, ctx.color === "primary", ctx.color === "accent"));
+            }
+        }, directives: [i2$1.MatButton, i3.NgClass, i1.MatIcon], styles: ["body[_ngcontent-%COMP%], html[_ngcontent-%COMP%]{height:100%;margin:0;overflow-x:hidden;padding:0;width:100vw}button.scroll-top[_ngcontent-%COMP%]{bottom:8px;position:fixed;right:16px;transform:scale(1);transition:all .25s ease-in-out}button.scroll-top.hidden[_ngcontent-%COMP%]{transform:scale(0)}"] });
+    /*@__PURE__*/ (function () {
+        i0.ɵsetClassMetadata(ScrollTopButtonComponent, [{
+                type: i0.Component,
+                args: [{
+                        // tslint:disable-next-line: component-selector
+                        selector: 'ix-scroll-button',
+                        templateUrl: './ix-scroll.component.html',
+                        styleUrls: ['./ix-scroll.component.scss'],
+                    }]
+            }], function () { return [{ type: i0.NgZone }, { type: ScrollButtonService }]; }, { color: [{
+                    type: i0.Input
+                }], scrollableElementId: [{
+                    type: i0.Input
+                }], isScrollable: [{
+                    type: i0.Input
+                }] });
+    })();
 
     var IxScrollModule = /** @class */ (function () {
         function IxScrollModule() {
         }
         return IxScrollModule;
     }());
-    IxScrollModule.decorators = [
-        { type: i0.NgModule, args: [{
-                    declarations: [ScrollTopButtonComponent],
-                    imports: [button.MatButtonModule, icon.MatIconModule, i1.CommonModule],
-                    exports: [ScrollTopButtonComponent],
-                    schemas: [i0.CUSTOM_ELEMENTS_SCHEMA],
-                },] }
-    ];
+    /** @nocollapse */ IxScrollModule.ɵmod = i0.ɵɵdefineNgModule({ type: IxScrollModule });
+    /** @nocollapse */ IxScrollModule.ɵinj = i0.ɵɵdefineInjector({ factory: function IxScrollModule_Factory(t) { return new (t || IxScrollModule)(); }, imports: [[i2$1.MatButtonModule, i1.MatIconModule, i3.CommonModule]] });
+    (function () { (typeof ngJitMode === "undefined" || ngJitMode) && i0.ɵɵsetNgModuleScope(IxScrollModule, { declarations: [ScrollTopButtonComponent], imports: [i2$1.MatButtonModule, i1.MatIconModule, i3.CommonModule], exports: [ScrollTopButtonComponent] }); })();
+    /*@__PURE__*/ (function () {
+        i0.ɵsetClassMetadata(IxScrollModule, [{
+                type: i0.NgModule,
+                args: [{
+                        declarations: [ScrollTopButtonComponent],
+                        imports: [i2$1.MatButtonModule, i1.MatIconModule, i3.CommonModule],
+                        exports: [ScrollTopButtonComponent],
+                        schemas: [i0.CUSTOM_ELEMENTS_SCHEMA],
+                    }]
+            }], null, null);
+    })();
 
     var IxMediaQueryService = /** @class */ (function () {
         function IxMediaQueryService(media) {
@@ -185,15 +210,16 @@
         };
         return IxMediaQueryService;
     }());
-    IxMediaQueryService.ɵprov = i0.ɵɵdefineInjectable({ factory: function IxMediaQueryService_Factory() { return new IxMediaQueryService(i0.ɵɵinject(i1$1.MediaObserver)); }, token: IxMediaQueryService, providedIn: "root" });
-    IxMediaQueryService.decorators = [
-        { type: i0.Injectable, args: [{
-                    providedIn: 'root',
-                },] }
-    ];
-    IxMediaQueryService.ctorParameters = function () { return [
-        { type: flexLayout.MediaObserver }
-    ]; };
+    /** @nocollapse */ IxMediaQueryService.ɵfac = function IxMediaQueryService_Factory(t) { return new (t || IxMediaQueryService)(i0.ɵɵinject(i1$1.MediaObserver)); };
+    /** @nocollapse */ IxMediaQueryService.ɵprov = i0.ɵɵdefineInjectable({ token: IxMediaQueryService, factory: IxMediaQueryService.ɵfac, providedIn: 'root' });
+    /*@__PURE__*/ (function () {
+        i0.ɵsetClassMetadata(IxMediaQueryService, [{
+                type: i0.Injectable,
+                args: [{
+                        providedIn: 'root',
+                    }]
+            }], function () { return [{ type: i1$1.MediaObserver }]; }, null);
+    })();
 
     /**
      * This is a shim for the Window.localStorage api.
@@ -208,8 +234,8 @@
      * This service only supports Window.localStorage as Window.localStorage
      * is controlled by the browser and cannot be truely shimed beyond the sesssion.
      */
-    var LocalStorageService = /** @class */ (function () {
-        function LocalStorageService() {
+    var IxLocalStorageService = /** @class */ (function () {
+        function IxLocalStorageService() {
             this.localStorageFeatureAvailable = this.storageAvailable('localStorage');
             if (!this.localStorageFeatureAvailable) {
                 console.warn('Window.localStorage is NOT available. Falling back to object storage.');
@@ -221,7 +247,7 @@
          * @param key the key of the stored item
          * @param value the value being stored
          */
-        LocalStorageService.prototype.setItem = function (key, value) {
+        IxLocalStorageService.prototype.setItem = function (key, value) {
             // pass through
             if (this.localStorageFeatureAvailable) {
                 window.localStorage.setItem(key, value);
@@ -236,7 +262,7 @@
          * Get saved data from localStorage
          * @param key the key of the stored item
          */
-        LocalStorageService.prototype.getItem = function (key) {
+        IxLocalStorageService.prototype.getItem = function (key) {
             // pass through
             if (this.localStorageFeatureAvailable) {
                 return window.localStorage.getItem(key);
@@ -250,7 +276,7 @@
          * Remove saved data from localStorage
          * @param key the key of the stored item
          */
-        LocalStorageService.prototype.removeItem = function (key) {
+        IxLocalStorageService.prototype.removeItem = function (key) {
             // pass through
             if (this.localStorageFeatureAvailable) {
                 window.localStorage.removeItem(key);
@@ -264,7 +290,7 @@
         /**
          * Remove all saved data from localStorage
          */
-        LocalStorageService.prototype.clear = function () {
+        IxLocalStorageService.prototype.clear = function () {
             // pass through
             if (this.localStorageFeatureAvailable) {
                 window.localStorage.clear();
@@ -275,10 +301,10 @@
                 window["ix"] = {};
             }
         };
-        LocalStorageService.prototype.iCanUseLocalStorageApi = function () {
+        IxLocalStorageService.prototype.iCanUseLocalStorageApi = function () {
             return this.storageAvailable('localStorage');
         };
-        LocalStorageService.prototype.storageAvailable = function (type) {
+        IxLocalStorageService.prototype.storageAvailable = function (type) {
             var storage;
             try {
                 storage = window[type];
@@ -291,15 +317,18 @@
                 return false;
             }
         };
-        return LocalStorageService;
+        return IxLocalStorageService;
     }());
-    LocalStorageService.ɵprov = i0.ɵɵdefineInjectable({ factory: function LocalStorageService_Factory() { return new LocalStorageService(); }, token: LocalStorageService, providedIn: "root" });
-    LocalStorageService.decorators = [
-        { type: i0.Injectable, args: [{
-                    providedIn: 'root',
-                },] }
-    ];
-    LocalStorageService.ctorParameters = function () { return []; };
+    /** @nocollapse */ IxLocalStorageService.ɵfac = function IxLocalStorageService_Factory(t) { return new (t || IxLocalStorageService)(); };
+    /** @nocollapse */ IxLocalStorageService.ɵprov = i0.ɵɵdefineInjectable({ token: IxLocalStorageService, factory: IxLocalStorageService.ɵfac, providedIn: 'root' });
+    /*@__PURE__*/ (function () {
+        i0.ɵsetClassMetadata(IxLocalStorageService, [{
+                type: i0.Injectable,
+                args: [{
+                        providedIn: 'root',
+                    }]
+            }], function () { return []; }, null);
+    })();
 
     var IxDarkService = /** @class */ (function () {
         function IxDarkService(document, sorageService) {
@@ -369,17 +398,132 @@
         };
         return IxDarkService;
     }());
-    IxDarkService.ɵprov = i0.ɵɵdefineInjectable({ factory: function IxDarkService_Factory() { return new IxDarkService(i0.ɵɵinject(i1.DOCUMENT), i0.ɵɵinject(LocalStorageService)); }, token: IxDarkService, providedIn: "root" });
-    IxDarkService.decorators = [
-        { type: i0.Injectable, args: [{
-                    providedIn: 'root',
-                },] }
-    ];
-    IxDarkService.ctorParameters = function () { return [
-        { type: undefined, decorators: [{ type: i0.Inject, args: [i1.DOCUMENT,] }] },
-        { type: LocalStorageService }
-    ]; };
+    /** @nocollapse */ IxDarkService.ɵfac = function IxDarkService_Factory(t) { return new (t || IxDarkService)(i0.ɵɵinject(i3.DOCUMENT), i0.ɵɵinject(IxLocalStorageService)); };
+    /** @nocollapse */ IxDarkService.ɵprov = i0.ɵɵdefineInjectable({ token: IxDarkService, factory: IxDarkService.ɵfac, providedIn: 'root' });
+    /*@__PURE__*/ (function () {
+        i0.ɵsetClassMetadata(IxDarkService, [{
+                type: i0.Injectable,
+                args: [{
+                        providedIn: 'root',
+                    }]
+            }], function () {
+            return [{ type: undefined, decorators: [{
+                            type: i0.Inject,
+                            args: [i3.DOCUMENT]
+                        }] }, { type: IxLocalStorageService }];
+        }, null);
+    })();
 
+    /**
+     * This is a shim for the Window.sessionStorage api.
+     * See https://developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage
+     *
+     * This service performs feature detection of Window.sessionStorage. If
+     * Window.sessionStorage is available then the functions are passed through.
+     * If Window.sessionStorage is not available then items are stored on
+     * an object on Window named Window.{storageKey}. And all methods act on that
+     * object. The {storageKey} variable is stored in environments.storageKey.
+     *
+     * This service only supports Window.sessionStorage as Window.sessionStorage
+     * is controlled by the browser and cannot be truely shimed beyond the sesssion.
+     */
+    var IxSessionStorageService = /** @class */ (function () {
+        function IxSessionStorageService() {
+            this.sessionStorageFeatureAvailable = this.storageAvailable('sessionStorage');
+            if (!this.sessionStorageFeatureAvailable) {
+                console.warn('Window.sessionStorage is NOT available. Falling back to object storage.');
+                window["ix"] = {};
+            }
+        }
+        /**
+         * Save data to sessionStorage
+         * @param key the key of the stored item
+         * @param value the value being stored
+         */
+        IxSessionStorageService.prototype.setItem = function (key, value) {
+            // pass through
+            if (this.sessionStorageFeatureAvailable) {
+                window.sessionStorage.setItem(key, value);
+                return;
+            }
+            // fallback
+            if (!this.sessionStorageFeatureAvailable) {
+                window["ix"][key] = value;
+            }
+        };
+        /**
+         * Get saved data from sessionStorage
+         * @param key the key of the stored item
+         */
+        IxSessionStorageService.prototype.getItem = function (key) {
+            // pass through
+            if (this.sessionStorageFeatureAvailable) {
+                return window.sessionStorage.getItem(key);
+            }
+            // fallback
+            if (!this.sessionStorageFeatureAvailable) {
+                return window["ix"][key];
+            }
+        };
+        /**
+         * Remove saved data from sessionStorage
+         * @param key the key of the stored item
+         */
+        IxSessionStorageService.prototype.removeItem = function (key) {
+            // pass through
+            if (this.sessionStorageFeatureAvailable) {
+                window.sessionStorage.removeItem(key);
+                return;
+            }
+            // fallback
+            if (!this.sessionStorageFeatureAvailable) {
+                window["ix"][key] = null;
+            }
+        };
+        /**
+         * Remove all saved data from sessionStorage
+         */
+        IxSessionStorageService.prototype.clear = function () {
+            // pass through
+            if (this.sessionStorageFeatureAvailable) {
+                window.sessionStorage.clear();
+                return;
+            }
+            // fallback
+            if (!this.sessionStorageFeatureAvailable) {
+                window["ix"] = {};
+            }
+        };
+        IxSessionStorageService.prototype.iCanUseSessionStorageApi = function () {
+            return this.storageAvailable('sessionStorage');
+        };
+        IxSessionStorageService.prototype.storageAvailable = function (type) {
+            var storage;
+            try {
+                storage = window[type];
+                var x = '__storage_test__';
+                storage.setItem(x, x);
+                storage.removeItem(x);
+                return true;
+            }
+            catch (e) {
+                return false;
+            }
+        };
+        return IxSessionStorageService;
+    }());
+    /** @nocollapse */ IxSessionStorageService.ɵfac = function IxSessionStorageService_Factory(t) { return new (t || IxSessionStorageService)(); };
+    /** @nocollapse */ IxSessionStorageService.ɵprov = i0.ɵɵdefineInjectable({ token: IxSessionStorageService, factory: IxSessionStorageService.ɵfac, providedIn: 'root' });
+    /*@__PURE__*/ (function () {
+        i0.ɵsetClassMetadata(IxSessionStorageService, [{
+                type: i0.Injectable,
+                args: [{
+                        providedIn: 'root',
+                    }]
+            }], function () { return []; }, null);
+    })();
+
+    var _c0$1 = function (a0, a1) { return { "dark-button": a0, "light-button": a1 }; };
     var ThemeButtonComponent = /** @class */ (function () {
         function ThemeButtonComponent(ngZone, darkService) {
             this.ngZone = ngZone;
@@ -403,32 +547,52 @@
         };
         return ThemeButtonComponent;
     }());
-    ThemeButtonComponent.decorators = [
-        { type: i0.Component, args: [{
-                    // tslint:disable-next-line: component-selector
-                    selector: 'ix-theme-button',
-                    template: "<button mat-icon-button id=\"dark-mode-button\" (click)=\"toggleDarkMode()\">\n  <mat-icon [ngClass]=\"{'dark-button': theme === 'dark', 'light-button': theme === 'light'}\">\n    brightness_6\n  </mat-icon>\n</button>\n",
-                    styles: ["#dark-mode-button mat-icon.light-button{transform:rotate(0deg);transition:transform 225ms cubic-bezier(.4,0,.2,1)}#dark-mode-button mat-icon.dark-button{transform:rotate(180deg);transition:transform 225ms cubic-bezier(.4,0,.2,1)}"]
-                },] }
-    ];
-    ThemeButtonComponent.ctorParameters = function () { return [
-        { type: i0.NgZone },
-        { type: IxDarkService }
-    ]; };
+    /** @nocollapse */ ThemeButtonComponent.ɵfac = function ThemeButtonComponent_Factory(t) { return new (t || ThemeButtonComponent)(i0.ɵɵdirectiveInject(i0.NgZone), i0.ɵɵdirectiveInject(IxDarkService)); };
+    /** @nocollapse */ ThemeButtonComponent.ɵcmp = i0.ɵɵdefineComponent({ type: ThemeButtonComponent, selectors: [["ix-theme-button"]], decls: 3, vars: 4, consts: [["mat-icon-button", "", "id", "dark-mode-button", 3, "click"], [3, "ngClass"]], template: function ThemeButtonComponent_Template(rf, ctx) {
+            if (rf & 1) {
+                i0.ɵɵelementStart(0, "button", 0);
+                i0.ɵɵlistener("click", function ThemeButtonComponent_Template_button_click_0_listener() { return ctx.toggleDarkMode(); });
+                i0.ɵɵelementStart(1, "mat-icon", 1);
+                i0.ɵɵtext(2, " brightness_6 ");
+                i0.ɵɵelementEnd();
+                i0.ɵɵelementEnd();
+            }
+            if (rf & 2) {
+                i0.ɵɵadvance(1);
+                i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction2(1, _c0$1, ctx.theme === "dark", ctx.theme === "light"));
+            }
+        }, directives: [i2$1.MatButton, i1.MatIcon, i3.NgClass], styles: ["#dark-mode-button[_ngcontent-%COMP%]   mat-icon.light-button[_ngcontent-%COMP%]{transform:rotate(0deg);transition:transform 225ms cubic-bezier(.4,0,.2,1)}#dark-mode-button[_ngcontent-%COMP%]   mat-icon.dark-button[_ngcontent-%COMP%]{transform:rotate(180deg);transition:transform 225ms cubic-bezier(.4,0,.2,1)}"] });
+    /*@__PURE__*/ (function () {
+        i0.ɵsetClassMetadata(ThemeButtonComponent, [{
+                type: i0.Component,
+                args: [{
+                        // tslint:disable-next-line: component-selector
+                        selector: 'ix-theme-button',
+                        templateUrl: './ix-theme-button.component.html',
+                        styleUrls: ['./ix-theme-button.component.scss'],
+                    }]
+            }], function () { return [{ type: i0.NgZone }, { type: IxDarkService }]; }, null);
+    })();
 
     var IxThemeButtonModule = /** @class */ (function () {
         function IxThemeButtonModule() {
         }
         return IxThemeButtonModule;
     }());
-    IxThemeButtonModule.decorators = [
-        { type: i0.NgModule, args: [{
-                    declarations: [ThemeButtonComponent],
-                    imports: [button.MatButtonModule, icon.MatIconModule, i1.CommonModule],
-                    exports: [ThemeButtonComponent],
-                    schemas: [i0.CUSTOM_ELEMENTS_SCHEMA],
-                },] }
-    ];
+    /** @nocollapse */ IxThemeButtonModule.ɵmod = i0.ɵɵdefineNgModule({ type: IxThemeButtonModule });
+    /** @nocollapse */ IxThemeButtonModule.ɵinj = i0.ɵɵdefineInjector({ factory: function IxThemeButtonModule_Factory(t) { return new (t || IxThemeButtonModule)(); }, imports: [[i2$1.MatButtonModule, i1.MatIconModule, i3.CommonModule]] });
+    (function () { (typeof ngJitMode === "undefined" || ngJitMode) && i0.ɵɵsetNgModuleScope(IxThemeButtonModule, { declarations: [ThemeButtonComponent], imports: [i2$1.MatButtonModule, i1.MatIconModule, i3.CommonModule], exports: [ThemeButtonComponent] }); })();
+    /*@__PURE__*/ (function () {
+        i0.ɵsetClassMetadata(IxThemeButtonModule, [{
+                type: i0.NgModule,
+                args: [{
+                        declarations: [ThemeButtonComponent],
+                        imports: [i2$1.MatButtonModule, i1.MatIconModule, i3.CommonModule],
+                        exports: [ThemeButtonComponent],
+                        schemas: [i0.CUSTOM_ELEMENTS_SCHEMA],
+                    }]
+            }], null, null);
+    })();
 
     /*
      * Public API Surface of ix-libs
@@ -440,13 +604,14 @@
 
     exports.IxDarkService = IxDarkService;
     exports.IxIconsModule = IxIconsModule;
+    exports.IxLocalStorageService = IxLocalStorageService;
     exports.IxMediaQueryService = IxMediaQueryService;
     exports.IxScrollModule = IxScrollModule;
+    exports.IxSessionStorageService = IxSessionStorageService;
     exports.IxThemeButtonModule = IxThemeButtonModule;
     exports.ScrollButtonService = ScrollButtonService;
     exports.ScrollTopButtonComponent = ScrollTopButtonComponent;
     exports.ThemeButtonComponent = ThemeButtonComponent;
-    exports.ɵa = LocalStorageService;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 

@@ -2,7 +2,7 @@ import { Injectable, Inject, OnInit } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { ReplaySubject } from 'rxjs';
 
-import { LocalStorageService } from '../shared/storage.service';
+import { IxLocalStorageService } from '../shared/local-storage.service';
 
 @Injectable({
   providedIn: 'root',
@@ -12,11 +12,11 @@ export class IxDarkService {
   localStorageLightDark: string;
   currentMode: string;
   themeStream = new ReplaySubject<string>();
-  sorageService: LocalStorageService;
+  sorageService: IxLocalStorageService;
 
   constructor(
     @Inject(DOCUMENT) private document: any,
-    sorageService: LocalStorageService
+    sorageService: IxLocalStorageService
   ) {
     this.prefersDark =
       window.matchMedia &&
