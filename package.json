@@ -7,7 +7,13 @@
     "pack": "cd dist/ix-libs && npm pack",
     "package": "npm run build && npm run pack",
     "readme": "cp .README.md /projects/ix-libs",
-    "publish": "cd dist/ix-libs && npm publish"
+    "publish": "cd dist/ix-libs && npm publish",
+    "license-checker": "license-checker  --relativeLicensePath --production --json --out license.json",
+    "update-cli": "ng update @angular/cli --force -C",
+    "update-core": "ng update @angular/core --force -C",
+    "update-material": "ng update @angular/material --force -C",
+    "update-rxjs": "ng update rxjs --force -C",
+    "update-all": "npm run update-cli && npm run update-core && npm run update-material && npm run update-rxjs"
   },
   "dependencies": {
     "@angular/animations": "~10.0.0",
