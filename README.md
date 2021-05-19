@@ -1,6 +1,7 @@
 
 # IX Libraries & Services
 
+- [IX Libraries & Services](#ix-libraries--services)
   - [Icons](#icons)
     - [Installation](#installation)
     - [Available icons](#available-icons)
@@ -16,10 +17,12 @@
   - [Media Service](#media-service)
     - [Installation](#installation-4)
     - [Notes](#notes-3)
-  - [Shared Services](#shared-services)
+  - [Pipes](#pipes)
     - [Installation](#installation-5)
+    - [Available Pipes](#available-pipes)
+  - [Shared Services](#shared-services)
+    - [Installation](#installation-6)
     - [Notes](#notes-4)
-
 <!-- #region ix-icons -->
 ## Icons
 
@@ -221,27 +224,27 @@ import { IxPipesModule } from 'ix-libs';
 ### Available Pipes
 
 1. Am PM Pipe - transforms string time to AM PM equivalent
-  - Trigger: `ampm`
-  - Input: string as `HH:MM:SS`
-  - Output: `4:42:43 PM`
+     - Trigger: `ampm`
+     - Input: string as `HH:MM:SS`
+     - Output: `4:42:43 PM`
 2. Camel to Title - transforms camel case to title case
-  - Trigger: `ct2`
-  - Input: string as `camelCased`
-  - Ouput: string as `Title Cased`
+     - Trigger: `ct2`
+     - Input: string as `camelCased`
+     - Ouput: string as `Title Cased`
 3. File Size - transforms bits and displays human sizes
-  - Trigger: `filesize`
-  - Input: number as `bits`
-  - Output: string as `304 MB`
+     - Trigger: `filesize`
+     - Input: number as `bits`
+     - Output: string as `304 MB`
 4. Phone - tramsforms phone to human format
-  - Trigger: `phone`
-  - Input: string as `5124631155` or `51246311559999`
-  - Output: string as `(512) 463-1155 9999`
+     - Trigger: `phone`
+     - Input: string as `5124631155` or `51246311559999`
+     - Output: string as `(512) 463-1155 9999`
 5. Safe - Sanitizes urls or resources using Angular Sanitizer
-  - Trigger: `safe`
-  - Input: string as `url`, options as `html`, `style`, `script`, `url`, `sms`, `text`, `mailto`, `email`, `tel`, `resourceUrl`
-  - Output: sanitized string as `url` or prefixed with option
-    - Example: `user@email.com | safe: 'mailto'` => `mailto:user@email.com`
-    - Example: `5124631155 | safe: 'tel'` => `tel:user@email.com`
+     - Trigger: `safe`
+     - Input: string as `url`, options as `html`, `style`, `script`, `url`, `sms`, `text`, `mailto`, `email`, `tel`, `resourceUrl`
+     - Output: sanitized string as `url` or prefixed with option
+        - Example: `user@email.com | safe: 'mailto'` => `mailto:user@email.com`
+        - Example: `5124631155 | safe: 'tel'` => `tel:user@email.com`
 
        
 <!-- #endregion -->
