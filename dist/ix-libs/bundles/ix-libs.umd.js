@@ -1,8 +1,30 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/material/icon'), require('@angular/platform-browser'), require('rxjs'), require('@angular/material/button'), require('@angular/common'), require('@angular/flex-layout'), require('rxjs/operators'), require('@angular/flex-layout/core')) :
-    typeof define === 'function' && define.amd ? define('ix-libs', ['exports', '@angular/core', '@angular/material/icon', '@angular/platform-browser', 'rxjs', '@angular/material/button', '@angular/common', '@angular/flex-layout', 'rxjs/operators', '@angular/flex-layout/core'], factory) :
-    (global = global || self, factory(global['ix-libs'] = {}, global.ng.core, global.ng.material.icon, global.ng.platformBrowser, global.rxjs, global.ng.material.button, global.ng.common, global.ng.flexLayout, global.rxjs.operators, global.ng.flexLayout.core));
-}(this, (function (exports, i0, icon, platformBrowser, rxjs, button, i1, flexLayout, operators, i1$1) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/material/icon'), require('@angular/platform-browser'), require('@angular/common'), require('filesize'), require('rxjs'), require('@angular/material/button'), require('@angular/flex-layout'), require('rxjs/operators'), require('@angular/flex-layout/core')) :
+    typeof define === 'function' && define.amd ? define('ix-libs', ['exports', '@angular/core', '@angular/material/icon', '@angular/platform-browser', '@angular/common', 'filesize', 'rxjs', '@angular/material/button', '@angular/flex-layout', 'rxjs/operators', '@angular/flex-layout/core'], factory) :
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global['ix-libs'] = {}, global.ng.core, global.ng.material.icon, global.ng.platformBrowser, global.ng.common, global.filesize_, global.rxjs, global.ng.material.button, global.ng.flexLayout, global.rxjs.operators, global.ng.flexLayout.core));
+}(this, (function (exports, i0, icon, platformBrowser, i1, filesize_, rxjs, button, flexLayout, operators, i1$1) { 'use strict';
+
+    function _interopNamespace(e) {
+        if (e && e.__esModule) return e;
+        var n = Object.create(null);
+        if (e) {
+            Object.keys(e).forEach(function (k) {
+                if (k !== 'default') {
+                    var d = Object.getOwnPropertyDescriptor(e, k);
+                    Object.defineProperty(n, k, d.get ? d : {
+                        enumerable: true,
+                        get: function () {
+                            return e[k];
+                        }
+                    });
+                }
+            });
+        }
+        n['default'] = e;
+        return Object.freeze(n);
+    }
+
+    var filesize___namespace = /*#__PURE__*/_interopNamespace(filesize_);
 
     var IxIconsModule = /** @class */ (function () {
         // To use: <mat-icon svgIcon="ix-file-pdf"></mat-icon>
@@ -27,8 +49,176 @@
         { type: platformBrowser.DomSanitizer }
     ]; };
 
+    var AmPmPipe = /** @class */ (function () {
+        function AmPmPipe() {
+        }
+        AmPmPipe.prototype.transform = function (value) {
+            var args = [];
+            for (var _i = 1; _i < arguments.length; _i++) {
+                args[_i - 1] = arguments[_i];
+            }
+            var timeArray = value.split(':');
+            var rawHour = parseInt(timeArray[0], 10);
+            var hour;
+            var minutes;
+            var seconds;
+            var amPm;
+            if (rawHour > 12) {
+                hour = rawHour - 12;
+                amPm = ' PM';
+            }
+            else {
+                if (rawHour === 0) {
+                    hour = 12;
+                }
+                else {
+                    hour = rawHour;
+                }
+                amPm = ' AM';
+            }
+            if (timeArray[1]) {
+                minutes = "" + timeArray[1];
+            }
+            if (timeArray[2]) {
+                seconds = "" + timeArray[2];
+            }
+            else {
+                minutes = '00';
+            }
+            var displayString = seconds ? hour + ":" + minutes + ":" + seconds + " " + amPm : hour + ":" + minutes + " " + amPm;
+            return displayString;
+        };
+        return AmPmPipe;
+    }());
+    AmPmPipe.decorators = [
+        { type: i0.Pipe, args: [{
+                    name: 'ampm'
+                },] }
+    ];
+
+    var CamelToTitlePipe = /** @class */ (function () {
+        function CamelToTitlePipe() {
+        }
+        CamelToTitlePipe.prototype.transform = function (value) {
+            var args = [];
+            for (var _i = 1; _i < arguments.length; _i++) {
+                args[_i - 1] = arguments[_i];
+            }
+            var result = value.replace(/([A-Z])/g, ' $1');
+            var finalResult = result.charAt(0).toUpperCase() + result.slice(1);
+            return finalResult;
+        };
+        return CamelToTitlePipe;
+    }());
+    CamelToTitlePipe.decorators = [
+        { type: i0.Pipe, args: [{
+                    name: 'c2t'
+                },] }
+    ];
+
+    var FileSizePipe = /** @class */ (function () {
+        function FileSizePipe() {
+        }
+        FileSizePipe.transformOne = function (value, options) {
+            var filesize = filesize___namespace;
+            return filesize(value, options);
+        };
+        FileSizePipe.prototype.transform = function (value, options) {
+            if (Array.isArray(value)) {
+                return value.map(function (val) { return FileSizePipe.transformOne(val, options); });
+            }
+            return FileSizePipe.transformOne(value, options);
+        };
+        return FileSizePipe;
+    }());
+    FileSizePipe.decorators = [
+        { type: i0.Pipe, args: [{
+                    name: 'filesize',
+                },] }
+    ];
+
+    var PhonePipe = /** @class */ (function () {
+        function PhonePipe() {
+        }
+        PhonePipe.prototype.transform = function (val) {
+            var areaCode = val.substring(0, 3);
+            var prefix = val.substring(3, 6);
+            var suffix = val.substring(6, 10);
+            var ext = "ext: " + val.substring(10, 20);
+            if (val.substring(11, 16)) {
+                return "(" + areaCode + ") " + prefix + "-" + suffix + " " + ext;
+            }
+            else {
+                return "(" + areaCode + ") " + prefix + "-" + suffix;
+            }
+        };
+        return PhonePipe;
+    }());
+    PhonePipe.decorators = [
+        { type: i0.Pipe, args: [{
+                    name: 'phone'
+                },] }
+    ];
+
+    var SafePipe = /** @class */ (function () {
+        function SafePipe(sanitizer) {
+            this.sanitizer = sanitizer;
+        }
+        SafePipe.prototype.transform = function (value, type) {
+            switch (type) {
+                case "html":
+                    return this.sanitizer.bypassSecurityTrustHtml(value);
+                case "style":
+                    return this.sanitizer.bypassSecurityTrustStyle(value);
+                case "script":
+                    return this.sanitizer.bypassSecurityTrustScript(value);
+                case "url":
+                    return this.sanitizer.bypassSecurityTrustUrl(value);
+                case "sms":
+                    return this.sanitizer.bypassSecurityTrustUrl("sms:" + value);
+                case "text":
+                    return this.sanitizer.bypassSecurityTrustUrl("sms:" + value);
+                case "mailto":
+                    return this.sanitizer.bypassSecurityTrustUrl("mailto:" + value);
+                case "email":
+                    return this.sanitizer.bypassSecurityTrustUrl("mailto:" + value);
+                case "tel":
+                    return this.sanitizer.bypassSecurityTrustUrl("tel:" + value);
+                case "resourceUrl":
+                    return this.sanitizer.bypassSecurityTrustResourceUrl(value);
+                default:
+                    throw new Error("Invalid safe type specified: " + type);
+            }
+        };
+        return SafePipe;
+    }());
+    SafePipe.decorators = [
+        { type: i0.Pipe, args: [{
+                    name: "safe",
+                },] }
+    ];
+    SafePipe.ctorParameters = function () { return [
+        { type: platformBrowser.DomSanitizer }
+    ]; };
+
+    var pipes = [SafePipe, PhonePipe, FileSizePipe, AmPmPipe, CamelToTitlePipe];
+    var IxPipesModule = /** @class */ (function () {
+        function IxPipesModule() {
+        }
+        return IxPipesModule;
+    }());
+    IxPipesModule.decorators = [
+        { type: i0.NgModule, args: [{
+                    declarations: [pipes],
+                    imports: [i1.CommonModule],
+                    exports: [pipes],
+                    schemas: [i0.CUSTOM_ELEMENTS_SCHEMA],
+                },] }
+    ];
+
     var ScrollButtonService = /** @class */ (function () {
         function ScrollButtonService() {
+            this.source = rxjs.interval(5000);
         }
         ScrollButtonService.prototype.setContainerId = function (id) {
             if (id) {
@@ -59,6 +249,57 @@
                 var container = document.getElementById('ix-scroll-container');
                 container.scroll({ top: 0, behavior: 'smooth' });
             }
+        };
+        ScrollButtonService.prototype.scrollElementIntoView = function (id, location) {
+            var element = document.getElementById(id);
+            element.scrollIntoView({
+                behavior: 'smooth',
+                block: location || 'start',
+                inline: 'nearest',
+            });
+        };
+        ScrollButtonService.prototype.startScrollMarking = function () {
+            var _this = this;
+            this.subscription = this.source.subscribe(function (val) {
+                _this._markScrollables();
+            });
+        };
+        ScrollButtonService.prototype.stopScrollMarking = function () {
+            this.subscription.unsubscribe();
+        };
+        ScrollButtonService.prototype._markScrollables = function () {
+            var _this = this;
+            var slice = Array.prototype.slice;
+            slice
+                .call(document.querySelectorAll('*'))
+                .filter(function (e) { return e.scrollWidth > e.offsetWidth || e.scrollHeight > e.offsetHeight; })
+                .filter(function (e) {
+                var style = window.getComputedStyle(e);
+                return [style.overflow, style.overflowX, style.overflowY].some(function (e) { return e === 'auto' || e === 'scroll'; });
+            })
+                .forEach(function (e) {
+                var color = Math.floor(Math.random() * 16777215).toString(16);
+                e.style.backgroundColor = '#' + color;
+                _this._throttle('scroll', 'optimizedScroll', e);
+                e.addEventListener('scroll', function (event) {
+                    console.log('%c[scroll]', 'color: white; background-color:#' + color, event.target);
+                });
+            });
+        };
+        ScrollButtonService.prototype._throttle = function (type, name, obj) {
+            obj = obj || window;
+            var running = false;
+            var func = function () {
+                if (running) {
+                    return;
+                }
+                running = true;
+                requestAnimationFrame(function () {
+                    obj.dispatchEvent(new CustomEvent(name));
+                    running = false;
+                });
+            };
+            obj.addEventListener(type, func);
         };
         return ScrollButtonService;
     }());
@@ -119,7 +360,7 @@
                     // tslint:disable-next-line: component-selector
                     selector: 'ix-scroll-button',
                     template: "<button mat-mini-fab class=\"scroll-top\" (click)=\"scrollToTop()\"\n  [ngClass]=\"{'hidden': !isScrollable, 'mat-primary': color === 'primary', 'mat-accent': color === 'accent'}\">\n  <mat-icon>arrow_upward</mat-icon>\n</button>\n",
-                    styles: ["body,html{height:100%;margin:0;overflow-x:hidden;padding:0;width:100vw}button.scroll-top{bottom:8px;position:fixed;right:16px;transform:scale(1);transition:all .25s ease-in-out}button.scroll-top.hidden{transform:scale(0)}"]
+                    styles: ["body,html{height:100%;padding:0;margin:0;width:100vw;overflow-x:hidden}button.scroll-top{position:fixed;bottom:8px;right:16px;transition:all .25s ease-in-out;transform:scale(1)}button.scroll-top.hidden{transform:scale(0)}"]
                 },] }
     ];
     ScrollTopButtonComponent.ctorParameters = function () { return [
@@ -548,12 +789,18 @@
     exports.IxIconsModule = IxIconsModule;
     exports.IxLocalStorageService = IxLocalStorageService;
     exports.IxMediaQueryService = IxMediaQueryService;
+    exports.IxPipesModule = IxPipesModule;
     exports.IxScrollModule = IxScrollModule;
     exports.IxSessionStorageService = IxSessionStorageService;
     exports.IxThemeButtonModule = IxThemeButtonModule;
     exports.ScrollButtonService = ScrollButtonService;
     exports.ScrollTopButtonComponent = ScrollTopButtonComponent;
     exports.ThemeButtonComponent = ThemeButtonComponent;
+    exports.ɵa = SafePipe;
+    exports.ɵb = PhonePipe;
+    exports.ɵc = FileSizePipe;
+    exports.ɵd = AmPmPipe;
+    exports.ɵe = CamelToTitlePipe;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 

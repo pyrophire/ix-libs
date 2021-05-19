@@ -1,9 +1,10 @@
-import { NgModule, ɵɵdefineInjectable, Injectable, Component, NgZone, Input, CUSTOM_ELEMENTS_SCHEMA, ɵɵinject, Inject } from '@angular/core';
+import { NgModule, Pipe, CUSTOM_ELEMENTS_SCHEMA, ɵɵdefineInjectable, Injectable, Component, NgZone, Input, ɵɵinject, Inject } from '@angular/core';
 import { MatIconRegistry, MatIconModule } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
-import { of, ReplaySubject } from 'rxjs';
-import { MatButtonModule } from '@angular/material/button';
 import { CommonModule, DOCUMENT } from '@angular/common';
+import * as filesize_ from 'filesize';
+import { interval, of, ReplaySubject } from 'rxjs';
+import { MatButtonModule } from '@angular/material/button';
 import { MediaObserver as MediaObserver$1 } from '@angular/flex-layout';
 import { filter, map } from 'rxjs/operators';
 import { MediaObserver } from '@angular/flex-layout/core';
@@ -30,8 +31,153 @@ IxIconsModule.ctorParameters = () => [
     { type: DomSanitizer }
 ];
 
+class AmPmPipe {
+    transform(value, ...args) {
+        const timeArray = value.split(':');
+        const rawHour = parseInt(timeArray[0], 10);
+        let hour;
+        let minutes;
+        let seconds;
+        let amPm;
+        if (rawHour > 12) {
+            hour = rawHour - 12;
+            amPm = ' PM';
+        }
+        else {
+            if (rawHour === 0) {
+                hour = 12;
+            }
+            else {
+                hour = rawHour;
+            }
+            amPm = ' AM';
+        }
+        if (timeArray[1]) {
+            minutes = `${timeArray[1]}`;
+        }
+        if (timeArray[2]) {
+            seconds = `${timeArray[2]}`;
+        }
+        else {
+            minutes = '00';
+        }
+        const displayString = seconds ? `${hour}:${minutes}:${seconds} ${amPm}` : `${hour}:${minutes} ${amPm}`;
+        return displayString;
+    }
+}
+AmPmPipe.decorators = [
+    { type: Pipe, args: [{
+                name: 'ampm'
+            },] }
+];
+
+class CamelToTitlePipe {
+    transform(value, ...args) {
+        const result = value.replace(/([A-Z])/g, ' $1');
+        const finalResult = result.charAt(0).toUpperCase() + result.slice(1);
+        return finalResult;
+    }
+}
+CamelToTitlePipe.decorators = [
+    { type: Pipe, args: [{
+                name: 'c2t'
+            },] }
+];
+
+class FileSizePipe {
+    static transformOne(value, options) {
+        const filesize = filesize_;
+        return filesize(value, options);
+    }
+    transform(value, options) {
+        if (Array.isArray(value)) {
+            return value.map((val) => FileSizePipe.transformOne(val, options));
+        }
+        return FileSizePipe.transformOne(value, options);
+    }
+}
+FileSizePipe.decorators = [
+    { type: Pipe, args: [{
+                name: 'filesize',
+            },] }
+];
+
+class PhonePipe {
+    transform(val) {
+        const areaCode = val.substring(0, 3);
+        const prefix = val.substring(3, 6);
+        const suffix = val.substring(6, 10);
+        const ext = `ext: ${val.substring(10, 20)}`;
+        if (val.substring(11, 16)) {
+            return `(${areaCode}) ${prefix}-${suffix} ${ext}`;
+        }
+        else {
+            return `(${areaCode}) ${prefix}-${suffix}`;
+        }
+    }
+}
+PhonePipe.decorators = [
+    { type: Pipe, args: [{
+                name: 'phone'
+            },] }
+];
+
+class SafePipe {
+    constructor(sanitizer) {
+        this.sanitizer = sanitizer;
+    }
+    transform(value, type) {
+        switch (type) {
+            case `html`:
+                return this.sanitizer.bypassSecurityTrustHtml(value);
+            case `style`:
+                return this.sanitizer.bypassSecurityTrustStyle(value);
+            case `script`:
+                return this.sanitizer.bypassSecurityTrustScript(value);
+            case `url`:
+                return this.sanitizer.bypassSecurityTrustUrl(value);
+            case `sms`:
+                return this.sanitizer.bypassSecurityTrustUrl(`sms:${value}`);
+            case `text`:
+                return this.sanitizer.bypassSecurityTrustUrl(`sms:${value}`);
+            case `mailto`:
+                return this.sanitizer.bypassSecurityTrustUrl(`mailto:${value}`);
+            case `email`:
+                return this.sanitizer.bypassSecurityTrustUrl(`mailto:${value}`);
+            case `tel`:
+                return this.sanitizer.bypassSecurityTrustUrl(`tel:${value}`);
+            case `resourceUrl`:
+                return this.sanitizer.bypassSecurityTrustResourceUrl(value);
+            default:
+                throw new Error(`Invalid safe type specified: ${type}`);
+        }
+    }
+}
+SafePipe.decorators = [
+    { type: Pipe, args: [{
+                name: `safe`,
+            },] }
+];
+SafePipe.ctorParameters = () => [
+    { type: DomSanitizer }
+];
+
+const pipes = [SafePipe, PhonePipe, FileSizePipe, AmPmPipe, CamelToTitlePipe];
+class IxPipesModule {
+}
+IxPipesModule.decorators = [
+    { type: NgModule, args: [{
+                declarations: [pipes],
+                imports: [CommonModule],
+                exports: [pipes],
+                schemas: [CUSTOM_ELEMENTS_SCHEMA],
+            },] }
+];
+
 class ScrollButtonService {
-    constructor() { }
+    constructor() {
+        this.source = interval(5000);
+    }
     setContainerId(id) {
         if (id) {
             const bodyEl = document.getElementById(id);
@@ -61,6 +207,55 @@ class ScrollButtonService {
             const container = document.getElementById('ix-scroll-container');
             container.scroll({ top: 0, behavior: 'smooth' });
         }
+    }
+    scrollElementIntoView(id, location) {
+        const element = document.getElementById(id);
+        element.scrollIntoView({
+            behavior: 'smooth',
+            block: location || 'start',
+            inline: 'nearest',
+        });
+    }
+    startScrollMarking() {
+        this.subscription = this.source.subscribe((val) => {
+            this._markScrollables();
+        });
+    }
+    stopScrollMarking() {
+        this.subscription.unsubscribe();
+    }
+    _markScrollables() {
+        const slice = Array.prototype.slice;
+        slice
+            .call(document.querySelectorAll('*'))
+            .filter((e) => e.scrollWidth > e.offsetWidth || e.scrollHeight > e.offsetHeight)
+            .filter((e) => {
+            const style = window.getComputedStyle(e);
+            return [style.overflow, style.overflowX, style.overflowY].some((e) => e === 'auto' || e === 'scroll');
+        })
+            .forEach((e) => {
+            const color = Math.floor(Math.random() * 16777215).toString(16);
+            e.style.backgroundColor = '#' + color;
+            this._throttle('scroll', 'optimizedScroll', e);
+            e.addEventListener('scroll', (event) => {
+                console.log('%c[scroll]', 'color: white; background-color:#' + color, event.target);
+            });
+        });
+    }
+    _throttle(type, name, obj) {
+        obj = obj || window;
+        let running = false;
+        const func = () => {
+            if (running) {
+                return;
+            }
+            running = true;
+            requestAnimationFrame(() => {
+                obj.dispatchEvent(new CustomEvent(name));
+                running = false;
+            });
+        };
+        obj.addEventListener(type, func);
     }
 }
 ScrollButtonService.ɵprov = ɵɵdefineInjectable({ factory: function ScrollButtonService_Factory() { return new ScrollButtonService(); }, token: ScrollButtonService, providedIn: "root" });
@@ -116,7 +311,7 @@ ScrollTopButtonComponent.decorators = [
                 // tslint:disable-next-line: component-selector
                 selector: 'ix-scroll-button',
                 template: "<button mat-mini-fab class=\"scroll-top\" (click)=\"scrollToTop()\"\n  [ngClass]=\"{'hidden': !isScrollable, 'mat-primary': color === 'primary', 'mat-accent': color === 'accent'}\">\n  <mat-icon>arrow_upward</mat-icon>\n</button>\n",
-                styles: ["body,html{height:100%;margin:0;overflow-x:hidden;padding:0;width:100vw}button.scroll-top{bottom:8px;position:fixed;right:16px;transform:scale(1);transition:all .25s ease-in-out}button.scroll-top.hidden{transform:scale(0)}"]
+                styles: ["body,html{height:100%;padding:0;margin:0;width:100vw;overflow-x:hidden}button.scroll-top{position:fixed;bottom:8px;right:16px;transition:all .25s ease-in-out;transform:scale(1)}button.scroll-top.hidden{transform:scale(0)}"]
             },] }
 ];
 ScrollTopButtonComponent.ctorParameters = () => [
@@ -527,5 +722,5 @@ IxThemeButtonModule.decorators = [
  * Generated bundle index. Do not edit.
  */
 
-export { IxDarkService, IxIconsModule, IxLocalStorageService, IxMediaQueryService, IxScrollModule, IxSessionStorageService, IxThemeButtonModule, ScrollButtonService, ScrollTopButtonComponent, ThemeButtonComponent };
+export { IxDarkService, IxIconsModule, IxLocalStorageService, IxMediaQueryService, IxPipesModule, IxScrollModule, IxSessionStorageService, IxThemeButtonModule, ScrollButtonService, ScrollTopButtonComponent, ThemeButtonComponent, SafePipe as ɵa, PhonePipe as ɵb, FileSizePipe as ɵc, AmPmPipe as ɵd, CamelToTitlePipe as ɵe };
 //# sourceMappingURL=ix-libs.js.map

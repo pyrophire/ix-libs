@@ -4,9 +4,11 @@
   "lib": {
     "entryFile": "src/public-api.ts"
   },
-  "whitelistedNonPeerDependencies": [
+  "allowedNonPeerDependencies": [
     "tslib",
-    "@angular/material"
+    "@angular/material",
+    "@angular/flex-layout",
+    "filesize"
   ],
   "assets": [
     "./ix-img/**"
