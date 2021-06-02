@@ -1,13 +1,15 @@
-import { NgModule, Pipe, CUSTOM_ELEMENTS_SCHEMA, ɵɵdefineInjectable, Injectable, Component, NgZone, Input, ɵɵinject, Inject } from '@angular/core';
+import * as i0 from '@angular/core';
+import { NgModule, Pipe, CUSTOM_ELEMENTS_SCHEMA, Injectable, Component, NgZone, Input, Inject } from '@angular/core';
 import { MatIconRegistry, MatIconModule } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
+import * as i1$1 from '@angular/common';
 import { CommonModule, DOCUMENT } from '@angular/common';
 import * as filesize_ from 'filesize';
-import { interval, of, ReplaySubject } from 'rxjs';
+import { interval, of, Subject, fromEvent, ReplaySubject } from 'rxjs';
+import { takeUntil, filter, map } from 'rxjs/operators';
 import { MatButtonModule } from '@angular/material/button';
-import { MediaObserver as MediaObserver$1 } from '@angular/flex-layout';
-import { filter, map } from 'rxjs/operators';
-import { MediaObserver } from '@angular/flex-layout/core';
+import { MediaObserver } from '@angular/flex-layout';
+import * as i1 from '@angular/flex-layout/core';
 
 class IxIconsModule {
     // To use: <mat-icon svgIcon="ix-file-pdf"></mat-icon>
@@ -258,7 +260,7 @@ class ScrollButtonService {
         obj.addEventListener(type, func);
     }
 }
-ScrollButtonService.ɵprov = ɵɵdefineInjectable({ factory: function ScrollButtonService_Factory() { return new ScrollButtonService(); }, token: ScrollButtonService, providedIn: "root" });
+ScrollButtonService.ɵprov = i0.ɵɵdefineInjectable({ factory: function ScrollButtonService_Factory() { return new ScrollButtonService(); }, token: ScrollButtonService, providedIn: "root" });
 ScrollButtonService.decorators = [
     { type: Injectable, args: [{
                 providedIn: 'root',
@@ -270,7 +272,11 @@ class ScrollTopButtonComponent {
     constructor(ngZone, scrollButtonService) {
         this.ngZone = ngZone;
         this.scrollButtonService = scrollButtonService;
+        this.scrollableElementId = 'ix-scroll-container';
         this.isScrollable = false;
+        this.scrollHeightTrigger = 100;
+        this.destroy = new Subject();
+        this.destroy$ = this.destroy.asObservable();
         window.onresize = (e) => {
             this.ngZone.run(() => {
                 this.localCheckScroll();
@@ -299,10 +305,24 @@ class ScrollTopButtonComponent {
             this.scrollButtonService.scrollToTop();
         }
     }
+    watchScroll() {
+        fromEvent(document.getElementById(this.scrollableElementId), 'scroll')
+            .pipe(takeUntil(this.destroy$))
+            .subscribe((e) => {
+            let st = e.target.scrollTop;
+            if (st > this.scrollHeightTrigger) {
+                this.showScrollButton = true;
+            }
+            else {
+                this.showScrollButton = false;
+            }
+        });
+    }
     ngOnInit() {
         this.scrollButtonService.setContainerId(this.scrollableElementId);
         setTimeout(() => {
             this.localCheckScroll();
+            this.watchScroll();
         }, 500);
     }
 }
@@ -310,7 +330,7 @@ ScrollTopButtonComponent.decorators = [
     { type: Component, args: [{
                 // tslint:disable-next-line: component-selector
                 selector: 'ix-scroll-button',
-                template: "<button mat-mini-fab class=\"scroll-top\" (click)=\"scrollToTop()\"\n  [ngClass]=\"{'hidden': !isScrollable, 'mat-primary': color === 'primary', 'mat-accent': color === 'accent'}\">\n  <mat-icon>arrow_upward</mat-icon>\n</button>\n",
+                template: "<button mat-mini-fab class=\"scroll-top\" (click)=\"scrollToTop()\" [ngClass]=\"{'hidden': !isScrollable || !showScrollButton, 'mat-primary': color === 'primary', 'mat-accent': color ===\n  'accent'}\">\n  <mat-icon>arrow_upward</mat-icon>\n</button>\n",
                 styles: ["body,html{height:100%;padding:0;margin:0;width:100vw;overflow-x:hidden}button.scroll-top{position:fixed;bottom:8px;right:16px;transition:all .25s ease-in-out;transform:scale(1)}button.scroll-top.hidden{transform:scale(0)}"]
             },] }
 ];
@@ -321,7 +341,8 @@ ScrollTopButtonComponent.ctorParameters = () => [
 ScrollTopButtonComponent.propDecorators = {
     color: [{ type: Input }],
     scrollableElementId: [{ type: Input }],
-    isScrollable: [{ type: Input }]
+    isScrollable: [{ type: Input }],
+    scrollHeightTrigger: [{ type: Input }]
 };
 
 class IxScrollModule {
@@ -371,14 +392,14 @@ class IxMediaQueryService {
         }
     }
 }
-IxMediaQueryService.ɵprov = ɵɵdefineInjectable({ factory: function IxMediaQueryService_Factory() { return new IxMediaQueryService(ɵɵinject(MediaObserver)); }, token: IxMediaQueryService, providedIn: "root" });
+IxMediaQueryService.ɵprov = i0.ɵɵdefineInjectable({ factory: function IxMediaQueryService_Factory() { return new IxMediaQueryService(i0.ɵɵinject(i1.MediaObserver)); }, token: IxMediaQueryService, providedIn: "root" });
 IxMediaQueryService.decorators = [
     { type: Injectable, args: [{
                 providedIn: 'root',
             },] }
 ];
 IxMediaQueryService.ctorParameters = () => [
-    { type: MediaObserver$1 }
+    { type: MediaObserver }
 ];
 
 /**
@@ -478,7 +499,7 @@ class IxLocalStorageService {
         }
     }
 }
-IxLocalStorageService.ɵprov = ɵɵdefineInjectable({ factory: function IxLocalStorageService_Factory() { return new IxLocalStorageService(); }, token: IxLocalStorageService, providedIn: "root" });
+IxLocalStorageService.ɵprov = i0.ɵɵdefineInjectable({ factory: function IxLocalStorageService_Factory() { return new IxLocalStorageService(); }, token: IxLocalStorageService, providedIn: "root" });
 IxLocalStorageService.decorators = [
     { type: Injectable, args: [{
                 providedIn: 'root',
@@ -553,7 +574,7 @@ class IxDarkService {
         }
     }
 }
-IxDarkService.ɵprov = ɵɵdefineInjectable({ factory: function IxDarkService_Factory() { return new IxDarkService(ɵɵinject(DOCUMENT), ɵɵinject(IxLocalStorageService)); }, token: IxDarkService, providedIn: "root" });
+IxDarkService.ɵprov = i0.ɵɵdefineInjectable({ factory: function IxDarkService_Factory() { return new IxDarkService(i0.ɵɵinject(i1$1.DOCUMENT), i0.ɵɵinject(IxLocalStorageService)); }, token: IxDarkService, providedIn: "root" });
 IxDarkService.decorators = [
     { type: Injectable, args: [{
                 providedIn: 'root',
@@ -661,7 +682,7 @@ class IxSessionStorageService {
         }
     }
 }
-IxSessionStorageService.ɵprov = ɵɵdefineInjectable({ factory: function IxSessionStorageService_Factory() { return new IxSessionStorageService(); }, token: IxSessionStorageService, providedIn: "root" });
+IxSessionStorageService.ɵprov = i0.ɵɵdefineInjectable({ factory: function IxSessionStorageService_Factory() { return new IxSessionStorageService(); }, token: IxSessionStorageService, providedIn: "root" });
 IxSessionStorageService.decorators = [
     { type: Injectable, args: [{
                 providedIn: 'root',

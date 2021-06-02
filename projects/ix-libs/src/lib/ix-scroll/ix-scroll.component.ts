@@ -5,6 +5,8 @@ import {
   NgZone,
   OnInit,
 } from '@angular/core';
+import { fromEvent, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { ScrollButtonService } from './ix-scroll.service';
 
 @Component({
@@ -15,8 +17,13 @@ import { ScrollButtonService } from './ix-scroll.service';
 })
 export class ScrollTopButtonComponent implements OnInit {
   @Input() color: 'primary' | 'accent';
-  @Input() scrollableElementId: string;
+  @Input() scrollableElementId: string = 'ix-scroll-container';
   @Input() isScrollable = false;
+  @Input() scrollHeightTrigger = 100;
+  showScrollButton: boolean;
+  destroy = new Subject();
+  destroy$ = this.destroy.asObservable();
+
   constructor(
     private ngZone: NgZone,
     public scrollButtonService: ScrollButtonService
@@ -49,10 +56,24 @@ export class ScrollTopButtonComponent implements OnInit {
     }
   }
 
+  watchScroll(): void {
+    fromEvent(document.getElementById(this.scrollableElementId), 'scroll')
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((e: Event) => {
+        let st = (e.target as Element).scrollTop;
+        if (st > this.scrollHeightTrigger) {
+          this.showScrollButton = true;
+        } else {
+          this.showScrollButton = false;
+        }
+      });
+  }
+
   ngOnInit(): void {
     this.scrollButtonService.setContainerId(this.scrollableElementId);
     setTimeout(() => {
       this.localCheckScroll();
+      this.watchScroll();
     }, 500);
   }
 }

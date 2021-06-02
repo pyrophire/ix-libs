@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/material/icon'), require('@angular/platform-browser'), require('@angular/common'), require('filesize'), require('rxjs'), require('@angular/material/button'), require('@angular/flex-layout'), require('rxjs/operators'), require('@angular/flex-layout/core')) :
-    typeof define === 'function' && define.amd ? define('ix-libs', ['exports', '@angular/core', '@angular/material/icon', '@angular/platform-browser', '@angular/common', 'filesize', 'rxjs', '@angular/material/button', '@angular/flex-layout', 'rxjs/operators', '@angular/flex-layout/core'], factory) :
-    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global['ix-libs'] = {}, global.ng.core, global.ng.material.icon, global.ng.platformBrowser, global.ng.common, global.filesize_, global.rxjs, global.ng.material.button, global.ng.flexLayout, global.rxjs.operators, global.ng.flexLayout.core));
-}(this, (function (exports, i0, icon, platformBrowser, i1, filesize_, rxjs, button, flexLayout, operators, i1$1) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/material/icon'), require('@angular/platform-browser'), require('@angular/common'), require('filesize'), require('rxjs'), require('rxjs/operators'), require('@angular/material/button'), require('@angular/flex-layout'), require('@angular/flex-layout/core')) :
+    typeof define === 'function' && define.amd ? define('ix-libs', ['exports', '@angular/core', '@angular/material/icon', '@angular/platform-browser', '@angular/common', 'filesize', 'rxjs', 'rxjs/operators', '@angular/material/button', '@angular/flex-layout', '@angular/flex-layout/core'], factory) :
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global['ix-libs'] = {}, global.ng.core, global.ng.material.icon, global.ng.platformBrowser, global.ng.common, global.filesize_, global.rxjs, global.rxjs.operators, global.ng.material.button, global.ng.flexLayout, global.ng.flexLayout.core));
+}(this, (function (exports, i0, icon, platformBrowser, i1, filesize_, rxjs, operators, button, flexLayout, i1$1) { 'use strict';
 
     function _interopNamespace(e) {
         if (e && e.__esModule) return e;
@@ -24,7 +24,10 @@
         return Object.freeze(n);
     }
 
+    var i0__namespace = /*#__PURE__*/_interopNamespace(i0);
+    var i1__namespace$1 = /*#__PURE__*/_interopNamespace(i1);
     var filesize___namespace = /*#__PURE__*/_interopNamespace(filesize_);
+    var i1__namespace = /*#__PURE__*/_interopNamespace(i1$1);
 
     var IxIconsModule = /** @class */ (function () {
         // To use: <mat-icon svgIcon="ix-file-pdf"></mat-icon>
@@ -303,7 +306,7 @@
         };
         return ScrollButtonService;
     }());
-    ScrollButtonService.ɵprov = i0.ɵɵdefineInjectable({ factory: function ScrollButtonService_Factory() { return new ScrollButtonService(); }, token: ScrollButtonService, providedIn: "root" });
+    ScrollButtonService.ɵprov = i0__namespace.ɵɵdefineInjectable({ factory: function ScrollButtonService_Factory() { return new ScrollButtonService(); }, token: ScrollButtonService, providedIn: "root" });
     ScrollButtonService.decorators = [
         { type: i0.Injectable, args: [{
                     providedIn: 'root',
@@ -316,7 +319,11 @@
             var _this = this;
             this.ngZone = ngZone;
             this.scrollButtonService = scrollButtonService;
+            this.scrollableElementId = 'ix-scroll-container';
             this.isScrollable = false;
+            this.scrollHeightTrigger = 100;
+            this.destroy = new rxjs.Subject();
+            this.destroy$ = this.destroy.asObservable();
             window.onresize = function (e) {
                 _this.ngZone.run(function () {
                     _this.localCheckScroll();
@@ -346,11 +353,26 @@
                 this.scrollButtonService.scrollToTop();
             }
         };
+        ScrollTopButtonComponent.prototype.watchScroll = function () {
+            var _this = this;
+            rxjs.fromEvent(document.getElementById(this.scrollableElementId), 'scroll')
+                .pipe(operators.takeUntil(this.destroy$))
+                .subscribe(function (e) {
+                var st = e.target.scrollTop;
+                if (st > _this.scrollHeightTrigger) {
+                    _this.showScrollButton = true;
+                }
+                else {
+                    _this.showScrollButton = false;
+                }
+            });
+        };
         ScrollTopButtonComponent.prototype.ngOnInit = function () {
             var _this = this;
             this.scrollButtonService.setContainerId(this.scrollableElementId);
             setTimeout(function () {
                 _this.localCheckScroll();
+                _this.watchScroll();
             }, 500);
         };
         return ScrollTopButtonComponent;
@@ -359,7 +381,7 @@
         { type: i0.Component, args: [{
                     // tslint:disable-next-line: component-selector
                     selector: 'ix-scroll-button',
-                    template: "<button mat-mini-fab class=\"scroll-top\" (click)=\"scrollToTop()\"\n  [ngClass]=\"{'hidden': !isScrollable, 'mat-primary': color === 'primary', 'mat-accent': color === 'accent'}\">\n  <mat-icon>arrow_upward</mat-icon>\n</button>\n",
+                    template: "<button mat-mini-fab class=\"scroll-top\" (click)=\"scrollToTop()\" [ngClass]=\"{'hidden': !isScrollable || !showScrollButton, 'mat-primary': color === 'primary', 'mat-accent': color ===\n  'accent'}\">\n  <mat-icon>arrow_upward</mat-icon>\n</button>\n",
                     styles: ["body,html{height:100%;padding:0;margin:0;width:100vw;overflow-x:hidden}button.scroll-top{position:fixed;bottom:8px;right:16px;transition:all .25s ease-in-out;transform:scale(1)}button.scroll-top.hidden{transform:scale(0)}"]
                 },] }
     ];
@@ -370,7 +392,8 @@
     ScrollTopButtonComponent.propDecorators = {
         color: [{ type: i0.Input }],
         scrollableElementId: [{ type: i0.Input }],
-        isScrollable: [{ type: i0.Input }]
+        isScrollable: [{ type: i0.Input }],
+        scrollHeightTrigger: [{ type: i0.Input }]
     };
 
     var IxScrollModule = /** @class */ (function () {
@@ -426,7 +449,7 @@
         };
         return IxMediaQueryService;
     }());
-    IxMediaQueryService.ɵprov = i0.ɵɵdefineInjectable({ factory: function IxMediaQueryService_Factory() { return new IxMediaQueryService(i0.ɵɵinject(i1$1.MediaObserver)); }, token: IxMediaQueryService, providedIn: "root" });
+    IxMediaQueryService.ɵprov = i0__namespace.ɵɵdefineInjectable({ factory: function IxMediaQueryService_Factory() { return new IxMediaQueryService(i0__namespace.ɵɵinject(i1__namespace.MediaObserver)); }, token: IxMediaQueryService, providedIn: "root" });
     IxMediaQueryService.decorators = [
         { type: i0.Injectable, args: [{
                     providedIn: 'root',
@@ -534,7 +557,7 @@
         };
         return IxLocalStorageService;
     }());
-    IxLocalStorageService.ɵprov = i0.ɵɵdefineInjectable({ factory: function IxLocalStorageService_Factory() { return new IxLocalStorageService(); }, token: IxLocalStorageService, providedIn: "root" });
+    IxLocalStorageService.ɵprov = i0__namespace.ɵɵdefineInjectable({ factory: function IxLocalStorageService_Factory() { return new IxLocalStorageService(); }, token: IxLocalStorageService, providedIn: "root" });
     IxLocalStorageService.decorators = [
         { type: i0.Injectable, args: [{
                     providedIn: 'root',
@@ -610,7 +633,7 @@
         };
         return IxDarkService;
     }());
-    IxDarkService.ɵprov = i0.ɵɵdefineInjectable({ factory: function IxDarkService_Factory() { return new IxDarkService(i0.ɵɵinject(i1.DOCUMENT), i0.ɵɵinject(IxLocalStorageService)); }, token: IxDarkService, providedIn: "root" });
+    IxDarkService.ɵprov = i0__namespace.ɵɵdefineInjectable({ factory: function IxDarkService_Factory() { return new IxDarkService(i0__namespace.ɵɵinject(i1__namespace$1.DOCUMENT), i0__namespace.ɵɵinject(IxLocalStorageService)); }, token: IxDarkService, providedIn: "root" });
     IxDarkService.decorators = [
         { type: i0.Injectable, args: [{
                     providedIn: 'root',
@@ -719,7 +742,7 @@
         };
         return IxSessionStorageService;
     }());
-    IxSessionStorageService.ɵprov = i0.ɵɵdefineInjectable({ factory: function IxSessionStorageService_Factory() { return new IxSessionStorageService(); }, token: IxSessionStorageService, providedIn: "root" });
+    IxSessionStorageService.ɵprov = i0__namespace.ɵɵdefineInjectable({ factory: function IxSessionStorageService_Factory() { return new IxSessionStorageService(); }, token: IxSessionStorageService, providedIn: "root" });
     IxSessionStorageService.decorators = [
         { type: i0.Injectable, args: [{
                     providedIn: 'root',
