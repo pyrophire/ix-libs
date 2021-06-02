@@ -91,9 +91,12 @@ import { IxScrollModule } from 'ix-libs';
     * `undefined`: default mat-fab-button coloring
     * `primary`: Primary color of Angular Material theme
     * `accent`: Accent color of Angular Material theme
-* `@param scrollableElementId`
+* `@param scrollableElementId: string`
     * Used to set id of `<body>`
     * Pass in a preset `id` property to prevent it being changed to `id="ix-scroll-container"` by default
+* `@param scrollHeightTrigger: number`
+    * Number of pixels from top that the user has to scroll to show the top button, if page is scrollable
+    * Defaulted to 100
 * Required styles
     * `<body>` element must have `height: 100%; overflow: auto` to ensure the body element is the scrollable element and not the html.
 
