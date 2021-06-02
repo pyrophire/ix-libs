@@ -1,6 +1,6 @@
 {
   "name": "ix-libs",
-  "version": "11.1.0",
+  "version": "12.0.0",
   "scripts": {
     "license-checker": "license-checker  --relativeLicensePath --production --json --out license.json",
     "update-cli": "ng update @angular/cli --force -C",
@@ -10,14 +10,14 @@
     "update-all": "npm run update-cli && npm run update-core && npm run update-material && npm run update-rxjs"
   },
   "peerDependencies": {
-    "@angular/animations": "~11.2.9",
-    "@angular/cdk": "^11.2.10",
-    "@angular/common": "~11.2.9",
-    "@angular/compiler": "~11.2.9",
-    "@angular/core": "~11.2.9",
-    "@angular/material": "^11.2.10",
-    "@angular/platform-browser": "~11.2.9",
-    "@angular/platform-browser-dynamic": "~11.2.9"
+    "@angular/animations": "~12.0.0",
+    "@angular/cdk": "^12.0.0",
+    "@angular/common": "~12.0.0",
+    "@angular/compiler": "~12.0.0",
+    "@angular/core": "~12.0.0",
+    "@angular/material": "^12.0.0",
+    "@angular/platform-browser": "~12.0.0",
+    "@angular/platform-browser-dynamic": "~12.0.0"
   },
   "dependencies": {
     "@angular/flex-layout": "^11.0.0-beta.33",
