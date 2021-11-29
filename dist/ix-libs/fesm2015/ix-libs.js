@@ -75,21 +75,26 @@ AmPmPipe.decorators = [
 
 class CamelToTitlePipe {
     transform(value, ...args) {
-        const result = value.replace(/([A-Z])/g, ' $1');
+        const result = value.replace(/([A-Z0-9])/g, ' $1');
         const finalResult = result.charAt(0).toUpperCase() + result.slice(1);
         return finalResult;
     }
 }
 CamelToTitlePipe.decorators = [
     { type: Pipe, args: [{
-                name: 'c2t'
+                name: 'c2t',
             },] }
 ];
 
 class FileSizePipe {
     static transformOne(value, options) {
-        const filesize = filesize_;
-        return filesize(value, options);
+        if (typeof value === 'number') {
+            const filesize = filesize_;
+            return filesize(value, options);
+        }
+        else {
+            return value;
+        }
     }
     transform(value, options) {
         if (Array.isArray(value)) {

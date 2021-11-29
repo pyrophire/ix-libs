@@ -107,7 +107,7 @@
             for (var _i = 1; _i < arguments.length; _i++) {
                 args[_i - 1] = arguments[_i];
             }
-            var result = value.replace(/([A-Z])/g, ' $1');
+            var result = value.replace(/([A-Z0-9])/g, ' $1');
             var finalResult = result.charAt(0).toUpperCase() + result.slice(1);
             return finalResult;
         };
@@ -115,7 +115,7 @@
     }());
     CamelToTitlePipe.decorators = [
         { type: i0.Pipe, args: [{
-                    name: 'c2t'
+                    name: 'c2t',
                 },] }
     ];
 
@@ -123,8 +123,13 @@
         function FileSizePipe() {
         }
         FileSizePipe.transformOne = function (value, options) {
-            var filesize = filesize___namespace;
-            return filesize(value, options);
+            if (typeof value === 'number') {
+                var filesize = filesize___namespace;
+                return filesize(value, options);
+            }
+            else {
+                return value;
+            }
         };
         FileSizePipe.prototype.transform = function (value, options) {
             if (Array.isArray(value)) {

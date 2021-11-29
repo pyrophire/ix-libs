@@ -1,5 +1,6 @@
 
 # IX Libraries & Services
+License: MIT
 
 - [IX Libraries & Services](#ix-libraries--services)
   - [Icons](#icons)

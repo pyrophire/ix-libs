@@ -1,6 +1,7 @@
 {
   "name": "ix-libs",
   "version": "0.0.0",
+  "license": "MIT",
   "scripts": {
     "ng": "ng",
     "build": "rimraf dist; ng build ix-libs --configuration production",

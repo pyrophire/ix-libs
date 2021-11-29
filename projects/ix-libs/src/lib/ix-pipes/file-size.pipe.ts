@@ -6,8 +6,12 @@ import * as filesize_ from 'filesize';
 })
 export class FileSizePipe implements PipeTransform {
   private static transformOne(value: number, options?: any): string {
-    const filesize = filesize_;
-    return filesize(value, options);
+    if (typeof value === 'number') {
+      const filesize = filesize_;
+      return filesize(value, options);
+    } else {
+      return value;
+    }
   }
 
   transform(value: number | number[], options?: any) {
