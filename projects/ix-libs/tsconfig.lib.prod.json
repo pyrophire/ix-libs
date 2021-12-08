@@ -10,6 +10,7 @@
     "strictMetadataEmit": true,
     "enableResourceInlining": true,
     "fullTemplateTypeCheck": true,
-    "strictInjectionParameters": true
+    "strictInjectionParameters": true,
+    "enableIvy": true
   },
 }

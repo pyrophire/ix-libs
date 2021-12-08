@@ -1,26 +1,20 @@
 {
   "name": "ix-libs",
-  "version": "12.0.4",
-  "scripts": {
-    "license-checker": "license-checker  --relativeLicensePath --production --json --out license.json",
-    "update-cli": "ng update @angular/cli --force -C",
-    "update-core": "ng update @angular/core --force -C",
-    "update-material": "ng update @angular/material --force -C",
-    "update-rxjs": "ng update rxjs --force -C",
-    "update-all": "npm run update-cli && npm run update-core && npm run update-material && npm run update-rxjs"
-  },
+  "version": "13.0.1",
+  "scripts": {},
   "peerDependencies": {
-    "@angular/animations": "~12.0.0",
-    "@angular/cdk": "^12.0.0",
-    "@angular/common": "~12.0.0",
-    "@angular/compiler": "~12.0.0",
-    "@angular/core": "~12.0.0",
-    "@angular/material": "^12.0.0",
-    "@angular/platform-browser": "~12.0.0",
-    "@angular/platform-browser-dynamic": "~12.0.0"
+    "@angular/animations": "~13.0.3",
+    "@angular/cdk": "^13.0.3",
+    "@angular/common": "~13.0.3",
+    "@angular/compiler": "~13.0.3",
+    "@angular/core": "~13.0.3",
+    "@angular/forms": "~13.0.3",
+    "@angular/material": "^13.0.3",
+    "@angular/platform-browser": "~13.0.3",
+    "@angular/platform-browser-dynamic": "~13.0.3",
   },
   "dependencies": {
-    "@angular/cli": "^12.0.2",
+    "@angular/cli": "^13.0.4",
     "@angular/flex-layout": "^11.0.0-beta.33",
     "filesize": "^6.3.0",
     "tslib": "^2.0.0"

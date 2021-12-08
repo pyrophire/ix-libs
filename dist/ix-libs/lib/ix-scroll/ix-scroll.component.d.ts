@@ -1,6 +1,7 @@
 import { NgZone, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { ScrollButtonService } from './ix-scroll.service';
+import * as i0 from "@angular/core";
 export declare class ScrollTopButtonComponent implements OnInit {
     private ngZone;
     scrollButtonService: ScrollButtonService;
@@ -16,4 +17,6 @@ export declare class ScrollTopButtonComponent implements OnInit {
     scrollToTop(): void;
     watchScroll(): void;
     ngOnInit(): void;
+    static ɵfac: i0.ɵɵFactoryDeclaration<ScrollTopButtonComponent, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<ScrollTopButtonComponent, "ix-scroll-button", never, { "color": "color"; "scrollableElementId": "scrollableElementId"; "isScrollable": "isScrollable"; "scrollHeightTrigger": "scrollHeightTrigger"; }, {}, never, never>;
 }

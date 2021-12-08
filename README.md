@@ -24,6 +24,12 @@ License: MIT
   - [Shared Services](#shared-services)
     - [Installation](#installation-6)
     - [Notes](#notes-4)
+  - [Table](#table)
+    - [Installation](#installation-7)
+    - [Notes](#notes-5)
+    - [Models](#models)
+      - [IxTableColumn](#ixtablecolumn)
+      - [IxTableSort](#ixtablesort)
 <!-- #region ix-icons -->
 ## Icons
 
@@ -292,3 +298,54 @@ import { IxLocalStorageService, IxSessionStorageService } from 'ix-libs';
        
 <!-- #endregion -->
 
+<!-- #region ix-table -->
+## Table
+
+### Installation
+
+1. Run
+
+```
+npm install --save ix-libs
+```
+2. Add to Module Imports
+```
+import { IxTableModule } from 'ix-libs';
+```
+
+3. Add to layout with
+
+```
+<ix-table></ix-table>
+```
+
+### Notes
+
+* `@param  {boolean=false;} editButton` - show edit button
+* `@param  {boolean=false;} deleteButton` - show delete button
+* `@param  {boolean=false;} loading` - show loading ui-placeholder
+* `@param  {boolean=false;} uiPlaceholder` - use ui-placeholder for loader, if false a material bar will be used
+* `@param  {boolean=false;} showFilter` - show filter input inline
+* `@param  {boolean=true;} showCount` - show row count on header
+* `@param  {boolean=false;} hasClickEvent` - allows the row to be clicked, firing off itemEmit
+* `@param  {boolean=false;} virtual` - use cdk virtual scroll
+* `@param  {number=48;} virtualItemSize` - size of virtual item, needed to calculate virtual scroll buffers
+* `@param  {any[];} data` - data of rows to display
+* `@param  {IxTableColumn[];} columns` - columns to display, will render in order of declaration
+* `@param  {IxTableSort;} defaultSort` - default sort object to be set at intialization, useful when array is not pre sorted
+* `@param  {} itemEmit=newEventEmitter<any>` - event emitter for item click
+* `@param  {} editEmit=newEventEmitter<any>` - event emitter for edit button
+* `@param  {} deleteEmit=newEventEmitter<any>` - event emitter for delete button
+
+### Models
+#### IxTableColumn
+* `@param {string} name` -  column header display text
+* `@param {string} property` -  property for data binding
+* `@param {string} width` -  can use any valid width unit, required to layout the columns as a row
+* `@param {boolean=} truncate` -   truncate the text in the column for the column width
+* `@param {boolean=} sortable` -  disable sorting if set to false, default true
+#### IxTableSort  
+* `@param {string} property` - column data property
+* `@param {string} direction` - 'asc' or 'desc'
+
+<!-- #endregion -->

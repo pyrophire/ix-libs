@@ -1,0 +1,223 @@
+<article class="sortable-list">
+  <form class="filter" [formGroup]="filterForm">
+    <ng-content select=".list-title"></ng-content>
+    <span *ngIf="showCount && sortedData">&nbsp;({{sortedData.length}})</span>
+    <div flex></div>
+    <mat-form-field color="primary" *ngIf="showFilter">
+      <input matInput formControlName="filter" placeholder="Filter">
+    </mat-form-field>
+    <ng-content select=".custom-filters"></ng-content>
+
+    <div flex></div>
+    <ng-content select=".list-buttons"></ng-content>
+
+  </form>
+  <div *ngIf="loading && !uiPlaceholder">
+    <mat-progress-bar mode="indeterminate">
+    </mat-progress-bar>
+  </div>
+
+  <div class="ui-placeholder-container virtual-list-container" *ngIf="loading && uiPlaceholder">
+    <div class="ui placeholder">
+      <div class="full line"></div>
+      <div class="full line"></div>
+      <div class="long line"></div>
+    </div>
+
+    <div class="ui placeholder">
+      <div class="full line"></div>
+      <div class="full line"></div>
+      <div class="long line"></div>
+    </div>
+
+    <div class="ui placeholder">
+      <div class="full line"></div>
+      <div class="full line"></div>
+      <div class="long line"></div>
+    </div>
+
+    <div class="ui placeholder">
+      <div class="full line"></div>
+      <div class="full line"></div>
+      <div class="long line"></div>
+    </div>
+
+    <div class="ui placeholder">
+      <div class="full line"></div>
+      <div class="full line"></div>
+      <div class="long line"></div>
+    </div>
+    <div class="ui placeholder">
+      <div class="full line"></div>
+      <div class="full line"></div>
+      <div class="long line"></div>
+    </div>
+    <div class="ui placeholder">
+      <div class="full line"></div>
+      <div class="full line"></div>
+      <div class="long line"></div>
+    </div>
+
+    <div class="ui placeholder">
+      <div class="full line"></div>
+      <div class="full line"></div>
+      <div class="long line"></div>
+    </div>
+
+    <div class="ui placeholder">
+      <div class="full line"></div>
+      <div class="full line"></div>
+      <div class="long line"></div>
+    </div>
+
+    <div class="ui placeholder">
+      <div class="full line"></div>
+      <div class="full line"></div>
+      <div class="long line"></div>
+    </div>
+
+    <div class="ui placeholder">
+      <div class="full line"></div>
+      <div class="full line"></div>
+      <div class="long line"></div>
+    </div>
+    <div class="ui placeholder">
+      <div class="full line"></div>
+      <div class="full line"></div>
+      <div class="long line"></div>
+    </div>
+    <div class="ui placeholder">
+      <div class="full line"></div>
+      <div class="full line"></div>
+      <div class="long line"></div>
+    </div>
+
+    <div class="ui placeholder">
+      <div class="full line"></div>
+      <div class="full line"></div>
+      <div class="long line"></div>
+    </div>
+
+    <div class="ui placeholder">
+      <div class="full line"></div>
+      <div class="full line"></div>
+      <div class="long line"></div>
+    </div>
+
+    <div class="ui placeholder">
+      <div class="full line"></div>
+      <div class="full line"></div>
+      <div class="long line"></div>
+    </div>
+
+    <div class="ui placeholder">
+      <div class="full line"></div>
+      <div class="full line"></div>
+      <div class="long line"></div>
+    </div>
+    <div class="ui placeholder">
+      <div class="full line"></div>
+      <div class="full line"></div>
+      <div class="long line"></div>
+    </div>
+    <div class="ui placeholder">
+      <div class="full line"></div>
+      <div class="full line"></div>
+      <div class="long line"></div>
+    </div>
+
+    <div class="ui placeholder">
+      <div class="full line"></div>
+      <div class="full line"></div>
+      <div class="long line"></div>
+    </div>
+
+    <div class="ui placeholder">
+      <div class="full line"></div>
+      <div class="full line"></div>
+      <div class="long line"></div>
+    </div>
+
+    <div class="ui placeholder">
+      <div class="full line"></div>
+      <div class="full line"></div>
+      <div class="long line"></div>
+    </div>
+
+    <div class="ui placeholder">
+      <div class="full line"></div>
+      <div class="full line"></div>
+      <div class="long line"></div>
+    </div>
+    <div class="ui placeholder">
+      <div class="full line"></div>
+      <div class="full line"></div>
+      <div class="long line"></div>
+    </div>
+
+  </div>
+
+  <ng-container *ngIf="!loading">
+    <div class="list-items" *ngIf="!virtual">
+      <ng-template [ngTemplateOutlet]="tableHeaders"></ng-template>
+      <ng-container *ngFor="let item of sortedData">
+        <ng-template [ngTemplateOutlet]="tableContents" [ngTemplateOutletContext]="{item: item}">
+        </ng-template>
+      </ng-container>
+
+    </div>
+
+    <div class="list-items" *ngIf="virtual">
+      <ng-template [ngTemplateOutlet]="tableHeaders"></ng-template>
+      <cdk-virtual-scroll-viewport class="virtual-list-container" [itemSize]="virtualItemSize">
+        <div class="list-item empty" *ngIf="sortedData?.length === 0">
+          No items
+        </div>
+        <ng-container *cdkVirtualFor="let item of sortedData">
+          <ng-template [ngTemplateOutlet]="tableContents" [ngTemplateOutletContext]="{item: item}">
+          </ng-template>
+        </ng-container>
+      </cdk-virtual-scroll-viewport>
+    </div>
+
+  </ng-container>
+
+</article>
+
+<ng-template #tableHeaders>
+  <div class="list-headers" [style.grid-template-columns]="headerColumns">
+    <div class="column" *ngFor="let col of columns" [ngClass]="{'truncate': col.truncate}">
+      <div (click)="sortData(col.property, true, col)" class="sort-header"
+        [ngClass]="{'active': currentSortProperty === col.property, 'pointer': col.sortable != false}">
+        <span>{{col.name}}</span>
+        <i *ngIf="currentSortProperty === col.property" class="mdi"
+          [ngClass]="{' mdi-chevron-up': sortDirection === 'desc', ' mdi-chevron-down': sortDirection === 'asc'}">
+        </i>
+      </div>
+    </div>
+    <div class="list-item-column controls-column" *ngIf="showControlColumn">
+      &nbsp;
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #tableContents let-item="item">
+  <div class="list-item" [style.grid-template-columns]="gridColumns" (click)="itemClicked(item)"
+    [ngClass]="{'has-click-event': hasClickEvent}">
+    <div class="list-item-column" *ngFor="let col of columns" [ngClass]="{'truncate': col.truncate}">
+      <div>
+        {{item[col.property]}}
+      </div>
+    </div>
+    <div class="list-item-column controls-column" *ngIf="showControlColumn">
+      <button mat-icon-button class="mat-icon-button" *ngIf="editButton"
+        (click)="editItem(item); $event.stopPropagation();">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button class="mat-icon-button" *ngIf="deleteButton"
+        (click)="removeItem(item); $event.stopPropagation();">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </div>
+</ng-template>

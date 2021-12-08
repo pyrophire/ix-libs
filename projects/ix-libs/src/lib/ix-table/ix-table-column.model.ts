@@ -1,0 +1,14 @@
+export class IxTableColumn {
+  /**
+   * @param {string} name -  column header display text
+   * @param {string} property -  property for data binding
+   * @param {string} width -  can use any valid width unit, required to layout the columns as a row
+   * @param {boolean=} truncate -   truncate the text in the column for the column width
+   * @param {boolean=} sortable -  disable sorting if set to false, default true
+   */
+  name: string;
+  property: string;
+  width: string;
+  truncate?: boolean;
+  sortable?: boolean;
+}

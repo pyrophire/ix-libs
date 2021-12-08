@@ -1,28 +1,41 @@
 {
   "name": "ix-libs",
-  "version": "12.0.4",
+  "version": "13.0.1",
   "peerDependencies": {
-    "@angular/animations": "~12.0.0",
-    "@angular/cdk": "^12.0.0",
-    "@angular/common": "~12.0.0",
-    "@angular/compiler": "~12.0.0",
-    "@angular/core": "~12.0.0",
-    "@angular/material": "^12.0.0",
-    "@angular/platform-browser": "~12.0.0",
-    "@angular/platform-browser-dynamic": "~12.0.0"
+    "@angular/animations": "~13.0.3",
+    "@angular/cdk": "^13.0.3",
+    "@angular/common": "~13.0.3",
+    "@angular/compiler": "~13.0.3",
+    "@angular/core": "~13.0.3",
+    "@angular/forms": "~13.0.3",
+    "@angular/material": "^13.0.3",
+    "@angular/platform-browser": "~13.0.3",
+    "@angular/platform-browser-dynamic": "~13.0.3"
   },
   "dependencies": {
-    "@angular/cli": "^12.0.2",
+    "@angular/cli": "^13.0.4",
     "@angular/flex-layout": "^11.0.0-beta.33",
     "filesize": "^6.3.0",
     "tslib": "^2.0.0"
   },
-  "main": "bundles/ix-libs.umd.js",
-  "module": "fesm2015/ix-libs.js",
-  "es2015": "fesm2015/ix-libs.js",
-  "esm2015": "esm2015/ix-libs.js",
-  "fesm2015": "fesm2015/ix-libs.js",
+  "module": "fesm2015/ix-libs.mjs",
+  "es2020": "fesm2020/ix-libs.mjs",
+  "esm2020": "esm2020/ix-libs.mjs",
+  "fesm2020": "fesm2020/ix-libs.mjs",
+  "fesm2015": "fesm2015/ix-libs.mjs",
   "typings": "ix-libs.d.ts",
-  "metadata": "ix-libs.metadata.json",
+  "exports": {
+    "./package.json": {
+      "default": "./package.json"
+    },
+    ".": {
+      "types": "./ix-libs.d.ts",
+      "esm2020": "./esm2020/ix-libs.mjs",
+      "es2020": "./fesm2020/ix-libs.mjs",
+      "es2015": "./fesm2015/ix-libs.mjs",
+      "node": "./fesm2015/ix-libs.mjs",
+      "default": "./fesm2020/ix-libs.mjs"
+    }
+  },
   "sideEffects": false
 }

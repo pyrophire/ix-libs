@@ -1,4 +1,5 @@
 import { Observable, Subscription } from 'rxjs';
+import * as i0 from "@angular/core";
 export declare class ScrollButtonService {
     subscription: Subscription;
     source: Observable<number>;
@@ -11,4 +12,6 @@ export declare class ScrollButtonService {
     stopScrollMarking(): void;
     private _markScrollables;
     private _throttle;
+    static ɵfac: i0.ɵɵFactoryDeclaration<ScrollButtonService, never>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<ScrollButtonService>;
 }
