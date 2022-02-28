@@ -1,0 +1,13 @@
+section.scroll-progress {
+  > form.controls {
+    min-width: 300px;
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    display: flex;
+    flex-direction: column;
+    .mat-form-field.bottom {
+      margin-top: 16px;
+    }
+  }
+}

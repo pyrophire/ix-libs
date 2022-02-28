@@ -1,6 +1,6 @@
 {
   "name": "ix-libs",
-  "version": "13.0.3",
+  "version": "13.1.3",
   "scripts": {},
   "peerDependencies": {
     "@angular/animations": "~13.0.3",

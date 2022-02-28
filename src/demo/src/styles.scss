@@ -1,0 +1,88 @@
+@import '~src/styles/mixins';
+
+// @import '~src/styles/_vendor/ng-select';
+// @import '~src/styles/_vendor/ng-picker-datetime';
+// @import '~src/styles/_vendor/summernote';
+// @import '~src/styles/_vendor/swimlane-table-material';
+// @import '~src/styles/_vendor/ui-placeholder';
+
+@import 'https://cdn.tlc.texas.gov/ix/fonts/roboto/roboto_300_400_500_displaySwap.css';
+@import 'https://cdn.tlc.texas.gov/ix/icons/material/v53/icon.css';
+@import 'https://cdn.tlc.texas.gov/ix/fonts/mdi/font/css/materialdesignicons.min.css';
+
+// used for loading page only
+
+.loading {
+  background-color: rgb(50, 50, 50);
+  height: 100vh;
+  width: 100vw;
+  @include flex(row, center, center, nowrap);
+
+  .logo {
+    height: 50vh;
+    width: 50vw;
+    @include flex(row, center, center, nowrap);
+    svg {
+      .st0 {
+        fill: $primary;
+      }
+
+      .st1 {
+        fill: #ffffff;
+      }
+      height: 100%;
+    }
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+/* Hide focus styles if they're not needed, for example, 
+when an element receives focus via the mouse. */
+:focus:not(:focus-visible) {
+  outline: 0;
+}
+
+/* Show focus styles on keyboard focus. */
+:focus-visible {
+  outline: 3px solid blue;
+}
+
+html {
+  top: 0 !important;
+  padding: 0;
+  margin: 0;
+  height: 100vh;
+  overflow: hidden;
+}
+
+body {
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  width: 100vw;
+  overflow-x: hidden;
+  @media only print {
+    overflow-x: unset;
+    height: unset;
+  }
+}
+body {
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+  background-size: 400% 400%;
+  animation: AnimationName 15s ease infinite;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+
+body.light {
+  background-color: $background;
+  color: set-inverse-text-color($background);
+}
+
+body.dark {
+  background-color: $backgroundDark1;
+  color: set-inverse-text-color($backgroundDark1);
+}
