@@ -13,9 +13,13 @@ import { IxPipesModule, IxScrollModule, IxScrollProgressModule, IxThemeButtonMod
 import { NgxJsonViewerModule } from 'ngx-json-viewer';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { DarkModeButtonComponent } from './dark-mode-button/dark-mode-button.component';
 import { HomeComponent } from './home/home.component';
+import { IconsComponent } from './icons/icons.component';
 import { MaterialModule } from './material.module';
+import { PipesComponent } from './pipes/pipes.component';
 import { ScrollPositionComponent } from './scroll-position/scroll-position.component';
+import { ScrollTopButtonComponent } from './scroll-top-button/scroll-top-button.component';
 
 export const CUSTOM_MAT_COLOR_FORMATS: MatColorFormats = {
   display: {
@@ -24,7 +28,15 @@ export const CUSTOM_MAT_COLOR_FORMATS: MatColorFormats = {
 };
 
 @NgModule({
-  declarations: [AppComponent, ScrollPositionComponent, HomeComponent],
+  declarations: [
+    AppComponent,
+    ScrollPositionComponent,
+    HomeComponent,
+    IconsComponent,
+    PipesComponent,
+    ScrollTopButtonComponent,
+    DarkModeButtonComponent
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,

@@ -12,7 +12,9 @@ export class ScrollPositionComponent implements OnInit {
   barColor = new FormControl({ value: null, disabled: false }, []);
   position = new FormControl({ value: 'fixed', disabled: false }, []);
   top = new FormControl({ value: null, disabled: false }, []);
+  right = new FormControl({ value: null, disabled: false }, []);
   bottom = new FormControl({ value: 0, disabled: false }, []);
+  left = new FormControl({ value: 0, disabled: false }, []);
 
   constructor(private fb: FormBuilder) {}
 
@@ -22,7 +24,9 @@ export class ScrollPositionComponent implements OnInit {
       barColor: this.barColor,
       position: this.position,
       top: this.top,
-      bottom: this.bottom
+      right: this.right,
+      bottom: this.bottom,
+      left: this.left
     });
     this.form.valueChanges.subscribe((value) => {
       // if (value.top?.trim() !== '') {
