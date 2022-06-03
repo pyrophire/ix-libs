@@ -9,6 +9,8 @@ export declare class ScrollTopButtonComponent implements OnInit {
     scrollableElementId: string;
     isScrollable: boolean;
     scrollHeightTrigger: number;
+    verticalButtonPosition: 'top' | 'bottom';
+    horizontalButtonPosition: 'left' | 'right';
     showScrollButton: boolean;
     destroy: Subject<unknown>;
     destroy$: import("rxjs").Observable<unknown>;
@@ -18,5 +20,5 @@ export declare class ScrollTopButtonComponent implements OnInit {
     watchScroll(): void;
     ngOnInit(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<ScrollTopButtonComponent, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<ScrollTopButtonComponent, "ix-scroll-button", never, { "color": "color"; "scrollableElementId": "scrollableElementId"; "isScrollable": "isScrollable"; "scrollHeightTrigger": "scrollHeightTrigger"; }, {}, never, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<ScrollTopButtonComponent, "ix-scroll-button", never, { "color": "color"; "scrollableElementId": "scrollableElementId"; "isScrollable": "isScrollable"; "scrollHeightTrigger": "scrollHeightTrigger"; "verticalButtonPosition": "verticalButtonPosition"; "horizontalButtonPosition": "horizontalButtonPosition"; }, {}, never, never>;
 }

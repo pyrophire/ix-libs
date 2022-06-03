@@ -1,0 +1,328 @@
+<section class="scroll-progress">
+    <mat-toolbar>Scroll Progress Position</mat-toolbar>
+    <div class="demo-content">
+
+        <form class="controls"
+              [formGroup]="form">
+
+            <mat-form-field>
+                <input matInput
+                       [ngxMatColorPicker]="backgroundColorPicker"
+                       formControlName="backgroundColor"
+                       placeholder="Background Color">
+
+                <ngx-mat-color-toggle matSuffix
+                                      [for]="backgroundColorPicker"></ngx-mat-color-toggle>
+                <ngx-mat-color-picker #backgroundColorPicker
+                                      [touchUi]="false"></ngx-mat-color-picker>
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput
+                       [ngxMatColorPicker]="barColorPicker"
+                       formControlName="barColor"
+                       placeholder="Bar Color">
+                <ngx-mat-color-toggle matSuffix
+                                      [for]="barColorPicker"></ngx-mat-color-toggle>
+                <ngx-mat-color-picker #barColorPicker
+                                      [touchUi]="false"></ngx-mat-color-picker>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-select placeholder="Position"
+                            formControlName="position">
+                    <mat-option value="sticky">
+                        Sticky
+                    </mat-option>
+                    <mat-option value="fixed">
+                        Fixed
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <div class="note">
+                Must be a valid unit of measurement, ex: 10vh, 10px, 10em, 10%, 10in, 10rem
+            </div>
+            <mat-form-field>
+                <input matInput
+                       formControlName="top"
+                       placeholder="Top"
+                       autocomplete="off"
+                       spellcheck="off">
+                <mat-hint> Top takes priority over bottom measurement.</mat-hint>
+            </mat-form-field>
+            <mat-form-field class="right">
+                <input matInput
+                       formControlName="right"
+                       placeholder="Right"
+                       autocomplete="off"
+                       spellcheck="off">
+            </mat-form-field>
+            <mat-form-field class="bottom">
+                <input matInput
+                       formControlName="bottom"
+                       placeholder="Bottom"
+                       autocomplete="off"
+                       spellcheck="off">
+            </mat-form-field>
+            <mat-form-field class="left">
+                <input matInput
+                       formControlName="left"
+                       placeholder="Left"
+                       autocomplete="off"
+                       spellcheck="off">
+            </mat-form-field>
+
+            <div>
+                Config:
+                <ngx-json-viewer [json]="form.value"></ngx-json-viewer>
+
+            </div>
+        </form>
+        <mat-list>
+            <mat-list-item>
+                Filler item to force scrolling
+            </mat-list-item>
+            <mat-list-item>
+                Filler item to force scrolling
+            </mat-list-item>
+            <mat-list-item>
+                Filler item to force scrolling
+            </mat-list-item>
+            <mat-list-item>
+                Filler item to force scrolling
+            </mat-list-item>
+            <mat-list-item>
+                Filler item to force scrolling
+            </mat-list-item>
+            <mat-list-item>
+                Filler item to force scrolling
+            </mat-list-item>
+            <mat-list-item>
+                Filler item to force scrolling
+            </mat-list-item>
+            <mat-list-item>
+                Filler item to force scrolling
+            </mat-list-item>
+            <mat-list-item>
+                Filler item to force scrolling
+            </mat-list-item>
+            <mat-list-item>
+                Filler item to force scrolling
+            </mat-list-item>
+            <mat-list-item>
+                Filler item to force scrolling
+            </mat-list-item>
+            <mat-list-item>
+                Filler item to force scrolling
+            </mat-list-item>
+            <mat-list-item>
+                Filler item to force scrolling
+            </mat-list-item>
+            <mat-list-item>
+                Filler item to force scrolling
+            </mat-list-item>
+            <mat-list-item>
+                Filler item to force scrolling
+            </mat-list-item>
+            <mat-list-item>
+                Filler item to force scrolling
+            </mat-list-item>
+            <mat-list-item>
+                Filler item to force scrolling
+            </mat-list-item>
+            <mat-list-item>
+                Filler item to force scrolling
+            </mat-list-item>
+            <mat-list-item>
+                Filler item to force scrolling
+            </mat-list-item>
+            <mat-list-item>
+                Filler item to force scrolling
+            </mat-list-item>
+            <mat-list-item>
+                Filler item to force scrolling
+            </mat-list-item>
+            <mat-list-item>
+                Filler item to force scrolling
+            </mat-list-item>
+            <mat-list-item>
+                Filler item to force scrolling
+            </mat-list-item>
+            <mat-list-item>
+                Filler item to force scrolling
+            </mat-list-item>
+            <mat-list-item>
+                Filler item to force scrolling
+            </mat-list-item>
+            <mat-list-item>
+                Filler item to force scrolling
+            </mat-list-item>
+            <mat-list-item>
+                Filler item to force scrolling
+            </mat-list-item>
+            <ix-scroll-progress [config]="form.value"></ix-scroll-progress>
+            <mat-list-item>
+                Filler item to force scrolling
+            </mat-list-item>
+            <mat-list-item>
+                Filler item to force scrolling
+            </mat-list-item>
+            <mat-list-item>
+                Filler item to force scrolling
+            </mat-list-item>
+            <mat-list-item>
+                Filler item to force scrolling
+            </mat-list-item>
+            <mat-list-item>
+                Filler item to force scrolling
+            </mat-list-item>
+            <mat-list-item>
+                Filler item to force scrolling
+            </mat-list-item>
+            <mat-list-item>
+                Filler item to force scrolling
+            </mat-list-item>
+            <mat-list-item>
+                Filler item to force scrolling
+            </mat-list-item>
+            <mat-list-item>
+                Filler item to force scrolling
+            </mat-list-item>
+            <mat-list-item>
+                Filler item to force scrolling
+            </mat-list-item>
+            <mat-list-item>
+                Filler item to force scrolling
+            </mat-list-item>
+            <mat-list-item>
+                Filler item to force scrolling
+            </mat-list-item>
+            <mat-list-item>
+                Filler item to force scrolling
+            </mat-list-item>
+            <mat-list-item>
+                Filler item to force scrolling
+            </mat-list-item>
+            <mat-list-item>
+                Filler item to force scrolling
+            </mat-list-item>
+            <mat-list-item>
+                Filler item to force scrolling
+            </mat-list-item>
+            <mat-list-item>
+                Filler item to force scrolling
+            </mat-list-item>
+            <mat-list-item>
+                Filler item to force scrolling
+            </mat-list-item>
+            <mat-list-item>
+                Filler item to force scrolling
+            </mat-list-item>
+            <mat-list-item>
+                Filler item to force scrolling
+            </mat-list-item>
+            <mat-list-item>
+                Filler item to force scrolling
+            </mat-list-item>
+            <mat-list-item>
+                Filler item to force scrolling
+            </mat-list-item>
+            <mat-list-item>
+                Filler item to force scrolling
+            </mat-list-item>
+            <mat-list-item>
+                Filler item to force scrolling
+            </mat-list-item>
+            <mat-list-item>
+                Filler item to force scrolling
+            </mat-list-item>
+            <mat-list-item>
+                Filler item to force scrolling
+            </mat-list-item>
+            <mat-list-item>
+                Filler item to force scrolling
+            </mat-list-item>
+            <mat-list-item>
+                Filler item to force scrolling
+            </mat-list-item>
+            <mat-list-item>
+                Filler item to force scrolling
+            </mat-list-item>
+            <mat-list-item>
+                Filler item to force scrolling
+            </mat-list-item>
+            <mat-list-item>
+                Filler item to force scrolling
+            </mat-list-item>
+            <mat-list-item>
+                Filler item to force scrolling
+            </mat-list-item>
+            <mat-list-item>
+                Filler item to force scrolling
+            </mat-list-item>
+            <mat-list-item>
+                Filler item to force scrolling
+            </mat-list-item>
+            <mat-list-item>
+                Filler item to force scrolling
+            </mat-list-item>
+            <mat-list-item>
+                Filler item to force scrolling
+            </mat-list-item>
+            <mat-list-item>
+                Filler item to force scrolling
+            </mat-list-item>
+            <mat-list-item>
+                Filler item to force scrolling
+            </mat-list-item>
+            <mat-list-item>
+                Filler item to force scrolling
+            </mat-list-item>
+            <mat-list-item>
+                Filler item to force scrolling
+            </mat-list-item>
+            <mat-list-item>
+                Filler item to force scrolling
+            </mat-list-item>
+            <mat-list-item>
+                Filler item to force scrolling
+            </mat-list-item>
+            <mat-list-item>
+                Filler item to force scrolling
+            </mat-list-item>
+            <mat-list-item>
+                Filler item to force scrolling
+            </mat-list-item>
+            <mat-list-item>
+                Filler item to force scrolling
+            </mat-list-item>
+            <mat-list-item>
+                Filler item to force scrolling
+            </mat-list-item>
+            <mat-list-item>
+                Filler item to force scrolling
+            </mat-list-item>
+            <mat-list-item>
+                Filler item to force scrolling
+            </mat-list-item>
+            <mat-list-item>
+                Filler item to force scrolling
+            </mat-list-item>
+            <mat-list-item>
+                Filler item to force scrolling
+            </mat-list-item>
+            <mat-list-item>
+                Filler item to force scrolling
+            </mat-list-item>
+            <mat-list-item>
+                Filler item to force scrolling
+            </mat-list-item>
+            <mat-list-item>
+                Filler item to force scrolling
+            </mat-list-item>
+            <mat-list-item>
+                Filler item to force scrolling
+            </mat-list-item>
+        </mat-list>
+    </div>
+</section>

@@ -1,0 +1,13 @@
+<section class="table">
+    <div class="headers">
+        <ng-container *ngFor="let col of columns">
+            <ix-table-header class="{{col.class}}"
+                             [title]="col.title"
+                             [prop]="col.prop"
+                             [activeSort]="activeSort"
+                             [sortable]="true"
+                             (click)="onColumnSort(col.prop)"></ix-table-header>
+        </ng-container>
+    </div>
+
+</section>

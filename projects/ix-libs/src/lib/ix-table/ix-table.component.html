@@ -161,7 +161,7 @@
     <div class="list-items" *ngIf="!virtual">
       <ng-template [ngTemplateOutlet]="tableHeaders"></ng-template>
       <ng-container *ngFor="let item of sortedData">
-        <ng-template [ngTemplateOutlet]="tableContents" [ngTemplateOutletContext]="{item: item}">
+        <ng-template [ngTemplateOutlet]="tableContents" [ngTemplateOutletContext]="{row: item}">
         </ng-template>
       </ng-container>
 
@@ -174,7 +174,7 @@
           No items
         </div>
         <ng-container *cdkVirtualFor="let item of sortedData">
-          <ng-template [ngTemplateOutlet]="tableContents" [ngTemplateOutletContext]="{item: item}">
+          <ng-template [ngTemplateOutlet]="tableContents" [ngTemplateOutletContext]="{row: item}">
           </ng-template>
         </ng-container>
       </cdk-virtual-scroll-viewport>
@@ -201,21 +201,52 @@
   </div>
 </ng-template>
 
-<ng-template #tableContents let-item="item">
-  <div class="list-item" [style.grid-template-columns]="gridColumns" (click)="itemClicked(item)"
+<ng-template #tableContents let-row="row">
+  <div class="list-item list-row" [style.grid-template-columns]="gridColumns" (click)="itemClicked(row)"
     [ngClass]="{'has-click-event': hasClickEvent}">
+
     <div class="list-item-column" *ngFor="let col of columns" [ngClass]="{'truncate': col.truncate}">
       <div>
-        {{item[col.property]}}
+        <span [ngSwitch]="col.type">
+          <span *ngSwitchCase="'boolean'">
+            <mat-icon class="list-item-tf-icon"
+              [ngClass]="{'checked': row[col.property] === true, 'unchecked': row[col.property] === false}">
+              <ng-container *ngIf="row[col.property] === true">
+                check_circle
+              </ng-container>
+              <ng-container *ngIf="row[col.property] === false">
+                highlight_off
+              </ng-container>
+            </mat-icon>
+          </span>
+          <span *ngSwitchCase="'number'">
+            {{row[col.property] | number}}
+          </span>
+          <span *ngSwitchCase="'dollar'">
+            {{row[col.property] | currency: 'USD'}}
+          </span>
+          <span *ngSwitchCase="'date'">
+            {{row[col.property] | date: row[col.dateFormat]}}
+          </span>
+          <span *ngSwitchCase="'string'">
+            {{row[col.property]}}
+          </span>
+          <span *ngSwitchCase="'html'" [innerHtml]="row[col.property] | safe: 'html'">
+
+          </span>
+          <span *ngSwitchDefault>
+            {{row[col.property]}}
+          </span>
+        </span>
       </div>
     </div>
     <div class="list-item-column controls-column" *ngIf="showControlColumn">
       <button mat-icon-button class="mat-icon-button" *ngIf="editButton"
-        (click)="editItem(item); $event.stopPropagation();">
+        (click)="editItem(row); $event.stopPropagation();">
         <mat-icon>edit</mat-icon>
       </button>
       <button mat-icon-button class="mat-icon-button" *ngIf="deleteButton"
-        (click)="removeItem(item); $event.stopPropagation();">
+        (click)="removeItem(row); $event.stopPropagation();">
         <mat-icon>delete</mat-icon>
       </button>
     </div>

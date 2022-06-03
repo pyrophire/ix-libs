@@ -6,9 +6,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { IxPipesModule } from '../ix-pipes/ix-pipes.module';
 import { IxTableComponent } from './ix-table.component';
-
-
 
 @NgModule({
   declarations: [IxTableComponent],
@@ -21,9 +20,8 @@ import { IxTableComponent } from './ix-table.component';
     MatProgressSpinnerModule,
     ReactiveFormsModule,
     ScrollingModule,
+    IxPipesModule
   ],
-  exports: [
-    IxTableComponent
-  ]
+  exports: [IxTableComponent]
 })
-export class IxTableModule { }
+export class IxTableModule {}

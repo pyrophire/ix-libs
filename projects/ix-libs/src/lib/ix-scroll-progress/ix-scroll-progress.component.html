@@ -1,0 +1,6 @@
+<div class="progress-container"
+     [ngStyle]="{'background': config?.backgroundColor || 'grey', 'position': config.position, 'top': config?.top, 'right': config?.right, 'bottom': config?.bottom, 'left': config?.left}">
+    <div class="progress-bar"
+         id="progressBar"
+         [ngStyle]="{'background': config?.barColor || 'red'}"></div>
+</div>

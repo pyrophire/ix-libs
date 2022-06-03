@@ -1,4 +1,7 @@
-<button mat-mini-fab class="scroll-top" (click)="scrollToTop()" [ngClass]="{'hidden': !isScrollable || !showScrollButton, 'mat-primary': color === 'primary', 'mat-accent': color ===
+<button mat-mini-fab
+        class="scroll-top {{verticalButtonPosition}} {{horizontalButtonPosition}}"
+        (click)="scrollToTop()"
+        [ngClass]="{'hidden': !isScrollable || !showScrollButton, 'mat-primary': color === 'primary', 'mat-accent': color ===
   'accent'}">
-  <mat-icon>arrow_upward</mat-icon>
+    <mat-icon>arrow_upward</mat-icon>
 </button>

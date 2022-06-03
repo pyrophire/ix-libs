@@ -1,0 +1,26 @@
+@import '~src/styles/mixins';
+
+section.scroll-progress {
+  h1 {
+    padding: 16px;
+  }
+  form.controls {
+    @include mat-elevation(4);
+    background-color: white;
+    padding: 8px;
+    border-radius: 4px;
+    min-width: 300px;
+    position: fixed;
+    top: 16px;
+    right: 24px;
+    display: flex;
+    flex-direction: column;
+    z-index: 1000;
+    .note {
+      font-size: 0.8em;
+      font-weight: 200;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+    }
+  }
+}
