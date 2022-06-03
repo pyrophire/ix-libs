@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root',
@@ -25,7 +25,7 @@ export class IxFormsHelperService {
     return dirtyValues;
   }
 
-  public hasValidationError(control: FormControl, errorCode: string): boolean {
+  public hasValidationError(control: UntypedFormControl, errorCode: string): boolean {
     return control.hasError(errorCode) && control.touched;
   }
 

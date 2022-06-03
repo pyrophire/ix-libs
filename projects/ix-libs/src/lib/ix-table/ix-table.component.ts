@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import * as _ from 'lodash';
 import { IxTableColumn } from './ix-table-column.model';
 import { IxTableSort } from './ix-table-sort.model';
@@ -54,10 +54,10 @@ export class IxTableComponent implements OnInit {
   activeFilter: string;
   headerColumns: string;
 
-  filterForm: FormGroup;
-  filter = new FormControl({ value: null, disabled: false }, []);
+  filterForm: UntypedFormGroup;
+  filter = new UntypedFormControl({ value: null, disabled: false }, []);
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: UntypedFormBuilder) {}
 
   //#region filter form
 
