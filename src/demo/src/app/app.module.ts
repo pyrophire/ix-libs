@@ -9,8 +9,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
-import { IxPipesModule, IxScrollModule, IxScrollProgressModule, IxThemeButtonModule } from 'ix-libs';
 import { NgxJsonViewerModule } from 'ngx-json-viewer';
+import { TableComponent } from 'src/demo/src/app/table/table.component';
+import {
+  IxPipesModule,
+  IxScrollModule,
+  IxScrollProgressModule,
+  IxTableHeaderModule,
+  IxThemeButtonModule
+} from '../../../../projects/ix-libs/src/public_api';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DarkModeButtonComponent } from './dark-mode-button/dark-mode-button.component';
@@ -35,7 +42,8 @@ export const CUSTOM_MAT_COLOR_FORMATS: MatColorFormats = {
     IconsComponent,
     PipesComponent,
     ScrollTopButtonComponent,
-    DarkModeButtonComponent
+    DarkModeButtonComponent,
+    TableComponent
   ],
   imports: [
     BrowserModule,
@@ -47,6 +55,7 @@ export const CUSTOM_MAT_COLOR_FORMATS: MatColorFormats = {
     IxScrollModule,
     IxScrollProgressModule,
     IxThemeButtonModule,
+    IxTableHeaderModule,
     RouterModule,
     FormsModule,
     ReactiveFormsModule,

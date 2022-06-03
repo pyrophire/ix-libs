@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { TableComponent } from 'src/demo/src/app/table/table.component';
 import { DarkModeButtonComponent } from './dark-mode-button/dark-mode-button.component';
 import { HomeComponent } from './home/home.component';
 import { IconsComponent } from './icons/icons.component';
@@ -32,6 +33,10 @@ const routes: Routes = [
   {
     path: 'scroll-top-button',
     component: ScrollTopButtonComponent
+  },
+  {
+    path: 'table',
+    component: TableComponent
   },
   {
     path: 'services',

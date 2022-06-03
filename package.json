@@ -30,7 +30,6 @@
     "@angular/platform-browser": "~13.2.0",
     "@angular/platform-browser-dynamic": "~13.2.0",
     "@angular/router": "~13.2.0",
-    "ix-libs": "file:./dist/ix-libs/ix-libs-13.1.4.tgz",
     "material": "^0.4.3",
     "ngx-json-viewer": "^3.0.2",
     "rxjs": "~7.5.2",

@@ -17,6 +17,8 @@ export * from './lib/ix-scroll-progress/ix-scroll-progress.module';
 export * from './lib/ix-scroll/ix-scroll.component';
 export * from './lib/ix-scroll/ix-scroll.module';
 export * from './lib/ix-scroll/ix-scroll.service';
+export * from './lib/ix-table-header/ix-table-header.component';
+export * from './lib/ix-table-header/ix-table-header.module';
 export * from './lib/ix-table/ix-table-column.model';
 export * from './lib/ix-table/ix-table-sort.model';
 export * from './lib/ix-table/ix-table.component';

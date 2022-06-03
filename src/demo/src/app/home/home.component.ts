@@ -36,6 +36,11 @@ export class HomeComponent implements OnInit {
       title: 'Services',
       description: 'Collection of helper services.',
       url: '/services'
+    },
+    {
+      title: 'Table',
+      description: 'Components used for displaying data in a table.',
+      url: '/table'
     }
   ];
   constructor() {}

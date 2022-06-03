@@ -8,11 +8,21 @@ body {
 }
 button.scroll-top {
   position: fixed;
-  bottom: 8px;
-  right: 16px;
   transition: all ease-in-out 0.25s;
   transform: scale(1);
   &.hidden {
     transform: scale(0);
+  }
+  &.top {
+    top: 8px;
+  }
+  &.bottom {
+    bottom: 8px;
+  }
+  &.right {
+    right: 16px;
+  }
+  &.left {
+    left: 16px;
   }
 }

@@ -20,8 +20,8 @@ import { IxTableComponent } from './ix-table.component';
     MatProgressSpinnerModule,
     ReactiveFormsModule,
     ScrollingModule,
-    IxPipesModule,
+    IxPipesModule
   ],
-  exports: [IxTableComponent],
+  exports: [IxTableComponent]
 })
 export class IxTableModule {}
