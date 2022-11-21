@@ -16,6 +16,7 @@ import {
   IxScrollModule,
   IxScrollProgressModule,
   IxTableHeaderModule,
+  IxTableModule,
   IxThemeButtonModule
 } from '../../../../projects/ix-libs/src/public_api';
 import { AppRoutingModule } from './app-routing.module';
@@ -51,7 +52,7 @@ export const CUSTOM_MAT_COLOR_FORMATS: MatColorFormats = {
     BrowserAnimationsModule,
     MaterialModule,
     IxPipesModule,
-    // IxTableModule,
+    IxTableModule,
     IxScrollModule,
     IxScrollProgressModule,
     IxThemeButtonModule,

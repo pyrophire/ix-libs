@@ -1,445 +1,57 @@
 @import '~src/styles/mixins';
 
-article.sortable-list {
-  @include flex(column, stretch, stretch, nowrap);
-  border: 1px solid rgba(grey, 0.25);
+article.ix-table {
+  border: 1px solid rgba(grey, 0.375);
 
-  > form.filter {
-    min-height: 72px;
+  .headers,
+  .row {
+    min-width: 400px;
+    display: flex;
+    gap: 8px;
 
-    background-color: $background1;
-    padding: 4px 8px;
-    @include desktop() {
-      @include flex(row, center, center, nowrap);
-    }
-    @include mobile() {
-      @include flex(row, center, center, wrap);
-      .custom-filters {
-        flex: 1 0 100% !important;
-        width: 100%;
-      }
-    }
-    .list-title {
-      font-size: 1.2em;
-      font-weight: 600;
-    }
-    mat-form-field,
-    .custom-filters {
-      flex: 1 1 50%;
-      margin-left: 8px;
-      margin-right: 8px;
-    }
-    .list-buttons {
-      button {
-        margin-left: 8px;
-      }
+    >div {
+      padding: 4px 8px;
+      align-self: center;
     }
   }
-  .list-items {
-    .list-headers,
-    .list-item {
-      display: grid;
-      column-gap: 8px;
-      &.empty {
-        padding: 8px 16px;
-        font-size: 1.2em;
-        opacity: 0.6;
-      }
 
-      @include desktop() {
-        column-gap: 48px;
-      }
-      .column,
-      .list-item-column {
-        padding: 4px 8px;
-        min-width: 0;
-        overflow-wrap: break-word;
-        @include flex(row, center, flex-start, nowrap);
+  .headers {
+    position: sticky;
+    top: 0;
+    z-index: 101;
 
-        &.truncate {
-          @include truncate();
-        }
-      }
-      .list-item-column {
-        > div {
-          overflow-wrap: break-word;
-          min-width: 10vw;
-        }
-      }
-    }
-    .list-headers {
+    >ix-table-header {
+      border-bottom: 1px solid rgba(grey, 0.375);
       position: sticky;
       top: 0;
-      background-color: rgba($background, 1);
-      z-index: 101;
-      @include mat-elevation(1);
-      .sort-header {
-        &.pointer {
-          cursor: pointer;
-        }
-        &.active {
-          font-weight: 600;
-        }
-      }
-      .column {
-        @include flex(row, center, flex-start, nowrap);
-        padding: 8px;
-        min-height: 24px;
-        .mat-icon {
-          line-height: 24px;
-        }
-      }
-    }
-    .list-item {
-      min-height: 48px;
-      &:not(:last-of-type) {
-        border-bottom: 1px solid rgba(grey, 0.25);
-      }
-      &.has-click-event {
-        cursor: pointer;
-        &:hover {
-          background-color: rgba($background1, 0.5);
-        }
-      }
-      &:hover {
-        .list-item-column:not(:last-of-type) {
-          border-right: 1px solid rgba(grey, 0.25);
-        }
-      }
-      .list-item-column {
-        border-left: 1px solid transparent;
-        &.controls-column {
-          @include flex(row, center, center, nowrap);
-          mat-icon {
-            opacity: 0.75;
-          }
-        }
-      }
     }
   }
-}
 
-.dark {
-  article.sortable-list {
-    > form.filter {
-      background-color: $backgroundDark1;
-    }
-    .list-items {
-      .list-headers,
-      .list-item {
-        &.has-click-event {
-          &:hover {
-            background-color: rgba($backgroundDark1, 0.5);
-          }
-        }
-      }
-      .list-headers {
-        background-color: rgba($backgroundDark, 1);
-      }
+  .row {
+    border-bottom: 1px solid rgba(grey, 0.25);
+
+    &:hover {
+      background-color: rgba(grey, 0.25);
     }
   }
 }
 
 .light {
-  $fg: #000;
-  $bar: lighten($fg, 5);
-  $bg: $background;
-  .ui-placeholder-container {
-    overflow: hidden;
-    padding: 8px 16px;
-    width: 100%;
-    @include ui-placeholder($fg, $bar, $bg);
-    .ui.placeholder {
-      max-width: 100% !important;
-    }
+  .ix-table {
+    background-color: white;
+  }
+
+  .headers {
+    background-color: white;
   }
 }
+
 .dark {
-  $fg: #fff;
-  $bar: darken($fg, 25);
-  $bg: $backgroundDark;
-  .ui-placeholder-container {
-    overflow: hidden;
-    padding: 8px 16px;
-    width: 100%;
-    @include ui-placeholder($fg, $bar, $bg);
-    .ui.placeholder {
-      max-width: 100% !important;
-    }
-  }
-}
-
-// UI Placeholder
-//
-// Markup: Will use ghost-loaders in place of progress spinners/bars
-// .light {
-//   $fg: #000;
-//   $bar: lighten($fg, 5);
-//   $bg: #fff;
-//   .ui-placeholder-container {
-//     width: 100%;
-//     @include ui-placeholder($fg, $bar, $bg);
-//     .ui.placeholder {
-//       max-width: 100% !important;
-//     }
-//   }
-// }
-// .dark {
-//   $fg: #fff;
-//   $bar: darken($fg, 25);
-//   $bg: #333;
-//   .ui-placeholder-container {
-//     width: 100%;
-//     @include ui-placeholder($fg, $bar, $bg);
-//     .ui.placeholder {
-//       max-width: 100% !important;
-//     }
-//   }
-// }
-//
-// Styleguide Vendor.ui-placeholder
-
-/*-------------------
-      Content
---------------------*/
-
-@mixin ui-placeholder($fg, $bar, $bg) {
-  .ui {
-    &.placeholder {
-      &.margin {
-        margin: 8px;
-      }
-      position: static;
-      overflow: hidden;
-      -webkit-animation: placeholderShimmer 2s linear;
-      animation: placeholderShimmer 2s linear;
-      -webkit-animation-iteration-count: infinite;
-      animation-iteration-count: infinite;
-      background-color: transparent;
-      background-image: -webkit-gradient(
-        linear,
-        left top,
-        right top,
-        from(rgba($fg, 0.08)),
-        color-stop(15%, rgba($fg, 0.15)),
-        color-stop(30%, rgba($fg, 0.08))
-      );
-      background-image: -webkit-linear-gradient(left, rgba($fg, 0.08) 0%, rgba($fg, 0.25) 15%, rgba($fg, 0.08) 30%);
-      background-image: linear-gradient(to right, rgba($fg, 0.08) 0%, rgba($fg, 0.25) 15%, rgba($fg, 0.08) 30%);
-      background-size: 1200px 100%;
-      max-width: 30rem;
-      + .ui.placeholder {
-        margin-top: 1rem;
-        -webkit-animation-delay: 0.15s;
-        animation-delay: 0.15s;
-        + .ui.placeholder {
-          -webkit-animation-delay: 0.3s;
-          animation-delay: 0.3s;
-          + .ui.placeholder {
-            -webkit-animation-delay: 0.45s;
-            animation-delay: 0.45s;
-            + .ui.placeholder {
-              -webkit-animation-delay: 0.6s;
-              animation-delay: 0.6s;
-              + .ui.placeholder {
-                -webkit-animation-delay: 0.75s;
-                animation-delay: 0.75s;
-                + .ui.placeholder {
-                  -webkit-animation-delay: 0.825s;
-                  animation-delay: 0.825s;
-                  + .ui.placeholder {
-                    -webkit-animation-delay: 1s;
-                    animation-delay: 1s;
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-      background-color: $bg;
-      > :before,
-      .image.header:after {
-        background-color: $bg;
-      }
-      .line {
-        background-color: $bg;
-        &:after {
-          background-color: $bg;
-        }
-      }
-      .image:not(.header):not(.ui) {
-        height: 100px;
-      }
-      .square.image:not(.header) {
-        height: 0px;
-        overflow: hidden;
-        /* 1/1 aspect ratio */
-        padding-top: 100%;
-      }
-      .rectangular.image:not(.header) {
-        height: 0px;
-        overflow: hidden;
-        /* 4/3 aspect ratio */
-        padding-top: 75%;
-      }
-      .line {
-        position: relative;
-        height: 0.85714286em;
-        &:before,
-        &:after {
-          top: 100%;
-          position: absolute;
-          content: '';
-          background-color: inherit;
-        }
-        &:before {
-          left: 0px;
-        }
-        &:after {
-          right: 0px;
-        }
-        margin-bottom: 0.5em;
-        &:before,
-        &:after {
-          height: 0.5em;
-        }
-        &:not(:first-child) {
-          margin-top: 0.5em;
-        }
-      }
-      .header {
-        position: relative;
-        overflow: hidden;
-      }
-      .line {
-        &:nth-child(1):after {
-          width: 8%;
-        }
-        &:nth-child(2):after {
-          width: 52%;
-        }
-        &:nth-child(3):after {
-          width: 20%;
-        }
-        &:nth-child(4):after {
-          width: 35%;
-        }
-        &:nth-child(5):after {
-          width: 65%;
-        }
-      }
-      .header .line {
-        margin-bottom: 0.64285714em;
-        &:before,
-        &:after {
-          height: 0.64285714em;
-        }
-        &:not(:first-child) {
-          margin-top: 0.64285714em;
-        }
-        &:after {
-          width: 20%;
-        }
-        &:nth-child(2):after {
-          width: 60%;
-        }
-      }
-      .image {
-        &.header {
-          .line {
-            margin-left: 3em;
-            &:before {
-              width: 0.71428571rem;
-            }
-          }
-          &:after {
-            display: block;
-            height: 0.85714286em;
-            content: '';
-            margin-left: 3em;
-          }
-        }
-        .line:first-child {
-          height: 0.01px;
-        }
-      }
-      .paragraph .line:first-child,
-      .header .line:first-child {
-        height: 0.01px;
-      }
-      .image:not(:first-child):before,
-      .paragraph:not(:first-child):before,
-      .header:not(:first-child):before {
-        height: 1.42857143em;
-        content: '';
-        display: block;
-      }
-    }
-    &.inverted.placeholder {
-      background-image: -webkit-gradient(
-        linear,
-        left top,
-        right top,
-        from(rgba($bg, 0.08)),
-        color-stop(15%, rgba($bg, 0.14)),
-        color-stop(30%, rgba($bg, 0.08))
-      );
-      background-image: -webkit-linear-gradient(left, rgba($bg, 0.08) 0%, rgba($bg, 0.14) 15%, rgba($bg, 0.08) 30%);
-      background-image: linear-gradient(to right, rgba($bg, 0.08) 0%, rgba($bg, 0.14) 15%, rgba($bg, 0.08) 30%);
-      background-color: $bar;
-      > :before,
-      .image.header:after {
-        background-color: $bar;
-      }
-      .line {
-        background-color: $bar;
-        &:after {
-          background-color: $bar;
-        }
-      }
-    }
-    &.placeholder {
-      .full.line.line.line:after {
-        width: 0%;
-      }
-      .very.long.line.line.line:after {
-        width: 10%;
-      }
-      .long.line.line.line:after {
-        width: 35%;
-      }
-      .medium.line.line.line:after {
-        width: 50%;
-      }
-      .short.line.line.line:after {
-        width: 65%;
-      }
-      .very.short.line.line.line:after {
-        width: 80%;
-      }
-    }
-    &.fluid.placeholder {
-      max-width: none;
-    }
-  }
-}
-@-webkit-keyframes placeholderShimmer {
-  0% {
-    background-position: -1200px 0;
+  .ix-table {
+    background-color: $backgroundDark;
   }
 
-  100% {
-    background-position: 1200px 0;
-  }
-}
-
-@keyframes placeholderShimmer {
-  0% {
-    background-position: -1200px 0;
-  }
-
-  100% {
-    background-position: 1200px 0;
+  .headers {
+    background-color: $backgroundDark;
   }
 }

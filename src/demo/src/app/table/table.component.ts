@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActiveSort, TableHeaderColumn } from 'projects/ix-libs/src/public_api';
+import { ActiveSort, IxTableColumn } from 'projects/ix-libs/src/public_api';
+import { MOCK_DATA } from './data.mock';
 
 @Component({
   selector: 'app-table',
@@ -8,47 +9,27 @@ import { ActiveSort, TableHeaderColumn } from 'projects/ix-libs/src/public_api';
 })
 export class TableComponent implements OnInit {
   activeSort: ActiveSort = {
-    prop: 'test',
+    prop: 'id',
     dir: 'desc'
   };
-
-  columns: TableHeaderColumn[] = [
+  columns: IxTableColumn[] = [
     {
-      title: 'Test',
-      prop: 'test',
-      class: 'test'
+      title: 'First Name',
+      prop: 'firstName',
+      sortable: true,
+      width: '200px'
     },
     {
-      title: 'Column',
-      prop: 'col',
-      class: 'col'
-    },
-    {
-      title: 'Column 2',
-      prop: 'col2',
-      class: 'col-2'
-    },
-    {
-      title: 'Column 3',
-      prop: 'col3',
-      class: 'col-3'
-    },
-    {
-      title: 'Column 4',
-      prop: 'col4',
-      class: 'col-4'
+      title: 'Last Name',
+      prop: 'lastName',
+      sortable: true,
+      width: '1fr'
     }
   ];
 
-  constructor() {}
+  data = MOCK_DATA;
 
-  onColumnSort(prop: string) {
-    if (this.activeSort?.prop === prop && this.activeSort.dir === 'asc') {
-      this.activeSort.dir = 'desc';
-    } else {
-      this.activeSort = { prop, dir: 'asc' };
-    }
-  }
+  constructor() {}
 
   ngOnInit(): void {}
 }
