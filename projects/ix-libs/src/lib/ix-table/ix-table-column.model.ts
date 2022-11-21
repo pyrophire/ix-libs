@@ -3,5 +3,5 @@ export class IxTableColumn {
   prop: string;
   sortable: boolean;
   width: any;
-  templateRef: string;
+  templateRef?: string;
 }

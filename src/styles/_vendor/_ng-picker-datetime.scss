@@ -5,7 +5,7 @@
 //
 // Styleguide Vendor.ng-picker-datetime
 
-@import "~src/styles/mixins";
+@import "src/styles/mixins";
 
 .cdk-global-overlay-wrapper {
   pointer-events: none;
@@ -325,10 +325,8 @@
     }
   }
 
-  .owl-dt-calendar-cell-active:focus
-    > .owl-dt-calendar-cell-content:not(.owl-dt-calendar-cell-selected),
-  :not(.owl-dt-calendar-cell-disabled):hover
-    > .owl-dt-calendar-cell-content:not(.owl-dt-calendar-cell-selected) {
+  .owl-dt-calendar-cell-active:focus>.owl-dt-calendar-cell-content:not(.owl-dt-calendar-cell-selected),
+  :not(.owl-dt-calendar-cell-disabled):hover>.owl-dt-calendar-cell-content:not(.owl-dt-calendar-cell-selected) {
     background-color: rgba(0, 0, 0, 0.04);
   }
 
@@ -489,7 +487,7 @@
     transition: background-color 0.1s linear;
   }
 
-  &:hover > .owl-dt-control-button-content {
+  &:hover>.owl-dt-control-button-content {
     background-color: rgba(0, 0, 0, 0.12);
   }
 
@@ -542,6 +540,7 @@
 }
 
 .owl-dt-inline-container {
+
   .owl-dt-calendar,
   .owl-dt-timer {
     width: 100%;
@@ -549,6 +548,7 @@
 }
 
 .owl-dt-popup-container {
+
   .owl-dt-calendar,
   .owl-dt-timer {
     width: 100%;
@@ -627,6 +627,7 @@
     background-color: $accent;
     color: set-inverse-text-color($accent);
   }
+
   border-radius: 4px;
 
   .owl-dt-control-button-content {
@@ -671,7 +672,7 @@
 .owl-dt-container-disabled,
 .owl-dt-trigger-disabled {
   opacity: 0.35;
-  filter: Alpha(Opacity = 35);
+  filter: Alpha(Opacity=35);
   background-image: none;
   cursor: default !important;
 }
@@ -725,7 +726,7 @@
     outline: 0;
   }
 
-  &:focus > .owl-dt-control-content {
+  &:focus>.owl-dt-control-content {
     background-color: rgba(0, 0, 0, 0.12);
   }
 }
@@ -745,6 +746,7 @@
 
 .dark {
   color: white;
+
   .cdk-overlay-dark-backdrop {
     background: rgba($white, 0.288);
   }
@@ -818,10 +820,8 @@
       }
     }
 
-    .owl-dt-calendar-cell-active:focus
-      > .owl-dt-calendar-cell-content:not(.owl-dt-calendar-cell-selected),
-    :not(.owl-dt-calendar-cell-disabled):hover
-      > .owl-dt-calendar-cell-content:not(.owl-dt-calendar-cell-selected) {
+    .owl-dt-calendar-cell-active:focus>.owl-dt-calendar-cell-content:not(.owl-dt-calendar-cell-selected),
+    :not(.owl-dt-calendar-cell-disabled):hover>.owl-dt-calendar-cell-content:not(.owl-dt-calendar-cell-selected) {
       background-color: rgba($white, 0.04);
     }
 
@@ -829,6 +829,7 @@
       background: rgba($accentDark, 0.2);
     }
   }
+
   .owl-dt-timer-content {
     .owl-dt-timer-input {
       border: 1px solid rgba($white, 0.5);
@@ -847,13 +848,14 @@
 
   .owl-dt-control-button {
     color: currentColor;
+
     path {
       fill: currentColor;
     }
   }
 
   .owl-dt-control-period-button {
-    &:hover > .owl-dt-control-button-content {
+    &:hover>.owl-dt-control-button-content {
       background-color: rgba($white, 0.12);
     }
   }
@@ -881,6 +883,7 @@
       background-color: $accentDark;
       color: set-inverse-text-color($accentDark);
     }
+
     &:hover .owl-dt-control-button-content {
       background-color: rgba($white, 0.1);
     }
@@ -902,6 +905,7 @@
     color: $accentDark;
 
     .owl-dt-timer-hour12-box {
+
       &:focus .owl-dt-control-button-content,
       &:hover .owl-dt-control-button-content {
         background: $accentDark;
@@ -911,7 +915,7 @@
   }
 
   .owl-dt-control {
-    &:focus > .owl-dt-control-content {
+    &:focus>.owl-dt-control-content {
       background-color: rgba($white, 0.12);
     }
   }

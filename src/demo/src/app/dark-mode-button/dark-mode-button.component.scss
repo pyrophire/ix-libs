@@ -1,4 +1,4 @@
-@import '~src/styles/mixins';
+@import 'src/styles/mixins';
 
 section.dark-mode-button {
   @include page-padding(16, 8);
@@ -11,6 +11,7 @@ section.dark-mode-button {
     grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
     grid-template-rows: auto;
     grid-gap: 16px;
+
     button {
       align-self: flex-start;
     }

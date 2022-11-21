@@ -1,4 +1,4 @@
-@import '~src/styles/mixins';
+@import 'src/styles/mixins';
 
 ix-table-header {
   color: rgba(0, 0, 0, 0.54);
@@ -9,9 +9,11 @@ ix-table-header {
   user-select: none;
   min-height: 32px;
   @include flex(row, center, stretch, nowrap);
-  > div {
+
+  >div {
     @include flex(row, center, stretch, nowrap);
   }
+
   .pointer {
     cursor: pointer;
   }
