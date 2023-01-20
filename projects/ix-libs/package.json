@@ -1,6 +1,7 @@
 {
   "name": "ix-libs",
   "version": "15.0.0",
+  "version": "15.0.0",
   "license": "MIT",
   "description": "Component libraries for the IX team",
   "author": "Phire",

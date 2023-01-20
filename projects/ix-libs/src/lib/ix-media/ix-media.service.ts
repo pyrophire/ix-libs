@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { MediaObserver, MediaChange } from '@angular/flex-layout';
+import { MediaChange, MediaObserver } from '@angular/flex-layout';
 import { filter, map } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class IxMediaQueryService {
   public mq: string;
@@ -43,12 +43,11 @@ export class IxMediaQueryService {
     if (this.medias) {
       return this._mediaChecker(this.medias, mqString);
     } else {
-      this.media.asObservable().pipe(
-        filter((changes: MediaChange[]) => changes.length > 0),
-        map((changes: MediaChange[]) => {
-          this._mediaChecker(changes, mqString);
-        })
-      );
+      this.media.asObservable().pipe;
+      filter((changes: any[]): boolean => changes.length > 0);
+      map((changes: any[]) => {
+        this._mediaChecker(changes, mqString);
+      });
     }
   }
 }
