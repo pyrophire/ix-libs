@@ -16,27 +16,32 @@ export class TableComponent implements OnInit {
     {
       title: 'Test',
       prop: 'test',
-      class: 'test'
+      class: 'test',
+      sortable: true
     },
     {
       title: 'Column',
       prop: 'col',
-      class: 'col'
+      class: 'col',
+      sortable: true
     },
     {
       title: 'Column 2',
       prop: 'col2',
-      class: 'col-2'
+      class: 'col-2',
+      sortable: true
     },
     {
       title: 'Column 3',
       prop: 'col3',
-      class: 'col-3'
+      class: 'col-3',
+      sortable: true
     },
     {
       title: 'Column 4',
       prop: 'col4',
-      class: 'col-4'
+      class: 'col-4',
+      sortable: false
     }
   ];
 

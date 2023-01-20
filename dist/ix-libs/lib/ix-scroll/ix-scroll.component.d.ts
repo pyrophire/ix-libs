@@ -20,5 +20,5 @@ export declare class ScrollTopButtonComponent implements OnInit {
     watchScroll(): void;
     ngOnInit(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<ScrollTopButtonComponent, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<ScrollTopButtonComponent, "ix-scroll-button", never, { "color": "color"; "scrollableElementId": "scrollableElementId"; "isScrollable": "isScrollable"; "scrollHeightTrigger": "scrollHeightTrigger"; "verticalButtonPosition": "verticalButtonPosition"; "horizontalButtonPosition": "horizontalButtonPosition"; }, {}, never, never, false>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<ScrollTopButtonComponent, "ix-scroll-button", never, { "color": "color"; "scrollableElementId": "scrollableElementId"; "isScrollable": "isScrollable"; "scrollHeightTrigger": "scrollHeightTrigger"; "verticalButtonPosition": "verticalButtonPosition"; "horizontalButtonPosition": "horizontalButtonPosition"; }, {}, never, never, false, never>;
 }

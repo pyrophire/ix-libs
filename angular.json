@@ -63,6 +63,12 @@
               "src/demo/src/styles.scss",
               "src/styles/_themes.scss"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "./src",
+                "./node_modules"
+              ]
+            },
             "scripts": []
           },
           "configurations": {

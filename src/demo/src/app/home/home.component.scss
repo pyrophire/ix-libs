@@ -1,4 +1,5 @@
-@import '~src/styles/mixins';
+@import 'src/styles/mixins';
+
 .links {
   @include page-padding(16, 8);
   display: grid;
