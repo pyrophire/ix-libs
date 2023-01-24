@@ -14,16 +14,34 @@ export class TableComponent implements OnInit {
   };
   columns: IxTableColumn[] = [
     {
-      title: 'First Name',
-      prop: 'firstName',
+      title: 'Test',
+      prop: 'test',
       sortable: true,
-      width: '200px'
+      width: '100px'
     },
     {
-      title: 'Last Name',
-      prop: 'lastName',
+      title: 'Column',
+      prop: 'col',
       sortable: true,
-      width: '1fr'
+      width: '100px'
+    },
+    {
+      title: 'Column 2',
+      prop: 'col2',
+      sortable: true,
+      width: '100px'
+    },
+    {
+      title: 'Column 3',
+      prop: 'col3',
+      sortable: true,
+      width: '100px'
+    },
+    {
+      title: 'Column 4',
+      prop: 'col4',
+      sortable: true,
+      width: '100px'
     }
   ];
 
