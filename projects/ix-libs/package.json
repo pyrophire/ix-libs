@@ -1,7 +1,6 @@
 {
   "name": "ix-libs",
   "version": "15.0.0",
-  "version": "15.0.0",
   "license": "MIT",
   "description": "Component libraries for the IX team",
   "author": "Phire",
@@ -21,6 +20,7 @@
     "@angular/cli": "^15.1.1",
     "@angular/flex-layout": "^13.0.0-beta.38",
     "filesize": "^8.0.7",
+    "rxjs": "^7.8.0",
     "tslib": "^2.0.0"
   }
 }

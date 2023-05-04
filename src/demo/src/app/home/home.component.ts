@@ -41,6 +41,11 @@ export class HomeComponent implements OnInit {
       title: 'Table',
       description: 'Components used for displaying data in a table.',
       url: '/table'
+    },
+    {
+      title: 'Version Update Checker',
+      description: 'Service and dailog used to check to see if  client has a new update',
+      url: '/check-update'
     }
   ];
   constructor() {}

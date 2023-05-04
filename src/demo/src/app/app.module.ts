@@ -1,9 +1,10 @@
 import {
-  MatColorFormats,
   MAT_COLOR_FORMATS,
-  NgxMatColorPickerModule,
-  NGX_MAT_COLOR_FORMATS
+  MatColorFormats,
+  NGX_MAT_COLOR_FORMATS,
+  NgxMatColorPickerModule
 } from '@angular-material-components/color-picker';
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -62,7 +63,8 @@ export const CUSTOM_MAT_COLOR_FORMATS: MatColorFormats = {
     ReactiveFormsModule,
     NgxJsonViewerModule,
     MaterialModule,
-    NgxMatColorPickerModule
+    NgxMatColorPickerModule,
+    HttpClientModule
   ],
   providers: [{ provide: MAT_COLOR_FORMATS, useValue: NGX_MAT_COLOR_FORMATS }],
   bootstrap: [AppComponent]

@@ -1,28 +1,22 @@
-import { Injectable, Inject, OnInit } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
+import { Inject, Injectable } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 
 import { IxLocalStorageService } from '../shared/local-storage.service';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class IxDarkService {
   prefersDark: boolean;
   localStorageLightDark: string;
   currentMode: string;
   themeStream = new ReplaySubject<string>();
-  sorageService: IxLocalStorageService;
+  storageService: IxLocalStorageService;
 
-  constructor(
-    @Inject(DOCUMENT) private document: any,
-    sorageService: IxLocalStorageService
-  ) {
-    this.prefersDark =
-      window.matchMedia &&
-      window.matchMedia('(prefers-color-scheme: dark)').matches;
-    this.sorageService = sorageService;
-    this.localStorageLightDark = sorageService.getItem('DarkModePref');
+  constructor(@Inject(DOCUMENT) private document: any, storageService: IxLocalStorageService) {
+    this.prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    this.localStorageLightDark = this.storageService.getItem('DarkModePref');
   }
   // ******************************************************************************
   // This service requires Angular Material's theming to have two themes
@@ -56,7 +50,11 @@ export class IxDarkService {
     }
   }
 
-  // used to toggle light/dark themes
+  // This function toggles between light and dark mode.
+  // It is used in the app.component.ts file.
+  // The classes 'light' and 'dark' are added to the body tag.
+  // The themeStream is used to update the theme in the header component.
+
   public toggleDarkLightMode(): void {
     if (this.localStorageLightDark === 'light') {
       this._toggleBodyClasses('dark');
@@ -68,8 +66,8 @@ export class IxDarkService {
   }
 
   private _toggleBodyClasses(colorToSet): void {
-    this.sorageService.setItem('DarkModePref', colorToSet);
-    this.localStorageLightDark = this.sorageService.getItem('DarkModePref');
+    this.storageService.setItem('DarkModePref', colorToSet);
+    this.localStorageLightDark = this.storageService.getItem('DarkModePref');
     if (colorToSet.toLowerCase() === 'dark') {
       this.document.body.classList.remove('light');
       this.document.body.classList.add(colorToSet);

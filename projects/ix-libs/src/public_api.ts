@@ -2,6 +2,8 @@
  * Public API Surface of ix-libs
  */
 
+export * from './lib/ix-check-update/ix-check-update.module';
+export * from './lib/ix-check-update/ix-check-update.service';
 export * from './lib/ix-dark/ix-dark.service';
 export * from './lib/ix-icons/ix-icons.module';
 export * from './lib/ix-media/ix-media.service';
