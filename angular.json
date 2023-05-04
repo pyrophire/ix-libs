@@ -12,9 +12,6 @@
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
-            "allowedCommonJsDependencies": [
-              "lodash"
-            ],
             "tsConfig": "projects/ix-libs/tsconfig.lib.json",
             "project": "projects/ix-libs/ng-package.json"
           },

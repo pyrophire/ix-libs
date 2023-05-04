@@ -1,5 +1,3 @@
-@import 'src/styles/mixins';
-
 ix-table-header {
   color: rgba(0, 0, 0, 0.54);
   padding: 4px 8px;
@@ -8,10 +6,18 @@ ix-table-header {
   width: 100%;
   user-select: none;
   min-height: 32px;
-  @include flex(row, center, stretch, nowrap);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: stretch;
+  flex-wrap: nowrap;
 
   >div {
-    @include flex(row, center, stretch, nowrap);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: stretch;
+    flex-wrap: nowrap;
   }
 
   .pointer {

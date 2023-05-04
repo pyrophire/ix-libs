@@ -9,7 +9,9 @@
     "@angular/cli",
     "@angular/material",
     "@angular/flex-layout",
-    "filesize"
+    "filesize",
+    "lodash",
+    "rxjs"
   ],
   "assets": [
     "./ix-img/**"
