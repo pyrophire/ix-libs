@@ -1,6 +1,6 @@
 {
   "name": "ix-libs",
-  "version": "16.0.0",
+  "version": "16.0.2",
   "license": "MIT",
   "description": "Component libraries for the IX team",
   "author": "Phire",
@@ -16,10 +16,11 @@
     "@angular/platform-browser": "^16.0.0",
     "@angular/platform-browser-dynamic": "^16.0.0",
     "rxjs": "^7.8.0",
-    "@angular/cli": "^16.0.0",
-    "@angular/flex-layout": "^13.0.0-beta.38",
-    "filesize": "^8.0.7",
-    "tslib": "^2.0.0"
+    "tslib": "^2.0.0",
+    "@angular/cli": "^16.0.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@angular/flex-layout": "^13.0.0-beta.38",
+    "filesize": "^8.0.7"
+  }
 }

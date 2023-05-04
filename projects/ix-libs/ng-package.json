@@ -10,8 +10,7 @@
     "@angular/material",
     "@angular/flex-layout",
     "filesize",
-    "lodash",
-    "rxjs"
+    "lodash"
   ],
   "assets": [
     "./ix-img/**"

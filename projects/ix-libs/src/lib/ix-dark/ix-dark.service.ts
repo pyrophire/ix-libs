@@ -12,9 +12,8 @@ export class IxDarkService {
   localStorageLightDark: string;
   currentMode: string;
   themeStream = new ReplaySubject<string>();
-  storageService: IxLocalStorageService;
 
-  constructor(@Inject(DOCUMENT) private document: any, storageService: IxLocalStorageService) {
+  constructor(@Inject(DOCUMENT) private document: any, private storageService: IxLocalStorageService) {
     this.prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
     this.localStorageLightDark = this.storageService.getItem('DarkModePref');
   }
