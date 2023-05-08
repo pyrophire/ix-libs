@@ -8,7 +8,6 @@
     "tslib",
     "@angular/cli",
     "@angular/material",
-    "@angular/flex-layout",
     "filesize",
     "lodash"
   ],

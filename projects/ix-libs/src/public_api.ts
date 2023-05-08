@@ -4,7 +4,6 @@
 
 export * from './lib/ix-dark/ix-dark.service';
 export * from './lib/ix-icons/ix-icons.module';
-export * from './lib/ix-media/ix-media.service';
 export * from './lib/ix-pipes/ampm.pipe';
 export * from './lib/ix-pipes/camel-to-title.pipe';
 export * from './lib/ix-pipes/file-size.pipe';
