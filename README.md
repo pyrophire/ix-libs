@@ -1,3 +1,4 @@
+[![Publish Package](https://github.com/pyrophire/ix-libs/actions/workflows/npm-publish.yml/badge.svg)](https://github.com/pyrophire/ix-libs/actions/workflows/npm-publish.yml)
 
 # IX Libraries & Services
 License: MIT
