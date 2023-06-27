@@ -10,7 +10,7 @@
     "package": "npm run build && npm run pack",
     "readme": "cp .README.md /projects/ix-libs",
     "publish": "cd dist/ix-libs && npm publish",
-    "library-deps": "cd /projects/ix-libs && npm install --legacy-peer-deps",
+    "library-deps": "cd projects/ix-libs && npm install --legacy-peer-deps",
     "license-checker": "license-checker  --relativeLicensePath --production --json --out license.json",
     "update-cli": "ng update @angular/cli --force -C",
     "update-core": "ng update @angular/core --force -C",
