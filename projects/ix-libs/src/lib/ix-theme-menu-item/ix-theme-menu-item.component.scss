@@ -1,0 +1,13 @@
+#dark-mode-button {
+  mat-icon {
+    &.light-button {
+      transform: rotate(0deg);
+      transition: transform cubic-bezier(0.4, 0, 0.2, 1) 225ms;
+    }
+
+    &.dark-button {
+      transform: rotate(180deg);
+      transition: transform cubic-bezier(0.4, 0, 0.2, 1) 225ms;
+    }
+  }
+}
