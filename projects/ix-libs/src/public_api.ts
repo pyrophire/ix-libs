@@ -24,6 +24,8 @@ export * from './lib/ix-table/ix-table.component';
 export * from './lib/ix-table/ix-table.module';
 export * from './lib/ix-theme-button/ix-theme-button.component';
 export * from './lib/ix-theme-button/ix-theme-button.module';
+export * from './lib/ix-theme-menu-item/ix-theme-menu-item.component';
+export * from './lib/ix-theme-menu-item/ix-theme-menu-item.module';
 export * from './lib/shared/forms-helper.service';
 export * from './lib/shared/local-storage.service';
 export * from './lib/shared/session-storage.service';

@@ -1,0 +1,8 @@
+<div mat-menu-item
+     id="dark-mode-div"
+     (click)="toggleDarkMode()">
+  <mat-icon [ngClass]="{'dark-button': theme === 'dark', 'light-button': theme === 'light'}">
+    brightness_6
+  </mat-icon>
+  Dark Mode
+</div>

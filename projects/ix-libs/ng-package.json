@@ -8,8 +8,7 @@
     "tslib",
     "@angular/cli",
     "@angular/material",
-    "filesize",
-    "lodash"
+    "filesize"
   ],
   "assets": [
     "./ix-img/**"
