@@ -1,7 +1,8 @@
 <button mat-mini-fab
+        aria-label="Scroll to top"
         class="scroll-top {{verticalButtonPosition}} {{horizontalButtonPosition}}"
         (click)="scrollToTop()"
         [ngClass]="{'hidden': !isScrollable || !showScrollButton, 'mat-primary': color === 'primary', 'mat-accent': color ===
   'accent'}">
-    <mat-icon>arrow_upward</mat-icon>
+  <mat-icon>arrow_upward</mat-icon>
 </button>

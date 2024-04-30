@@ -1,4 +1,7 @@
-<button mat-icon-button id="dark-mode-button" (click)="toggleDarkMode()">
+<button mat-icon-button
+        id="dark-mode-button"
+        (click)="toggleDarkMode()"
+        aria-label="Change theme">
   <mat-icon [ngClass]="{'dark-button': theme === 'dark', 'light-button': theme === 'light'}">
     brightness_6
   </mat-icon>
