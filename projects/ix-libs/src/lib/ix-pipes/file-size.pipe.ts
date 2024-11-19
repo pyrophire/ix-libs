@@ -1,17 +1,15 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import * as filesize_ from 'filesize';
 
 @Pipe({
-  name: 'filesize',
+  name: 'filesize'
 })
 export class FileSizePipe implements PipeTransform {
-  private static transformOne(value: number, options?: any): string {
-    if (typeof value === 'number') {
-      const filesize = filesize_;
-      return filesize(value, options);
-    } else {
-      return value;
-    }
+  private static transformOne(bytes: number, options?: any): string {
+    if (isNaN(bytes) || bytes === 0) return '0 Bytes';
+
+    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(1024));
+    return `${parseFloat((bytes / Math.pow(1024, i)).toFixed(2))} ${sizes[i]}`;
   }
 
   transform(value: number | number[], options?: any) {
