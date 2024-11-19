@@ -42,7 +42,7 @@
           "strict": true
         }
       },
-      "root": "projects/demo",
+      "root": "",
       "sourceRoot": "src",
       "prefix": "app",
       "architect": {
