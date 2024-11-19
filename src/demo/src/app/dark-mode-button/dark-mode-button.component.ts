@@ -1,9 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-dark-mode-button',
-  templateUrl: './dark-mode-button.component.html',
-  styleUrls: ['./dark-mode-button.component.scss']
+    selector: 'app-dark-mode-button',
+    templateUrl: './dark-mode-button.component.html',
+    styleUrls: ['./dark-mode-button.component.scss'],
+    standalone: false
 })
 export class DarkModeButtonComponent implements OnInit, OnDestroy {
   constructor() {}

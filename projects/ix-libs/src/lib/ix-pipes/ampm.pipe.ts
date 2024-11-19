@@ -1,7 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'ampm'
+    name: 'ampm',
+    standalone: false
 })
 export class AmPmPipe implements PipeTransform {
   transform(value: string, ...args: unknown[]): unknown {

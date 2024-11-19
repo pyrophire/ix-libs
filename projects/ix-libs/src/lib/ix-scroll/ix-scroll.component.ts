@@ -4,10 +4,11 @@ import { takeUntil } from 'rxjs/operators';
 import { ScrollButtonService } from './ix-scroll.service';
 
 @Component({
-  // tslint:disable-next-line: component-selector
-  selector: 'ix-scroll-button',
-  templateUrl: './ix-scroll.component.html',
-  styleUrls: ['./ix-scroll.component.scss']
+    // tslint:disable-next-line: component-selector
+    selector: 'ix-scroll-button',
+    templateUrl: './ix-scroll.component.html',
+    styleUrls: ['./ix-scroll.component.scss'],
+    standalone: false
 })
 export class ScrollTopButtonComponent implements OnInit {
   @Input() color: 'primary' | 'accent';

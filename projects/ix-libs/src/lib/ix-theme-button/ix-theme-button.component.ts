@@ -2,10 +2,11 @@ import { Component, NgZone, OnInit } from '@angular/core';
 import { IxDarkService } from '../ix-dark/ix-dark.service';
 
 @Component({
-  // tslint:disable-next-line: component-selector
-  selector: 'ix-theme-button',
-  templateUrl: './ix-theme-button.component.html',
-  styleUrls: ['./ix-theme-button.component.scss']
+    // tslint:disable-next-line: component-selector
+    selector: 'ix-theme-button',
+    templateUrl: './ix-theme-button.component.html',
+    styleUrls: ['./ix-theme-button.component.scss'],
+    standalone: false
 })
 export class ThemeButtonComponent implements OnInit {
   theme: string;

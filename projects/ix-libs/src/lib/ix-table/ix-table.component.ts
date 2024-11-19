@@ -5,10 +5,11 @@ import { ActiveSort } from '../../public_api';
 import { IxTableColumn } from './ix-table-column.model';
 
 @Component({
-  selector: 'ix-table',
-  templateUrl: './ix-table.component.html',
-  styleUrls: ['./ix-table.component.scss'],
-  encapsulation: ViewEncapsulation.None
+    selector: 'ix-table',
+    templateUrl: './ix-table.component.html',
+    styleUrls: ['./ix-table.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class IxTableComponent implements OnInit {
   @Input() columns: IxTableColumn[];

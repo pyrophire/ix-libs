@@ -2,10 +2,11 @@ import { Component, NgZone, OnInit } from '@angular/core';
 import { IxDarkService } from '../ix-dark/ix-dark.service';
 
 @Component({
-  // tslint:disable-next-line: component-selector
-  selector: 'ix-theme-menu-item',
-  templateUrl: './ix-theme-menu-item.component.html',
-  styleUrls: ['./ix-theme-menu-item.component.scss']
+    // tslint:disable-next-line: component-selector
+    selector: 'ix-theme-menu-item',
+    templateUrl: './ix-theme-menu-item.component.html',
+    styleUrls: ['./ix-theme-menu-item.component.scss'],
+    standalone: false
 })
 export class ThemeMenuItemComponent implements OnInit {
   theme: string;

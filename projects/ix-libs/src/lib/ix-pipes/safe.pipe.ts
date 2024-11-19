@@ -9,7 +9,8 @@ import {
 } from '@angular/platform-browser';
 
 @Pipe({
-  name: `safe`,
+    name: `safe`,
+    standalone: false
 })
 export class SafePipe implements PipeTransform {
   constructor(protected sanitizer: DomSanitizer) {}
