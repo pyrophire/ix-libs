@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 
 @Component({
-  selector: 'app-scroll-position',
-  templateUrl: './scroll-position.component.html',
-  styleUrls: ['./scroll-position.component.scss']
+    selector: 'app-scroll-position',
+    templateUrl: './scroll-position.component.html',
+    styleUrls: ['./scroll-position.component.scss'],
+    standalone: false
 })
 export class ScrollPositionComponent implements OnInit {
   form: UntypedFormGroup;

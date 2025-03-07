@@ -3,9 +3,10 @@ import { ActiveSort, IxTableColumn } from 'projects/ix-libs/src/public_api';
 import { MOCK_DATA } from './data.mock';
 
 @Component({
-  selector: 'app-table',
-  templateUrl: './table.component.html',
-  styleUrls: ['./table.component.scss']
+    selector: 'app-table',
+    templateUrl: './table.component.html',
+    styleUrls: ['./table.component.scss'],
+    standalone: false
 })
 export class TableComponent implements OnInit {
   activeSort: ActiveSort = {

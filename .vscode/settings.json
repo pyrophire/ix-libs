@@ -3,5 +3,6 @@
         "ipad",
         "iphone",
         "theming"
-    ]
+    ],
+    "angular.enable-strict-mode-prompt": false
 }

@@ -4,7 +4,7 @@ import {
   NGX_MAT_COLOR_FORMATS,
   NgxMatColorPickerModule
 } from '@angular-material-components/color-picker';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -36,37 +36,30 @@ export const CUSTOM_MAT_COLOR_FORMATS: MatColorFormats = {
   }
 };
 
-@NgModule({
-  declarations: [
-    AppComponent,
-    ScrollPositionComponent,
-    HomeComponent,
-    IconsComponent,
-    PipesComponent,
-    ScrollTopButtonComponent,
-    DarkModeButtonComponent,
-    TableComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MaterialModule,
-    IxPipesModule,
-    IxTableModule,
-    IxScrollModule,
-    IxScrollProgressModule,
-    IxThemeButtonModule,
-    IxTableHeaderModule,
-    RouterModule,
-    FormsModule,
-    ReactiveFormsModule,
-    NgxJsonViewerModule,
-    MaterialModule,
-    NgxMatColorPickerModule,
-    HttpClientModule
-  ],
-  providers: [{ provide: MAT_COLOR_FORMATS, useValue: NGX_MAT_COLOR_FORMATS }],
-  bootstrap: [AppComponent]
-})
+@NgModule({ declarations: [
+        AppComponent,
+        ScrollPositionComponent,
+        HomeComponent,
+        IconsComponent,
+        PipesComponent,
+        ScrollTopButtonComponent,
+        DarkModeButtonComponent,
+        TableComponent
+    ],
+    bootstrap: [AppComponent], imports: [BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        MaterialModule,
+        IxPipesModule,
+        IxTableModule,
+        IxScrollModule,
+        IxScrollProgressModule,
+        IxThemeButtonModule,
+        IxTableHeaderModule,
+        RouterModule,
+        FormsModule,
+        ReactiveFormsModule,
+        NgxJsonViewerModule,
+        MaterialModule,
+        NgxMatColorPickerModule], providers: [{ provide: MAT_COLOR_FORMATS, useValue: NGX_MAT_COLOR_FORMATS }, provideHttpClient(withInterceptorsFromDi())] })
 export class AppModule {}

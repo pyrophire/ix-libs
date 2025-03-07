@@ -1,25 +1,23 @@
 {
   "name": "ix-libs",
-  "version": "17.0.0",
+  "version": "19.0.0",
   "license": "MIT",
   "description": "Component libraries for the IX team",
   "author": "Phire",
   "scripts": {},
   "peerDependencies": {
-    "@angular/animations": "^17.0.2",
-    "@angular/cdk": "^17.0.0",
-    "@angular/common": "^17.0.2",
-    "@angular/compiler": "^17.0.2",
-    "@angular/core": "^17.0.2",
-    "@angular/forms": "^17.0.2",
-    "@angular/material": "^17.0.0",
-    "@angular/platform-browser": "^17.0.2",
-    "@angular/platform-browser-dynamic": "^17.0.2",
+    "@angular-material-components/color-picker": "^7.0.1",
+    "@angular/animations": "^19.0.0",
+    "@angular/cdk": "^19.0.0",
+    "@angular/common": "^19.0.0",
+    "@angular/compiler": "^19.0.0",
+    "@angular/core": "^19.0.0",
+    "@angular/forms": "^19.0.0",
+    "@angular/material": "^19.0.0",
+    "@angular/platform-browser": "^19.0.0",
+    "@angular/platform-browser-dynamic": "^19.0.0",
     "rxjs": "^7.8.0",
     "tslib": "^2.3.1",
     "@angular/cli": "^17.0.0"
-  },
-  "dependencies": {
-    "filesize": "^10.1.0"
   }
 }

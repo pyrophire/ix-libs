@@ -2,10 +2,11 @@ import { Component, Input, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { ProgressBarConfig } from './ix-scroll-progress-config.model';
 
 @Component({
-  // tslint:disable-next-line: component-selector
-  selector: 'ix-scroll-progress',
-  templateUrl: './ix-scroll-progress.component.html',
-  styleUrls: ['./ix-scroll-progress.component.scss']
+    // tslint:disable-next-line: component-selector
+    selector: 'ix-scroll-progress',
+    templateUrl: './ix-scroll-progress.component.html',
+    styleUrls: ['./ix-scroll-progress.component.scss'],
+    standalone: false
 })
 export class ScrollBarProgressComponent implements OnInit, OnDestroy {
   @Input() config: ProgressBarConfig;
