@@ -1,6 +1,6 @@
 {
-  "name": "ix-libs",
-  "version": "19.0.0",
+  "name": "@pyrophire/ix-libs",
+  "version": "19.1.0",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
