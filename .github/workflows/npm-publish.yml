@@ -40,4 +40,4 @@ jobs:
         run: |
           echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" > .npmrc
           cd dist/ix-libs
-          npm publish --access public
+          npm publish --provenance
