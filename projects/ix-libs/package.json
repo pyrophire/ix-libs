@@ -1,12 +1,11 @@
 {
   "name": "@pyrophire/ix-libs",
-  "version": "19.2.2",
+  "version": "19.3.0",
   "license": "MIT",
   "description": "Component libraries for the IX team",
   "author": "Phire",
   "scripts": {},
   "peerDependencies": {
-    "@angular-material-components/color-picker": "^7.0.1",
     "@angular/animations": "^19.0.0",
     "@angular/cdk": "^19.0.0",
     "@angular/common": "^19.0.0",
@@ -18,6 +17,6 @@
     "@angular/platform-browser-dynamic": "^19.0.0",
     "rxjs": "^7.8.0",
     "tslib": "^2.3.1",
-    "@angular/cli": "^17.0.0"
+    "@angular/cli": "^19.0.0"
   }
 }

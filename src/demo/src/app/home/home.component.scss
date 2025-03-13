@@ -1,9 +1,0 @@
- @use 'src/styles/mixins' as *;
-
- .links {
-   @include page-padding(16, 8);
-   display: grid;
-   grid-template-columns: repeat(auto-fill, minmax(20%, 1fr));
-   grid-template-rows: auto;
-   grid-gap: 8px;
- }
