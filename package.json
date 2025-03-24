@@ -1,6 +1,6 @@
 {
   "name": "@pyrophire/ix-libs",
-  "version": "19.3.0",
+  "version": "19.3.1",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
@@ -10,6 +10,7 @@
     "package": "npm run build && npm run pack",
     "readme": "cp .README.md /projects/ix-libs",
     "publish": "cd dist/ix-libs && npm publish",
+    "pack:publish": "npm run pack && npm run publish",
     "library-deps": "cd projects/ix-libs && npm install --legacy-peer-deps",
     "license-checker": "license-checker  --relativeLicensePath --production --json --out license.json",
     "update-cli": "ng update @angular/cli --force -C",
