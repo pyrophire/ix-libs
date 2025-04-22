@@ -34,34 +34,47 @@ export class IxSessionStorageService {
   /**
    * Save data to sessionStorage
    * @param key the key of the stored item
-   * @param value the value being stored
+   * @param value the value being stored (string, object, or array)
    */
-  public setItem(key: string, value: string): void {
+  public setItem(key: string, value: string | object | any[]): void {
+    const stringValue = typeof value === 'string' ? value : JSON.stringify(value);
     // pass through
     if (this.sessionStorageFeatureAvailable) {
-      window.sessionStorage.setItem(key, value);
+      window.sessionStorage.setItem(key, stringValue);
       return;
     }
 
     // fallback
     if (!this.sessionStorageFeatureAvailable) {
-      window[`ix`][key] = value;
+      window[`ix`][key] = stringValue;
     }
   }
 
   /**
    * Get saved data from sessionStorage
    * @param key the key of the stored item
+   * @returns The retrieved item (parsed if it was an object/array) or null if not found
    */
-  public getItem(key: string): string {
+  public getItem(key: string): any {
+    let value: string | null = null;
     // pass through
     if (this.sessionStorageFeatureAvailable) {
-      return window.sessionStorage.getItem(key);
+      value = window.sessionStorage.getItem(key);
+    } else {
+      // fallback
+      value = window[`ix`][key] || null;
     }
 
-    // fallback
-    if (!this.sessionStorageFeatureAvailable) {
-      return window[`ix`][key];
+    if (value === null) {
+      return null;
+    }
+
+    try {
+      // Attempt to parse the value as JSON
+      return JSON.parse(value);
+    } catch (e) {
+      // If parsing fails, return the original string value
+      return value;
     }
   }
 

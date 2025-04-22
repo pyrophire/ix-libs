@@ -1,4 +1,5 @@
-<div [ngClass]="{'pointer': sortable && activeSort}">
+<div [ngClass]="{'pointer': sortable && activeSort}"
+     role="columnheader">
     <span>{{title}}</span>
     <mat-icon *ngIf="sortable && activeSort && activeSort?.prop === prop">
         <ng-container *ngIf="activeSort?.dir === 'asc'">keyboard_arrow_up</ng-container>

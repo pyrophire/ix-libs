@@ -1,6 +1,6 @@
 {
   "name": "@pyrophire/ix-libs",
-  "version": "19.3.2",
+  "version": "19.4.0",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
@@ -20,22 +20,21 @@
     "update-all": "npm run update-cli && npm run update-core && npm run update-material && npm run update-rxjs"
   },
   "dependencies": {
-    "@angular/animations": "^19.0.0",
-    "@angular/cdk": "^19.0.0",
-    "@angular/common": "^19.0.0",
-    "@angular/compiler": "^19.0.0",
-    "@angular/core": "^19.0.0",
-    "@angular/forms": "^19.0.0",
-    "@angular/material": "^19.0.0",
-    "@angular/platform-browser": "^19.0.0",
-    "@angular/platform-browser-dynamic": "^19.0.0",
-    "@angular/router": "^19.0.0",
-    "rxjs": "~7.8.0",
-    "tslib": "^2.3.1",
+    "@angular/animations": "^19.2.7",
+    "@angular/cdk": "^19.2.10",
+    "@angular/common": "^19.2.7",
+    "@angular/compiler": "^19.2.7",
+    "@angular/core": "^19.2.7",
+    "@angular/forms": "^19.2.7",
+    "@angular/material": "^19.2.10",
+    "@angular/platform-browser": "^19.2.7",
+    "@angular/platform-browser-dynamic": "^19.2.7",
+    "@angular/router": "^19.2.7",
+    "rxjs": "^7.8.2",
+    "tslib": "^2.8.1",
     "zone.js": "~0.15.0"
   },
   "devDependencies": {
-    "ngx-json-viewer": "^3.0.2",
     "@angular-devkit/build-angular": "^19.0.0",
     "@angular/cli": "^19.0.0",
     "@angular/compiler-cli": "^19.0.0",
@@ -52,6 +51,7 @@
     "karma-jasmine": "~3.3.0",
     "karma-jasmine-html-reporter": "^1.5.0",
     "ng-packagr": "^19.0.0",
+    "ngx-json-viewer": "^3.0.2",
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
     "typescript": "~5.6.3"

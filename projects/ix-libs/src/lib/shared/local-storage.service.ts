@@ -32,34 +32,47 @@ export class IxLocalStorageService {
   /**
    * Save data to localStorage
    * @param key the key of the stored item
-   * @param value the value being stored
+   * @param value the value being stored (string, object, or array)
    */
-  public setItem(key: string, value: string): void {
+  public setItem(key: string, value: string | object | any[]): void {
+    const stringValue = typeof value === 'string' ? value : JSON.stringify(value);
     // pass through
     if (this.localStorageFeatureAvailable) {
-      window.localStorage.setItem(key, value);
+      window.localStorage.setItem(key, stringValue);
       return;
     }
 
     // fallback
     if (!this.localStorageFeatureAvailable) {
-      window[`ix`][key] = value;
+      window[`ix`][key] = stringValue;
     }
   }
 
   /**
    * Get saved data from localStorage
    * @param key the key of the stored item
+   * @returns The retrieved item (parsed if it was an object/array) or null if not found
    */
-  public getItem(key: string): string {
+  public getItem(key: string): any {
+    let value: string | null = null;
     // pass through
     if (this.localStorageFeatureAvailable) {
-      return window.localStorage.getItem(key);
+      value = window.localStorage.getItem(key);
+    } else {
+      // fallback
+      value = window[`ix`][key] || null;
     }
 
-    // fallback
-    if (!this.localStorageFeatureAvailable) {
-      return window[`ix`][key];
+    if (value === null) {
+      return null;
+    }
+
+    try {
+      // Attempt to parse the value as JSON
+      return JSON.parse(value);
+    } catch (e) {
+      // If parsing fails, return the original string value
+      return value;
     }
   }
 
