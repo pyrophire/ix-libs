@@ -1,6 +1,6 @@
 {
   "name": "@pyrophire/ix-libs",
-  "version": "19.4.0",
+  "version": "0.0.0",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
@@ -22,7 +22,7 @@
   "dependencies": {
     "@angular/animations": "^20.0.0",
     "@angular/cdk": "^20.0.1",
-    "@angular/cli": "^19.2.8",
+    "@angular/cli": "^20.0.0",
     "@angular/common": "^20.0.0",
     "@angular/compiler": "^20.0.0",
     "@angular/core": "^20.0.0",

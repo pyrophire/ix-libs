@@ -1,22 +1,22 @@
 {
   "name": "@pyrophire/ix-libs",
-  "version": "19.4.0",
+  "version": "20.0.0",
   "license": "MIT",
   "description": "Component libraries for the IX team",
   "author": "Phire",
   "scripts": {},
   "peerDependencies": {
-    "@angular/animations": "^19.0.0",
-    "@angular/cdk": "^19.0.0",
-    "@angular/common": "^19.0.0",
-    "@angular/compiler": "^19.0.0",
-    "@angular/core": "^19.0.0",
-    "@angular/forms": "^19.0.0",
-    "@angular/material": "^19.0.0",
-    "@angular/platform-browser": "^19.0.0",
-    "@angular/platform-browser-dynamic": "^19.0.0",
+    "@angular/animations": "^20.0.0",
+    "@angular/cdk": "^20.0.1",
+    "@angular/cli": "^20.0.0",
+    "@angular/common": "^20.0.0",
+    "@angular/compiler": "^20.0.0",
+    "@angular/core": "^20.0.0",
+    "@angular/forms": "^20.0.0",
+    "@angular/material": "^20.0.1",
+    "@angular/platform-browser": "^20.0.0",
+    "@angular/platform-browser-dynamic": "^20.0.0",
     "rxjs": "^7.8.0",
-    "tslib": "^2.3.1",
-    "@angular/cli": "^19.0.0"
+    "tslib": "^2.3.1"
   }
 }
