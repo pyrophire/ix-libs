@@ -1,39 +1,40 @@
- <article class="ix-table"
-          *ngIf="data?.length">
-     <div class="headers">
-         <ng-container *ngFor="let col of columns">
-             <ix-table-header [style.flexBasis]="col.width"
-                              [title]="col.title"
-                              [prop]="col.prop"
-                              [activeSort]="activeSort"
-                              [sortable]="col.sortable"
-                              (click)="onColumnSort(col.prop, col.sortable)"></ix-table-header>
-         </ng-container>
-     </div>
-     <mat-progress-bar mode="indeterminate"
-                       *ngIf="loading"></mat-progress-bar>
-     <!-- <cdk-virtual-scroll-viewport *ngIf="virtual"
-                                  [itemSize]="virtualItemSize"
-                                  class="virtual-viewport"
-                                  [style.height]="virtualViewportHeight">
-         <ng-container *cdkVirtualFor="let row of data">
-             <ng-content *ngFor="let col of columns"
-                         select="[col.prop]">
-             </ng-content>
-         </ng-container>
-     </cdk-virtual-scroll-viewport> -->
-
-     <ng-container *ngIf="!virtual">
-         <div *ngFor="let row of data"
-              class="row">
-             <ng-container *ngFor="let col of columns">
-
-                 <ng-container *ngTemplateOutlet="col.templateRef">
-
-                 </ng-container>
-
-             </ng-container>
-         </div>
-     </ng-container>
-
- </article>
+@if (data?.length) {
+  <article class="ix-table"
+    >
+    <div class="headers">
+      @for (col of columns; track col) {
+        <ix-table-header [style.flexBasis]="col.width"
+          [title]="col.title"
+          [prop]="col.prop"
+          [activeSort]="activeSort"
+          [sortable]="col.sortable"
+        (click)="onColumnSort(col.prop, col.sortable)"></ix-table-header>
+      }
+    </div>
+    @if (loading) {
+      <mat-progress-bar mode="indeterminate"
+      ></mat-progress-bar>
+    }
+    <!-- <cdk-virtual-scroll-viewport *ngIf="virtual"
+    [itemSize]="virtualItemSize"
+    class="virtual-viewport"
+    [style.height]="virtualViewportHeight">
+    <ng-container *cdkVirtualFor="let row of data">
+      <ng-content *ngFor="let col of columns"
+        select="[col.prop]">
+      </ng-content>
+    </ng-container>
+  </cdk-virtual-scroll-viewport> -->
+  @if (!virtual) {
+    @for (row of data; track row) {
+      <div
+        class="row">
+        @for (col of columns; track col) {
+          <ng-container *ngTemplateOutlet="col.templateRef">
+          </ng-container>
+        }
+      </div>
+    }
+  }
+</article>
+}
