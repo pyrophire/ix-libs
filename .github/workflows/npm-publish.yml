@@ -1,43 +1,77 @@
 name: NPM Publish Package
 
 on:
-  release:
-    types: [created]
+    release:
+        types: [published]
+
+permissions:
+    contents: read
+    id-token: write # Required for provenance
 
 jobs:
-  publish:
-    runs-on: ubuntu-latest
+    publish:
+        runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '18'
-          registry-url: https://registry.npmjs.org
-          always-auth: true
+            - name: Set up Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: '20'
+                  registry-url: https://registry.npmjs.org
+                  always-auth: true
 
-      - name: Install project dependencies
-        run: npm install --legacy-peer-deps
+            - name: Extract version from release tag
+              id: version
+              run: |
+                  # Extract version from tag (e.g., v1.2.3 -> 1.2.3)
+                  VERSION=$(echo ${{ github.event.release.tag_name }} | sed 's/^v//')
+                  echo "version=$VERSION" >> $GITHUB_OUTPUT
+                  echo "Publishing version: $VERSION"
 
-      - name: Install library dependencies
-        run: npm run library-deps
+            - name: Install project dependencies
+              run: npm ci --legacy-peer-deps
 
-      - name: Build library
-        run: npm run build
+            - name: Install library dependencies
+              run: npm run library-deps
 
-      - name: Package library
-        run: npm run pack
+            - name: Update package version
+              run: |
+                  # Update the library package.json with the release version
+                  cd projects/ix-libs
+                  npm version ${{ steps.version.outputs.version }} --no-git-tag-version
+                  cd ../..
 
-      - name: Authenticate with npm
-        run: npm config set //registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}
+            - name: Build library
+              run: npm run build
 
-      - name: Publish to npm
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: |
-          echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" > .npmrc
-          cd dist/ix-libs
-          npm publish --provenance
+            - name: Verify build output
+              run: |
+                  if [ ! -d "dist/ix-libs" ]; then
+                    echo "Build failed: dist/ix-libs directory not found"
+                    exit 1
+                  fi
+                  if [ ! -f "dist/ix-libs/package.json" ]; then
+                    echo "Build failed: package.json not found in dist"
+                    exit 1
+                  fi
+                  echo "Build verification passed"
+
+            - name: Package library
+              run: npm run pack
+
+            - name: Publish to npm
+              env:
+                  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+              run: |
+                  cd dist/ix-libs
+                  # Verify package contents
+                  echo "Package contents:"
+                  ls -la
+
+                  # Publish with provenance (requires id-token permission)
+                  npm publish --access public --provenance
+
+                  echo "✅ Successfully published @pyrophire/ix-libs@${{ steps.version.outputs.version }} to npm"
