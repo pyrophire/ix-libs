@@ -41,7 +41,30 @@ jobs:
               run: |
                   # Update the library package.json with the release version
                   cd projects/ix-libs
-                  npm version ${{ steps.version.outputs.version }} --no-git-tag-version
+                  CURRENT_VERSION=$(node -p "require('./package.json').version")
+                  TARGET_VERSION="${{ steps.version.outputs.version }}"
+
+                  echo "Current version: $CURRENT_VERSION"
+                  echo "Target version: $TARGET_VERSION"
+
+                  # Use jq to update the version directly in package.json
+                  if command -v jq &> /dev/null; then
+                    jq ".version = \"$TARGET_VERSION\"" package.json > package.json.tmp && mv package.json.tmp package.json
+                    echo "✅ Updated package.json version to $TARGET_VERSION using jq"
+                  else
+                    # Fallback: use node to update the version
+                    node -e "
+                      const fs = require('fs');
+                      const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
+                      pkg.version = '$TARGET_VERSION';
+                      fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2) + '\n');
+                      console.log('✅ Updated package.json version to $TARGET_VERSION using node');
+                    "
+                  fi
+
+                  # Verify the update
+                  NEW_VERSION=$(node -p "require('./package.json').version")
+                  echo "Verified new version: $NEW_VERSION"
                   cd ../..
 
             - name: Build library
