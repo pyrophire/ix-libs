@@ -85,6 +85,19 @@ jobs:
             - name: Package library
               run: npm run pack
 
+            - name: Verify npm authentication
+              env:
+                  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+              run: |
+                  echo "Checking npm authentication..."
+                  npm whoami
+                  echo "Checking package name availability..."
+                  PACKAGE_NAME=$(node -p "require('./dist/ix-libs/package.json').name")
+                  echo "Package name: $PACKAGE_NAME"
+
+                  # Check if package exists (ignore errors for new packages)
+                  npm view "$PACKAGE_NAME" version || echo "Package does not exist yet (this is normal for first publish)"
+
             - name: Publish to npm
               env:
                   NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
@@ -94,7 +107,16 @@ jobs:
                   echo "Package contents:"
                   ls -la
 
-                  # Publish with provenance (requires id-token permission)
+                  # Show package.json for verification
+                  echo "Package details:"
+                  cat package.json | jq '{name, version, description}'
+
+                  # Try dry run first
+                  echo "Performing dry run..."
+                  npm publish --dry-run --access public
+
+                  # Actual publish with provenance
+                  echo "Publishing to npm..."
                   npm publish --access public --provenance
 
-                  echo "✅ Successfully published @pyrophire/ix-libs@${{ steps.version.outputs.version }} to npm"
+                  echo "✅ Successfully published $(cat package.json | jq -r .name)@$(cat package.json | jq -r .version) to npm"
