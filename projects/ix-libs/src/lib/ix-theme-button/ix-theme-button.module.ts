@@ -5,9 +5,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { ThemeButtonComponent } from './ix-theme-button.component';
 
 @NgModule({
-  declarations: [ThemeButtonComponent],
-  imports: [MatButtonModule, MatIconModule, CommonModule],
-  exports: [ThemeButtonComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+    imports: [CommonModule, MatButtonModule, MatIconModule, ThemeButtonComponent],
+    exports: [ThemeButtonComponent],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class IxThemeButtonModule {}

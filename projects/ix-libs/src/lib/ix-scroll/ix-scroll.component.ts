@@ -1,6 +1,7 @@
-import { Component, Input, NgZone, OnInit } from '@angular/core';
-import { fromEvent, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, computed, effect, inject, input, OnDestroy, signal } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { ScrollButtonService } from './ix-scroll.service';
 
 @Component({
@@ -8,64 +9,100 @@ import { ScrollButtonService } from './ix-scroll.service';
     selector: 'ix-scroll-button',
     templateUrl: './ix-scroll.component.html',
     styleUrls: ['./ix-scroll.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [CommonModule, MatButtonModule, MatIconModule],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ScrollTopButtonComponent implements OnInit {
-  @Input() color: 'primary' | 'accent';
-  @Input() scrollableElementId: string = 'ix-scroll-container';
-  @Input() isScrollable = false;
-  @Input() scrollHeightTrigger = 100;
-  @Input() verticalButtonPosition: 'top' | 'bottom' = 'bottom';
-  @Input() horizontalButtonPosition: 'left' | 'right' = 'right';
-  showScrollButton: boolean;
-  destroy = new Subject();
-  destroy$ = this.destroy.asObservable();
+export class ScrollTopButtonComponent implements OnDestroy {
+    // Inputs using the input() API with defaults
+    color = input<'primary' | 'accent' | undefined>(undefined);
+    scrollableElementId = input<string>('ix-scroll-container');
+    isScrollableInput = input<boolean>(false);
+    scrollHeightTrigger = input<number>(100);
+    verticalButtonPosition = input<'top' | 'bottom'>('bottom');
+    horizontalButtonPosition = input<'left' | 'right'>('right');
 
-  constructor(private ngZone: NgZone, public scrollButtonService: ScrollButtonService) {
-    window.onresize = (e) => {
-      this.ngZone.run(() => {
-        this.localCheckScroll();
-      });
-    };
-  }
+    private cdr = inject(ChangeDetectorRef);
+    readonly scrollButtonService = inject(ScrollButtonService);
 
-  localCheckScroll(): void {
-    if (this.scrollableElementId) {
-      this.scrollButtonService.checkScroll(this.scrollableElementId).subscribe((res) => {
-        this.isScrollable = res;
-      });
-    } else {
-      this.scrollButtonService.checkScroll().subscribe((res) => {
-        this.isScrollable = res;
-      });
+    // Local state via signals
+    private internalScrollable = signal<boolean>(false);
+    private scrollTop = signal<number>(0);
+
+    // Derived state
+    readonly isScrollable = computed(() => this.isScrollableInput() || this.internalScrollable());
+    readonly showScrollButton = computed(() => this.scrollTop() > this.scrollHeightTrigger());
+
+    // Cleanups
+    private removeScrollListener: (() => void) | null = null;
+    private removeResizeListener: (() => void) | null = null;
+
+    constructor() {
+        // Initialize after current task to avoid ExpressionChanged errors
+        queueMicrotask(() => {
+            this.scrollButtonService.setContainerId(this.scrollableElementId());
+            this.measureScrollable();
+            this.attachScrollListener();
+        });
+
+        // Re-measure on resize
+        const onResize = () => this.measureScrollable();
+        window.addEventListener('resize', onResize, { passive: true });
+        this.removeResizeListener = () => window.removeEventListener('resize', onResize);
+
+        // Re-attach listeners if target id changes
+        effect(() => {
+            const id = this.scrollableElementId();
+            this.scrollButtonService.setContainerId(id);
+            this.detachScrollListener();
+            this.attachScrollListener();
+            this.measureScrollable();
+        });
     }
-  }
-  scrollToTop(): void {
-    if (this.scrollableElementId) {
-      this.scrollButtonService.scrollToTop(this.scrollableElementId);
-    } else {
-      this.scrollButtonService.scrollToTop();
-    }
-  }
 
-  watchScroll(): void {
-    fromEvent(document.getElementById(this.scrollableElementId), 'scroll')
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((e: Event) => {
-        let st = (e.target as Element).scrollTop;
-        if (st > this.scrollHeightTrigger) {
-          this.showScrollButton = true;
-        } else {
-          this.showScrollButton = false;
+    private attachScrollListener(): void {
+        const id = this.scrollableElementId();
+        const el = document.getElementById(id);
+        if (!el) {
+            console.warn(`Element with id '${id}' not found for scroll watching`);
+            return;
         }
-      });
-  }
+        const onScroll = (e: Event) => {
+            const st = (e.target as Element).scrollTop || 0;
+            this.scrollTop.set(st);
+        };
+        el.addEventListener('scroll', onScroll, { passive: true });
+        this.removeScrollListener = () => el.removeEventListener('scroll', onScroll);
+    }
 
-  ngOnInit(): void {
-    this.scrollButtonService.setContainerId(this.scrollableElementId);
-    setTimeout(() => {
-      this.localCheckScroll();
-      this.watchScroll();
-    }, 500);
-  }
+    private detachScrollListener(): void {
+        if (this.removeScrollListener) {
+            this.removeScrollListener();
+            this.removeScrollListener = null;
+        }
+    }
+
+    private measureScrollable(): void {
+        const id = this.scrollableElementId();
+        const scrollable = this.scrollButtonService.isScrollable(id);
+        this.internalScrollable.set(scrollable);
+        this.cdr.markForCheck();
+    }
+
+    scrollToTop(): void {
+        const id = this.scrollableElementId();
+        if (id) {
+            this.scrollButtonService.scrollToTop(id);
+        } else {
+            this.scrollButtonService.scrollToTop();
+        }
+    }
+
+    ngOnDestroy(): void {
+        this.detachScrollListener();
+        if (this.removeResizeListener) {
+            this.removeResizeListener();
+            this.removeResizeListener = null;
+        }
+    }
 }

@@ -5,15 +5,14 @@ import { MatIconModule } from '@angular/material/icon';
 import { IxTableHeaderComponent } from './ix-table-header.component';
 
 export class TableHeaderColumn {
-  title: string;
-  prop: string;
-  class: string;
-  sortable: boolean;
+    title: string;
+    prop: string;
+    class: string;
+    sortable: boolean;
 }
 
 @NgModule({
-  declarations: [IxTableHeaderComponent],
-  imports: [CommonModule, FormsModule, MatIconModule],
-  exports: [IxTableHeaderComponent]
+    imports: [CommonModule, FormsModule, MatIconModule, IxTableHeaderComponent],
+    exports: [IxTableHeaderComponent]
 })
 export class IxTableHeaderModule {}

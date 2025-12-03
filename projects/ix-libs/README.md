@@ -2,7 +2,7 @@
 
 # IX Libraries & Services
 
-**License: MIT** | **Angular 20+ Compatible** | **TypeScript Ready**
+**License: MIT** | **Angular 21+ Compatible** | **TypeScript Ready**
 
 A comprehensive collection of reusable Angular components, services, and utilities designed to accelerate development and provide consistent UI/UX patterns across applications. Built with Angular Material integration and modern web standards in mind.
 
@@ -18,10 +18,17 @@ A comprehensive collection of reusable Angular components, services, and utiliti
 
 ## 📋 Requirements
 
-- Angular 20.0.0 or higher
-- Angular Material 20.0.0 or higher
+- Angular 21.0.0 or higher
+- Angular Material 21.0.0 or higher
 - RxJS 7.8.0 or higher
 - TypeScript 5.0 or higher
+
+> Note: Starting in v21.1.0 this library is fully standalone. NgModules have been removed. Import components and pipes directly, and register icons via `provideIxIcons()` at bootstrap. See the migration guide in `projects/ix-libs/CHANGELOG.md`.
+
+## 📜 Changelog
+
+- View on GitHub: https://github.com/pyrophire/ix-libs/blob/master/projects/ix-libs/CHANGELOG.md
+- View in package: [CHANGELOG.md](./CHANGELOG.md)
 
 - [IX Libraries \& Services](#ix-libraries--services)
   - [Icons](#icons)
@@ -75,7 +82,7 @@ npm install --save @pyrophire/ix-libs
             "assets": [
               {
                 "glob": "**/*",
-                "input": "./node_modules/ix-icons/ix-img/",
+                "input": "./node_modules/@pyrophire/ix-libs/ix-img/",
                 "output": "./ix-img"
               }
             ]
@@ -87,17 +94,17 @@ npm install --save @pyrophire/ix-libs
 }
 ```
 
-3. **Import the module** in your feature module or app module:
+3. **Register the icons provider** once at application bootstrap:
 ```typescript
-import { IxIconsModule } from '@pyrophire/ix-libs';
+// main.ts (Angular 15+)
+import { bootstrapApplication } from '@angular/platform-browser';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { AppComponent } from './app/app.component';
+import { provideIxIcons } from '@pyrophire/ix-libs';
 
-@NgModule({
-  imports: [
-    IxIconsModule,
-    // ... other imports
-  ]
-})
-export class YourModule { }
+bootstrapApplication(AppComponent, {
+  providers: [provideAnimations(), provideIxIcons()]
+});
 ```
 
 4. **Use in templates** with Angular Material's mat-icon:
@@ -176,17 +183,21 @@ A smooth "scroll to top" button component that appears when users scroll down th
 npm install --save @pyrophire/ix-libs
 ```
 
-2. **Import the module**
+2. **Import the standalone component** where you need it:
 ```typescript
-import { IxScrollModule } from '@pyrophire/ix-libs';
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ScrollTopButtonComponent } from '@pyrophire/ix-libs';
 
-@NgModule({
-  imports: [
-    IxScrollModule,
-    // ... other imports
-  ]
+@Component({
+  selector: 'app-feature',
+  standalone: true,
+  imports: [CommonModule, ScrollTopButtonComponent],
+  template: `
+    <ix-scroll-button color="primary"></ix-scroll-button>
+  `
 })
-export class YourModule { }
+export class FeatureComponent {}
 ```
 
 3. **Add required styles to your global stylesheet**
@@ -206,32 +217,32 @@ html {
 
 **Basic Usage:**
 ```html
-<ix-scroll-top-button></ix-scroll-top-button>
+<ix-scroll-button></ix-scroll-button>
 ```
 
 **With Custom Styling:**
 ```html
-<ix-scroll-top-button 
+<ix-scroll-button 
   [color]="'primary'"
   [scrollHeightTrigger]="200"
   [scrollableElementId]="'custom-container'">
-</ix-scroll-top-button>
+</ix-scroll-button>
 ```
 
 **Multiple Scroll Containers:**
 ```html
 <!-- For main page scrolling -->
-<ix-scroll-top-button 
+<ix-scroll-button 
   color="primary" 
   scrollableElementId="main-content">
-</ix-scroll-top-button>
+</ix-scroll-button>
 
 <!-- For sidebar scrolling -->
-<ix-scroll-top-button 
+<ix-scroll-button 
   color="accent" 
   scrollableElementId="sidebar"
   [scrollHeightTrigger]="150">
-</ix-scroll-top-button>
+</ix-scroll-button>
 ```
 
 ### Configuration Options
@@ -281,7 +292,7 @@ export class MyComponent implements OnInit {
 **Styling the Button:**
 ```scss
 // Override default positioning
-ix-scroll-top-button {
+ix-scroll-button {
   .scroll-button {
     bottom: 20px;
     right: 20px;
@@ -315,17 +326,18 @@ A visual progress bar that shows users how much of the page content they have sc
 npm install --save @pyrophire/ix-libs
 ```
 
-2. **Import the module**
+2. **Import the standalone component** where needed:
 ```typescript
-import { IxScrollProgressModule } from '@pyrophire/ix-libs';
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ScrollBarProgressComponent } from '@pyrophire/ix-libs';
 
-@NgModule({
-  imports: [
-    IxScrollProgressModule,
-    // ... other imports
-  ]
+@Component({
+  standalone: true,
+  imports: [CommonModule, ScrollBarProgressComponent],
+  template: `<ix-scroll-progress [config]="progressConfig"></ix-scroll-progress>`
 })
-export class YourModule { }
+export class ArticleComponent {}
 ```
 
 3. **Use in your templates**
@@ -482,17 +494,18 @@ A beautifully animated theme toggle button that allows users to switch between l
 npm install --save @pyrophire/ix-libs
 ```
 
-2. **Import the required modules**
+2. **Import the standalone component**
 ```typescript
-import { IxThemeButtonModule } from '@pyrophire/ix-libs';
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ThemeButtonComponent } from '@pyrophire/ix-libs';
 
-@NgModule({
-  imports: [
-    IxThemeButtonModule,
-    // ... other imports
-  ]
+@Component({
+  standalone: true,
+  imports: [CommonModule, ThemeButtonComponent],
+  template: `<ix-theme-button></ix-theme-button>`
 })
-export class YourModule { }
+export class YourComponent {}
 ```
 
 3. **Set up Angular Material themes** in your `styles.scss`:
@@ -715,17 +728,18 @@ A theme toggle component specifically designed for dropdown menus and navigation
 npm install --save @pyrophire/ix-libs
 ```
 
-2. **Import the required modules**
+2. **Import the standalone component**
 ```typescript
-import { IxThemeMenuItemModule } from '@pyrophire/ix-libs';
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ThemeMenuItemComponent } from '@pyrophire/ix-libs';
 
-@NgModule({
-  imports: [
-    IxThemeMenuItemModule,
-    // ... other imports
-  ]
+@Component({
+  standalone: true,
+  imports: [CommonModule, ThemeMenuItemComponent],
+  templateUrl: './menu.component.html'
 })
-export class YourModule { }
+export class MenuComponent {}
 ```
 
 3. **Set up themes** (same as [Theme Button](#theme-button))
@@ -1302,17 +1316,21 @@ A collection of utility pipes for common data transformation needs in Angular ap
 npm install --save @pyrophire/ix-libs
 ```
 
-2. **Import the module**
+2. **Import standalone pipes directly** into your component:
 ```typescript
-import { IxPipesModule } from '@pyrophire/ix-libs';
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { AmPmPipe, CamelToTitlePipe, FileSizePipe, PhonePipe, SafePipe } from '@pyrophire/ix-libs';
 
-@NgModule({
-  imports: [
-    IxPipesModule,
-    // ... other imports
-  ]
+@Component({
+  standalone: true,
+  imports: [CommonModule, AmPmPipe, CamelToTitlePipe, FileSizePipe, PhonePipe, SafePipe],
+  template: `
+    <p>{{ '14:30:00' | ampm }}</p>
+    <p>{{ 'firstName' | camelToTitle }}</p>
+  `
 })
-export class YourModule { }
+export class PipesDemoComponent {}
 ```
 
 3. **Use in templates** like any Angular pipe
@@ -2429,7 +2447,7 @@ ix-table-header {
     <!-- Virtual scrolling table -->
   </cdk-virtual-scroll-viewport>
   
-  <ix-scroll-top-button color="primary"></ix-scroll-top-button>
+  <ix-scroll-button color="primary"></ix-scroll-button>
 </div>
 ```
 

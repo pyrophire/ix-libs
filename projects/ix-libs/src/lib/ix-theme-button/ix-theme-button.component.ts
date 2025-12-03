@@ -1,4 +1,7 @@
-import { Component, NgZone, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, effect, inject } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { IxDarkService } from '../ix-dark/ix-dark.service';
 
 @Component({
@@ -6,27 +9,24 @@ import { IxDarkService } from '../ix-dark/ix-dark.service';
     selector: 'ix-theme-button',
     templateUrl: './ix-theme-button.component.html',
     styleUrls: ['./ix-theme-button.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [CommonModule, MatButtonModule, MatIconModule]
 })
-export class ThemeButtonComponent implements OnInit {
-  theme: string;
-  constructor(private ngZone: NgZone, private darkService: IxDarkService) {}
+export class ThemeButtonComponent {
+    theme: string = 'light';
+    private darkService = inject(IxDarkService);
 
-  // will switch themes using the IxDark service
-  public toggleDarkMode(): void {
-    this.darkService.toggleDarkLightMode();
-  }
+    // will switch themes using the IxDark service
+    public toggleDarkMode(): void {
+        this.darkService.toggleDarkLightMode();
+    }
 
-  // will subscribe to themes to animate icon
-  private _subToTheme(): void {
-    this.darkService.themeStream.subscribe((ev) => {
-      this.theme = ev;
-    });
-  }
-
-  // will setup themes with IxDark service
-  ngOnInit(): void {
-    this._subToTheme();
-    this.darkService.setDarkModePreference();
-  }
+    // reactively mirror the service's theme signal
+    constructor() {
+        effect(() => {
+            this.theme = this.darkService.theme();
+        });
+        // initialize according to preferences
+        this.darkService.setDarkModePreference();
+    }
 }

@@ -8,9 +8,8 @@ import { SafePipe } from './safe.pipe';
 
 const pipes = [SafePipe, PhonePipe, FileSizePipe, AmPmPipe, CamelToTitlePipe];
 @NgModule({
-  declarations: [pipes],
-  imports: [CommonModule],
-  exports: [pipes],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    imports: [CommonModule, ...pipes],
+    exports: [...pipes],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class IxPipesModule {}

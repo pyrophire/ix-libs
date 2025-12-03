@@ -5,9 +5,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { ScrollBarProgressComponent } from './ix-scroll-progress.component';
 
 @NgModule({
-  declarations: [ScrollBarProgressComponent],
-  imports: [MatButtonModule, MatIconModule, CommonModule],
-  exports: [ScrollBarProgressComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+    imports: [CommonModule, MatButtonModule, MatIconModule, ScrollBarProgressComponent],
+    exports: [ScrollBarProgressComponent],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class IxScrollProgressModule {}

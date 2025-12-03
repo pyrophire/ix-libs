@@ -1,4 +1,7 @@
-import { Component, NgZone, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, effect, inject } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
 import { IxDarkService } from '../ix-dark/ix-dark.service';
 
 @Component({
@@ -6,27 +9,22 @@ import { IxDarkService } from '../ix-dark/ix-dark.service';
     selector: 'ix-theme-menu-item',
     templateUrl: './ix-theme-menu-item.component.html',
     styleUrls: ['./ix-theme-menu-item.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [CommonModule, MatIconModule, MatMenuModule]
 })
-export class ThemeMenuItemComponent implements OnInit {
-  theme: string;
-  constructor(private ngZone: NgZone, private darkService: IxDarkService) {}
+export class ThemeMenuItemComponent {
+    theme: string = 'light';
+    private darkService = inject(IxDarkService);
 
-  // will switch themes using the IxDark service
-  public toggleDarkMode(): void {
-    this.darkService.toggleDarkLightMode();
-  }
+    // will switch themes using the IxDark service
+    public toggleDarkMode(): void {
+        this.darkService.toggleDarkLightMode();
+    }
 
-  // will subscribe to themes to animate icon
-  private _subToTheme(): void {
-    this.darkService.themeStream.subscribe((ev) => {
-      this.theme = ev;
-    });
-  }
-
-  // will setup themes with IxDark service
-  ngOnInit(): void {
-    this._subToTheme();
-    this.darkService.setDarkModePreference();
-  }
+    constructor() {
+        effect(() => {
+            this.theme = this.darkService.theme();
+        });
+        this.darkService.setDarkModePreference();
+    }
 }

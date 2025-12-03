@@ -9,8 +9,7 @@ import { IxTableHeaderModule } from '../ix-table-header/ix-table-header.module';
 import { IxTableComponent } from './ix-table.component';
 
 @NgModule({
-  declarations: [IxTableComponent],
-  imports: [CommonModule, MatProgressBarModule, MatIconModule, ScrollingModule, IxPipesModule, IxTableHeaderModule],
-  exports: [IxTableComponent]
+    imports: [CommonModule, MatProgressBarModule, MatIconModule, ScrollingModule, IxPipesModule, IxTableHeaderModule, IxTableComponent],
+    exports: [IxTableComponent]
 })
 export class IxTableModule {}

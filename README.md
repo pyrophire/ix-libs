@@ -3,6 +3,8 @@
 # IX Libraries & Services
 License: MIT
 
+> Angular 21+ and standalone: As of v21.1.0, all components and pipes are standalone and no NgModules are exported. Import components/pipes directly and register icons with `provideIxIcons()` in `main.ts`. See `projects/ix-libs/CHANGELOG.md` for migration steps.
+
 - [IX Libraries & Services](#ix-libraries--services)
   - [Icons](#icons)
     - [Installation](#installation)
@@ -39,22 +41,30 @@ License: MIT
 1. Run
 
 ```
-npm install --save ix-libs
+npm install --save @pyrophire/ix-libs
 ```
 
 2. Update angular.json/assets with
 
 ```
 {
-    "glob": "**/*",
-    "input": "./node_modules/ix-icons/ix-img/",
-    "output": "./ix-img"
+  "glob": "**/*",
+  "input": "./node_modules/@pyrophire/ix-libs/ix-img/",
+  "output": "./ix-img"
 }
 ```
 
-3. Add to Module Imports
+3. Register the icons provider at bootstrap
 ```
-import { IxIconsModule } from 'ix-libs';
+// main.ts (Angular 15+)
+import { bootstrapApplication } from '@angular/platform-browser';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { AppComponent } from './app/app.component';
+import { provideIxIcons } from '@pyrophire/ix-libs';
+
+bootstrapApplication(AppComponent, {
+  providers: [provideAnimations(), provideIxIcons()]
+});
 ```
 
 4. Add to layout with
@@ -81,17 +91,26 @@ import { IxIconsModule } from 'ix-libs';
 1. Run
 
 ```
-npm install --save ix-libs
+npm install --save @pyrophire/ix-libs
 ```
-2. Add to Module Imports
+2. Import the standalone component where you need it
 ```
-import { IxScrollModule } from 'ix-libs';
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ScrollTopButtonComponent } from '@pyrophire/ix-libs';
+
+@Component({
+  standalone: true,
+  imports: [CommonModule, ScrollTopButtonComponent],
+  template: `<ix-scroll-button [color]="'accent'"></ix-scroll-button>`
+})
+export class FeatureComponent {}
 ```
 
 3. Add to layout with
 
 ```
-<ix-scroll-top-button [color]="accent" ></ix-scroll-top-button>
+<ix-scroll-button [color]="accent"></ix-scroll-button>
 ```
 
 ### Notes
@@ -119,11 +138,20 @@ import { IxScrollModule } from 'ix-libs';
 1. Run
 
 ```
-npm install --save ix-libs
+npm install --save @pyrophire/ix-libs
 ```
-2. Add to Module Imports
+2. Import the standalone component
 ```
-import { IxThemeButtonModule } from 'ix-libs';
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ThemeButtonComponent } from '@pyrophire/ix-libs';
+
+@Component({
+  standalone: true,
+  imports: [CommonModule, ThemeButtonComponent],
+  template: `<ix-theme-button></ix-theme-button>`
+})
+export class HeaderComponent {}
 ```
 
 3. Add to layout with
@@ -161,7 +189,7 @@ import { IxThemeButtonModule } from 'ix-libs';
 1. Run
 
 ```
-npm install --save ix-libs
+npm install --save @pyrophire/ix-libs
 ```
 2. Add to dependency injection
 ```
@@ -225,9 +253,17 @@ import { IxMediaQueryService } from 'ix-libs';
 ```
 npm install --save ix-libs
 ```
-2. Add to Module Imports
+2. Import standalone pipes directly into your component
 ```
-import { IxPipesModule } from 'ix-libs';
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { AmPmPipe, CamelToTitlePipe, FileSizePipe, PhonePipe, SafePipe } from '@pyrophire/ix-libs';
+
+@Component({
+  standalone: true,
+  imports: [CommonModule, AmPmPipe, CamelToTitlePipe, FileSizePipe, PhonePipe, SafePipe]
+})
+export class PipesDemoComponent {}
 ```
 
 3. Use as any other pipe

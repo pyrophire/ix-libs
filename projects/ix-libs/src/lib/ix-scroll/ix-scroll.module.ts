@@ -5,9 +5,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { ScrollTopButtonComponent } from './ix-scroll.component';
 
 @NgModule({
-  declarations: [ScrollTopButtonComponent],
-  imports: [MatButtonModule, MatIconModule, CommonModule],
-  exports: [ScrollTopButtonComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+    imports: [CommonModule, MatButtonModule, MatIconModule, ScrollTopButtonComponent],
+    exports: [ScrollTopButtonComponent],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class IxScrollModule {}

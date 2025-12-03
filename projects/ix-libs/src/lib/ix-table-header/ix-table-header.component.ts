@@ -1,8 +1,10 @@
-import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, Input, ViewEncapsulation } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
 
 export class ActiveSort {
-  prop: string;
-  dir: string;
+    prop: string;
+    dir: string;
 }
 
 @Component({
@@ -10,15 +12,14 @@ export class ActiveSort {
     templateUrl: './ix-table-header.component.html',
     styleUrls: ['./ix-table-header.component.scss'],
     encapsulation: ViewEncapsulation.None,
-    standalone: false
+    standalone: true,
+    imports: [CommonModule, MatIconModule]
 })
-export class IxTableHeaderComponent implements OnInit {
-  @Input() title: string;
-  @Input() prop: string;
-  @Input() activeSort: ActiveSort;
-  @Input() sortable: boolean;
+export class IxTableHeaderComponent {
+    @Input() title: string;
+    @Input() prop: string;
+    @Input() activeSort: ActiveSort;
+    @Input() sortable: boolean;
 
-  constructor() {}
-
-  ngOnInit(): void {}
+    constructor() {}
 }
