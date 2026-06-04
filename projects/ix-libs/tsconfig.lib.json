@@ -19,7 +19,8 @@
     },
     "enableResourceInlining": true,
     "fullTemplateTypeCheck": true,
-    "strictInjectionParameters": true
+    "strictInjectionParameters": true,
+    "strictTemplates": false
   },
   "exclude": [
     "src/test.ts",
