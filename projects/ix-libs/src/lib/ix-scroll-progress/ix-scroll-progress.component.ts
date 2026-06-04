@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, NgZone, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { ProgressBarConfig } from './ix-scroll-progress-config.model';
 
 @Component({
@@ -12,7 +12,7 @@ import { ProgressBarConfig } from './ix-scroll-progress-config.model';
     imports: [CommonModule]
 })
 export class ScrollBarProgressComponent implements OnInit, OnDestroy {
-    @Input() config: ProgressBarConfig;
+    @Input() config?: ProgressBarConfig;
 
     constructor(private ngZone: NgZone) {}
 
@@ -23,7 +23,10 @@ export class ScrollBarProgressComponent implements OnInit, OnDestroy {
         let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
         let height = document.body.scrollHeight - document.documentElement.clientHeight;
         let scrolled = (winScroll / height) * 100;
-        document.getElementById('progressBar').style.width = scrolled + '%';
+        const progressBar = document.getElementById('progressBar');
+        if (progressBar) {
+            progressBar.style.width = scrolled + '%';
+        }
         return scrolled;
     }
 

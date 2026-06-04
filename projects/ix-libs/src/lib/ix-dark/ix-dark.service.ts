@@ -9,11 +9,14 @@ import { IxLocalStorageService } from '../shared/local-storage.service';
 export class IxDarkService {
     prefersDark: boolean;
     localStorageLightDark: string;
-    currentMode: string;
+    currentMode: string | undefined;
     themeStream = new ReplaySubject<string>();
     private _theme = signal<string>('light');
 
-    constructor(@Inject(DOCUMENT) private document: any, private storageService: IxLocalStorageService) {
+    constructor(
+        @Inject(DOCUMENT) private document: any,
+        private storageService: IxLocalStorageService
+    ) {
         this.prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
         this.localStorageLightDark = this.storageService.getItem('DarkModePref');
     }
@@ -70,7 +73,7 @@ export class IxDarkService {
         }
     }
 
-    private _toggleBodyClasses(colorToSet): void {
+    private _toggleBodyClasses(colorToSet: string): void {
         this.storageService.setItem('DarkModePref', colorToSet);
         this.localStorageLightDark = this.storageService.getItem('DarkModePref');
         if (colorToSet.toLowerCase() === 'dark') {

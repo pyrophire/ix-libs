@@ -6,19 +6,13 @@
     "declarationMap": true,
     "declaration": true,
     "inlineSources": true,
+    "strict": false,
+    "noImplicitAny": false,
+    "strictNullChecks": false,
+    "strictPropertyInitialization": false,
     "types": []
   },
   "angularCompilerOptions": {
-    "skipTemplateCodegen": true,
-    "strictMetadataEmit": true,
-    "extendedDiagnostics": {
-      "checks": {
-        "nullishCoalescingNotNullable": "suppress",
-        "optionalChainNotNullable": "suppress"
-      }
-    },
-    "enableResourceInlining": true,
-    "fullTemplateTypeCheck": true,
     "strictInjectionParameters": true,
     "strictTemplates": false
   },

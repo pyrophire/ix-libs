@@ -25,14 +25,16 @@ export class AmPmPipe implements PipeTransform {
         }
         if (timeArray[1]) {
             minutes = `${timeArray[1]}`;
+        } else {
+            minutes = '00';
         }
         if (timeArray[2]) {
             seconds = `${timeArray[2]}`;
         } else {
-            minutes = '00';
+            seconds = '';
         }
 
-        const displayString = seconds ? `${hour}:${minutes}:${seconds} ${amPm}` : `${hour}:${minutes} ${amPm}`;
+        const displayString = seconds ? `${hour}:${minutes}:${seconds}${amPm}` : `${hour}:${minutes}${amPm}`;
         return displayString;
     }
 }

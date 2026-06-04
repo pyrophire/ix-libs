@@ -11,16 +11,18 @@ export class ScrollButtonService {
 
     constructor() {}
 
-    setContainerId(id?): void {
+    setContainerId(id?: string): void {
         if (id) {
-            const bodyEl = document.getElementById(id);
-            bodyEl.setAttribute('id', id);
-            this.containerId.set(id);
-        } else {
-            const bodyEl = document.getElementsByTagName('BODY')[0];
-            bodyEl.setAttribute('id', 'ix-scroll-container');
-            this.containerId.set('ix-scroll-container');
+            const container = document.getElementById(id);
+            if (container) {
+                this.containerId.set(id);
+                return;
+            }
+            console.warn(`Element with id '${id}' not found. Falling back to body container.`);
         }
+
+        document.body.setAttribute('id', 'ix-scroll-container');
+        this.containerId.set('ix-scroll-container');
     }
 
     /**
