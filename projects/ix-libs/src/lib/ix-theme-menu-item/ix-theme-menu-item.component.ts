@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, effect, inject } from '@angular/core';
+import { Component, effect, inject, ChangeDetectionStrategy } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { IxDarkService } from '../ix-dark/ix-dark.service';
@@ -10,6 +10,7 @@ import { IxDarkService } from '../ix-dark/ix-dark.service';
     templateUrl: './ix-theme-menu-item.component.html',
     styleUrls: ['./ix-theme-menu-item.component.scss'],
     standalone: true,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [CommonModule, MatIconModule, MatMenuModule]
 })
 export class ThemeMenuItemComponent {

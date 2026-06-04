@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, effect, inject } from '@angular/core';
+import { Component, effect, inject, ChangeDetectionStrategy } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { IxDarkService } from '../ix-dark/ix-dark.service';
@@ -10,6 +10,7 @@ import { IxDarkService } from '../ix-dark/ix-dark.service';
     templateUrl: './ix-theme-button.component.html',
     styleUrls: ['./ix-theme-button.component.scss'],
     standalone: true,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [CommonModule, MatButtonModule, MatIconModule]
 })
 export class ThemeButtonComponent {

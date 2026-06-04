@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, NgZone, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, NgZone, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ProgressBarConfig } from './ix-scroll-progress-config.model';
 
 @Component({
@@ -8,6 +8,7 @@ import { ProgressBarConfig } from './ix-scroll-progress-config.model';
     templateUrl: './ix-scroll-progress.component.html',
     styleUrls: ['./ix-scroll-progress.component.scss'],
     standalone: true,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [CommonModule]
 })
 export class ScrollBarProgressComponent implements OnInit, OnDestroy {
