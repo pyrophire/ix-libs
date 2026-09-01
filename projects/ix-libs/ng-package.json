@@ -11,6 +11,9 @@
     "filesize"
   ],
   "assets": [
-    "./ix-img/**"
+    "./ix-img/**",
+    "./src/lib/ix-docs-viewer/tools/**",
+    "./schematics/collection.json",
+    "./schematics/ng-add/schema.json"
   ]
 }

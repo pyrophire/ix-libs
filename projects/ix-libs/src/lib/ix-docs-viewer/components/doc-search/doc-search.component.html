@@ -1,0 +1,79 @@
+@if (isOpen) {
+    <div
+        class="search-overlay"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Search documentation"
+        (click)="close()">
+        <div
+            class="search-panel"
+            (click)="$event.stopPropagation()">
+            <div class="search-input-row">
+                <mat-icon class="search-icon">search</mat-icon>
+                <input
+                    #searchInput
+                    class="search-input"
+                    type="search"
+                    placeholder="Search documentation…"
+                    autocomplete="off"
+                    spellcheck="false"
+                    aria-label="Search documentation"
+                    [value]="query"
+                    (input)="onQueryChange($any($event.target).value)" />
+                @if (loading) {
+                    <mat-spinner
+                        diameter="20"
+                        class="search-spinner"></mat-spinner>
+                }
+                <button
+                    class="search-close-btn"
+                    type="button"
+                    aria-label="Close search"
+                    (click)="close()">
+                    <mat-icon>close</mat-icon>
+                </button>
+            </div>
+
+            @if (results.length > 0) {
+                <ul
+                    class="search-results"
+                    role="listbox"
+                    aria-label="Search results">
+                    @for (result of results; track result.appId + result.docPath; let i = $index) {
+                        <li
+                            class="search-result"
+                            [class.active]="i === activeIndex"
+                            role="option"
+                            [attr.aria-selected]="i === activeIndex"
+                            (click)="navigateTo(result)"
+                            (mouseenter)="activeIndex = i">
+                            <div class="search-result-header">
+                                <span class="search-result-title">{{ result.docTitle }}</span>
+                                <span class="search-result-meta">{{ result.appName }}</span>
+                            </div>
+                            <div
+                                class="search-result-excerpt"
+                                [innerHTML]="result.excerpt"></div>
+                        </li>
+                    }
+                </ul>
+            } @else if (query.trim() && !loading) {
+                <div class="search-empty">
+                    <mat-icon>search_off</mat-icon>
+                    <span>No results for "<strong>{{ query }}</strong>"</span>
+                </div>
+            } @else if (!query.trim()) {
+                <div class="search-hint">
+                    <mat-icon>manage_search</mat-icon>
+                    <span>Type to search across all documentation</span>
+                </div>
+            }
+
+            <div class="search-footer">
+                <span class="search-footer-hint"><kbd>↑</kbd><kbd>↓</kbd> navigate</span>
+                <span class="search-footer-hint"><kbd>↵</kbd> open</span>
+                <span class="search-footer-hint"><kbd>Esc</kbd> close</span>
+            </div>
+        </div>
+    </div>
+}

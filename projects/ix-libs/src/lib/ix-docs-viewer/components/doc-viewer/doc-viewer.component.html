@@ -1,0 +1,115 @@
+<section
+    class="doc-viewer"
+    [class.sidebar-closed]="!sidebarOpen">
+    @if (loading) {
+        <div class="doc-state-message">Loading documentation…</div>
+    }
+
+    @if (!loading && notFound) {
+        <div class="doc-state-message">
+            <mat-icon>search_off</mat-icon>
+            <h2>Document not found</h2>
+            <p>The requested document does not exist or has been moved.</p>
+            <a
+                mat-stroked-button
+                [routerLink]="[homeRoute]">
+                Back to Home
+            </a>
+        </div>
+    }
+
+    @if (!loading && !notFound && app) {
+        <nav
+            class="doc-sidebar"
+            [class.closed]="!sidebarOpen"
+            [attr.aria-label]="app.name + ' documentation'">
+            <div class="doc-sidebar-header">
+                <mat-icon aria-hidden="true">{{ app.icon || 'description' }}</mat-icon>
+                <span class="app-name">{{ app.name }}</span>
+                <button
+                    mat-icon-button
+                    class="sidebar-search-btn"
+                    aria-label="Search documentation"
+                    matTooltip="Search docs (Ctrl+K)"
+                    (click)="openSearch()">
+                    <mat-icon>search</mat-icon>
+                </button>
+            </div>
+            @for (section of app.sections; track section.title; let i = $index) {
+                <div class="doc-sidebar-section">
+                    <p
+                        class="doc-sidebar-section-title"
+                        [id]="'sidebar-section-' + i">
+                        {{ section.title }}
+                    </p>
+                    <ul
+                        class="doc-sidebar-list"
+                        [attr.aria-labelledby]="'sidebar-section-' + i">
+                        @for (doc of section.docs; track doc.path) {
+                            <li>
+                                <a
+                                    class="doc-sidebar-link"
+                                    [class.active]="isDocActive(doc)"
+                                    [attr.aria-current]="isDocActive(doc) ? 'page' : null"
+                                    [routerLink]="docRoute(doc)">
+                                    {{ doc.title }}
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            }
+        </nav>
+
+        <button
+            class="sidebar-toggle"
+            mat-icon-button
+            [matTooltip]="sidebarOpen ? 'Hide document list' : 'Show document list'"
+            [attr.aria-expanded]="sidebarOpen"
+            [attr.aria-controls]="'doc-sidebar'"
+            (click)="toggleSidebar()">
+            <mat-icon aria-hidden="true">{{ sidebarOpen ? 'left_panel_close' : 'left_panel_open' }}</mat-icon>
+        </button>
+
+        <article
+            #docContent
+            class="doc-content markdown-body"
+            (click)="onContentClick($event)"
+            [innerHTML]="html"></article>
+
+        @if (toc.length > 1) {
+            <aside
+                class="doc-bookmarks"
+                aria-label="On this page">
+                <p
+                    class="doc-bookmarks-title"
+                    aria-hidden="true">
+                    <mat-icon aria-hidden="true">bookmarks</mat-icon>
+                    <span>On this page</span>
+                </p>
+                <nav aria-label="Page sections">
+                    <ul class="doc-bookmarks-list">
+                        @for (item of toc; track item.id) {
+                            <li>
+                                <a
+                                    class="doc-bookmark level-{{ item.level }}"
+                                    [class.active]="item.id === activeTocId"
+                                    [attr.aria-current]="item.id === activeTocId ? 'true' : null"
+                                    (click)="scrollToHeading(item.id)">
+                                    {{ item.label }}
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </nav>
+            </aside>
+        }
+    }
+</section>
+
+<ix-scroll-button
+    [isScrollableInput]="isScrollable"
+    [scrollableElementId]="scrollContainerId"
+    [color]="'accent'"></ix-scroll-button>
+
+<ix-doc-search></ix-doc-search>

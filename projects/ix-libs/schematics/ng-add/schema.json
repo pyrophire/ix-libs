@@ -1,0 +1,37 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "NgAddSchema",
+  "title": "ix-docs-viewer ng-add options",
+  "type": "object",
+  "properties": {
+    "project": {
+      "type": "string",
+      "description": "The Angular project to configure (defaults to the workspace default project).",
+      "$default": { "$source": "projectName" }
+    },
+    "docsBaseRoute": {
+      "type": "string",
+      "description": "Router path prefix for doc pages (e.g. 'docs' or 'help').",
+      "default": "docs",
+      "x-prompt": "What route path should the docs viewer use? (e.g. docs)"
+    },
+    "assetsRoot": {
+      "type": "string",
+      "description": "URL path where markdown assets are served from (relative to the app origin).",
+      "default": "assets/markdown",
+      "x-prompt": "Where will markdown files be served from? (e.g. assets/markdown)"
+    },
+    "titleSuffix": {
+      "type": "string",
+      "description": "Suffix appended to the browser title on each doc page.",
+      "default": "Documentation",
+      "x-prompt": "What title suffix should appear in the browser tab? (e.g. My App Docs)"
+    },
+    "skipRoute": {
+      "type": "boolean",
+      "description": "Skip automatic route injection into app.routes.ts.",
+      "default": false
+    }
+  },
+  "required": []
+}

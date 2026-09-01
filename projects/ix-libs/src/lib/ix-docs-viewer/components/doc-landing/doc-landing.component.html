@@ -1,0 +1,53 @@
+<div class="docs-landing">
+    <header class="docs-landing-header">
+        <h1 class="docs-landing-title">{{ heading }}</h1>
+        <button
+            mat-icon-button
+            class="docs-landing-search-btn"
+            aria-label="Search documentation"
+            matTooltip="Search docs (Ctrl+K)"
+            (click)="openSearch()">
+            <mat-icon>search</mat-icon>
+        </button>
+    </header>
+
+    @if (applications$ | async; as applications) {
+        @if (applications.length === 0) {
+            <div class="docs-landing-empty">
+                <mat-icon>folder_open</mat-icon>
+                <p>No documentation found. Add markdown files and run <code>npm run docs:manifest</code>.</p>
+            </div>
+        } @else {
+            <div class="docs-tile-grid">
+                @for (app of applications; track app.id) {
+                    <a
+                        class="docs-tile mat-elevation-z2"
+                        [routerLink]="[baseRoute, app.id]"
+                        [attr.aria-label]="app.name">
+                        <div class="docs-tile-media">
+                            @if (resolveImage(app); as imgSrc) {
+                                <img
+                                    class="docs-tile-image"
+                                    [src]="imgSrc"
+                                    [alt]="app.name"
+                                    loading="lazy" />
+                            } @else {
+                                <div class="docs-tile-icon-wrap">
+                                    <mat-icon aria-hidden="true">{{ app.icon || 'description' }}</mat-icon>
+                                </div>
+                            }
+                        </div>
+                        <div class="docs-tile-body">
+                            <span class="docs-tile-name">{{ app.name }}</span>
+                            @if (app.description) {
+                                <span class="docs-tile-desc">{{ app.description }}</span>
+                            }
+                        </div>
+                    </a>
+                }
+            </div>
+        }
+    }
+</div>
+
+<ix-doc-search></ix-doc-search>

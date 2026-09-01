@@ -5,7 +5,8 @@
   "scripts": {
     "ng": "ng",
     "fresh": "rimraf node_modules && rimraf package-lock.json && npm i",
-    "build": "rimraf dist; ng build ix-libs --configuration production",
+    "build:schematics": "tsc -p projects/ix-libs/schematics/tsconfig.schematics.json",
+    "build": "rimraf dist && ng build ix-libs --configuration production && npm run build:schematics",
     "pack": "cd dist/ix-libs && npm pack",
     "package": "npm run build && npm run pack",
     "readme": "cp .README.md /projects/ix-libs",
@@ -30,6 +31,8 @@
     "@angular/material": "^22.0.0",
     "@angular/platform-browser": "^22.0.0",
     "@angular/platform-browser-dynamic": "^22.0.0",
+    "@angular/router": "^22.0.0",
+    "marked": "^18.0.10",
     "rxjs": "^7.8.2",
     "tslib": "^2.3.1"
   },
@@ -49,6 +52,7 @@
     "karma-coverage-istanbul-reporter": "~3.0.2",
     "karma-jasmine": "~3.3.0",
     "karma-jasmine-html-reporter": "^1.5.0",
+    "marked": "^18.0.10",
     "ng-packagr": "^22.0.0",
     "ngx-json-viewer": "^3.2.1",
     "ts-node": "~8.3.0",

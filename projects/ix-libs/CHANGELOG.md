@@ -2,6 +2,76 @@
 
 All notable changes to this project will be documented in this file.
 
+## 22.1.5 — 2026-09-01
+
+### `ix-docs-viewer` — new features
+
+#### `DocLandingComponent` (`ix-doc-landing`)
+
+New tile-grid landing page component served at the root docs route (`/docs`). Lists every documented application from the manifest as a card. Each card shows a custom image when an `image` field is present in the app's `_meta.json`, or falls back to the Material symbol `icon`. The search overlay (Ctrl/Cmd+K) is built in — no need to add `<ix-doc-search>` separately when this component is used.
+
+```html
+<ix-doc-landing [heading]="'My Docs'"></ix-doc-landing>
+```
+
+**Inputs:** `heading` (default: `'Documentation'`).
+
+#### Tile images in `_meta.json`
+
+A new optional `image` field is supported in every app-level `_meta.json`. Relative paths are resolved against the configured assets root URL; absolute URLs are used as-is.
+
+```json
+{ "name": "My App", "icon": "apps", "image": "my-app/banner.png" }
+```
+
+`npm run docs:manifest` reads and forwards the field into `manifest.json`.
+
+#### Search built into `DocViewerComponent`
+
+`DocViewerComponent` now includes `DocSearchComponent` internally. A search icon button appears in the sidebar header — users no longer need to place `<ix-doc-search>` in their own root template. `DocSearchComponent` remains exported for custom layouts.
+
+#### `ng add @pyrophire/ix-libs` schematic
+
+Running `ng add @pyrophire/ix-libs` now fully configures the docs viewer in a target Angular workspace:
+
+- Prompts for `docsBaseRoute`, `assetsRoot`, and `titleSuffix`.
+- Scaffolds `src/assets/markdown/` with sample markdown and `_meta.json` files.
+- Adds `"docs:manifest": "ix-doc-manifest"` to the consumer app's `package.json`.
+- Creates `src/app/docs/docs-shell.component.ts` (the `<router-outlet>` wrapper required by the viewer's routing pattern).
+- Injects the complete route block into `app.routes.ts`, including the landing page at the empty path and `DocViewerComponent` on the wildcard.
+
+#### Manifest generator: auto-scaffold `_meta.json`
+
+`npm run docs:manifest` (or `npx ix-doc-manifest`) now creates a stub `_meta.json` with humanized defaults in every directory that does not already have one. This includes the docs root (`name: "General"`) and every application/section subfolder. Re-running is safe — existing files are never overwritten. A summary line reports how many files were created.
+
+### Routing — breaking fix
+
+The previously documented routing pattern (`DocViewerComponent` as both parent and child) does not work: the component has no `<router-outlet>`, so mounting it as a parent blocks the child from rendering. The correct pattern requires a thin shell component as the parent:
+
+```ts
+// src/app/docs/docs-shell.component.ts
+@Component({ selector: 'app-docs-shell', template: '<router-outlet></router-outlet>',
+  changeDetection: ChangeDetectionStrategy.OnPush, imports: [RouterOutlet] })
+export class DocsShellComponent {}
+
+// app.routes.ts
+{
+  path: 'docs',
+  component: DocsShellComponent,
+  children: [
+    { path: '', loadComponent: () => import('@pyrophire/ix-libs').then(m => m.DocLandingComponent) },
+    { path: '**', loadComponent: () => import('@pyrophire/ix-libs').then(m => m.DocViewerComponent) },
+  ],
+}
+```
+
+### Build
+
+- `npm run build` now compiles Angular schematics via `tsc` **after** `ng-packagr` so compiled schematic files are not wiped by ng-packagr's dest clean step.
+- `npm run publish` now passes `--access public` (required for scoped packages on the public npm registry).
+
+---
+
 ## 21.1.0 — 2025-12-03
 
 Modernized the library for Angular 21 with standalone components/pipes and signals. This release removes all NgModules and switches internal state management away from RxJS subscriptions where appropriate. It also introduces a provider-based API for icon registration.
