@@ -20,3 +20,12 @@ export * from './lib/ix-theme-menu-item/ix-theme-menu-item.component';
 export * from './lib/shared/forms-helper.service';
 export * from './lib/shared/local-storage.service';
 export * from './lib/shared/session-storage.service';
+
+export * from './lib/ix-docs-viewer/components/doc-landing/doc-landing.component';
+export * from './lib/ix-docs-viewer/components/doc-search/doc-search.component';
+export * from './lib/ix-docs-viewer/components/doc-viewer/doc-viewer.component';
+export * from './lib/ix-docs-viewer/models/docs.model';
+export * from './lib/ix-docs-viewer/services/docs.service';
+export * from './lib/ix-docs-viewer/services/markdown.service';
+export * from './lib/ix-docs-viewer/services/search.service';
+export * from './lib/ix-docs-viewer/tokens';

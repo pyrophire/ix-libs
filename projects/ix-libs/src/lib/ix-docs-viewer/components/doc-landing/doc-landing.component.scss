@@ -1,0 +1,162 @@
+$tile-min-width: 220px;
+$tile-max-width: 320px;
+$icon-size: 56px;
+
+.docs-landing {
+    max-width: var(--ix-doc-landing-max-width, 1200px);
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+}
+
+// ─── Header ──────────────────────────────────────────────────────────────────
+
+.docs-landing-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 40px;
+}
+
+.docs-landing-title {
+    flex: 1;
+    margin: 0;
+    font-size: 2rem;
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+.docs-landing-search-btn {
+    flex-shrink: 0;
+}
+
+// ─── Empty state ─────────────────────────────────────────────────────────────
+
+.docs-landing-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    padding: 80px 16px;
+    opacity: 0.6;
+    text-align: center;
+
+    mat-icon {
+        font-size: 48px;
+        width: 48px;
+        height: 48px;
+    }
+
+    code {
+        font-family: 'SF Mono', Menlo, Consolas, monospace;
+        font-size: 0.9em;
+        padding: 0.15em 0.4em;
+        border-radius: 4px;
+        background-color: rgba(128, 128, 128, 0.15);
+    }
+}
+
+// ─── Tile grid ───────────────────────────────────────────────────────────────
+
+.docs-tile-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax($tile-min-width, $tile-max-width));
+    gap: 20px;
+}
+
+// ─── Individual tile ─────────────────────────────────────────────────────────
+
+.docs-tile {
+    display: flex;
+    flex-direction: column;
+    border-radius: 12px;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    background-color: var(--mat-sys-surface-container, rgba(128, 128, 128, 0.06));
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    cursor: pointer;
+
+    &:hover,
+    &:focus-visible {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.14);
+        outline: none;
+    }
+
+    &:focus-visible {
+        outline: 2px solid var(--mat-sys-primary);
+        outline-offset: 2px;
+    }
+}
+
+.docs-tile-media {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background-color: color-mix(in srgb, var(--mat-sys-primary) 10%, transparent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.docs-tile-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.docs-tile-icon-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+
+    mat-icon {
+        font-size: $icon-size;
+        width: $icon-size;
+        height: $icon-size;
+        color: var(--mat-sys-primary);
+        opacity: 0.7;
+    }
+}
+
+.docs-tile-body {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 16px;
+}
+
+.docs-tile-name {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.docs-tile-desc {
+    font-size: 13px;
+    line-height: 1.5;
+    opacity: 0.7;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+// ─── Responsive ──────────────────────────────────────────────────────────────
+
+@media (max-width: 599.99px) {
+    .docs-landing {
+        padding: 24px 16px 60px;
+    }
+
+    .docs-landing-title {
+        font-size: 1.5rem;
+    }
+
+    .docs-tile-grid {
+        grid-template-columns: 1fr;
+    }
+}
