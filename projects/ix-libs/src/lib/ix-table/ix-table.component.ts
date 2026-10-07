@@ -4,9 +4,9 @@ import { Component, Input, ViewEncapsulation, ChangeDetectionStrategy } from '@a
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 
-import * as _ from 'lodash';
 import { ActiveSort, IxTableHeaderComponent } from '../ix-table-header/ix-table-header.component';
 import { IxTableColumn } from './ix-table-column.model';
+import { sortByProperty } from './ix-table-sort.util';
 
 @Component({
     selector: 'ix-table',
@@ -45,7 +45,7 @@ export class IxTableComponent {
         if (this.customSort) {
             this.data = this.customSort(this.data, this.activeSort);
         } else {
-            this.data = _.orderBy(this.data, this.activeSort.prop, this.activeSort.dir);
+            this.data = sortByProperty(this.data, this.activeSort.prop, this.activeSort.dir);
         }
     }
 }

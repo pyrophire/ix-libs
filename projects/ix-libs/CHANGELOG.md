@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file.
 
+## 22.2.0 — 2026-10-07
+
+### Dependencies
+
+- Removed unused peer dependencies: `@angular/animations`, `@angular/platform-browser-dynamic`, `@angular/compiler` and `@angular/cli`. Apps no longer need to install them for ix-libs.
+- `tslib` moved from `peerDependencies` to `dependencies`.
+- Removed the undeclared `lodash` import from `IxTableComponent`. Apps that added `lodash` (and `allowedCommonJsDependencies: ["lodash"]`) only to satisfy ix-libs can remove both.
+- The published package no longer contains a `.tgz` copy of itself.
+
+### `ix-table` — default sort change
+
+The built-in column sort (used when no `customSort` is supplied) now compares strings with `localeCompare` and numeric collation instead of by code unit. Mixed-case values sort together (`apple`, `Zebra` rather than `Zebra`, `apple`) and `item 2` sorts before `item 10`. Null and undefined values sort last ascending, first descending. Supply `customSort` to keep a different order.
+
 ## 22.1.5 — 2026-09-01
 
 ### `ix-docs-viewer` — new features

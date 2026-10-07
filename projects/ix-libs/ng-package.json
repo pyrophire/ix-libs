@@ -5,10 +5,7 @@
     "entryFile": "src/public_api.ts"
   },
   "allowedNonPeerDependencies": [
-    "tslib",
-    "@angular/cli",
-    "@angular/material",
-    "filesize"
+    "tslib"
   ],
   "assets": [
     "./ix-img/**",
