@@ -49,13 +49,15 @@ This README is generated from the current source implementation in `projects/ix-
 
 ## Requirements
 
-`@pyrophire/ix-libs@22.1.x` peer dependencies:
+`@pyrophire/ix-libs@22.2.x` peer dependencies:
 
-- `@angular/*` `^22.0.0`
+- `@angular/core`, `@angular/common`, `@angular/forms`, `@angular/router`, `@angular/platform-browser` `^22.0.0`
+- `@angular/cdk` `^22.0.0`
 - `@angular/material` `^22.0.0`
 - `rxjs` `^7.8.0`
-- `tslib` `^2.3.1`
 - `marked` `^18.0.10` *(required when using `ix-docs-viewer`)*
+
+`tslib` is a regular dependency and is installed automatically. `@angular/animations`, `@angular/platform-browser-dynamic`, `@angular/compiler` and `@angular/cli` are not required by the library.
 
 ---
 
@@ -96,12 +98,11 @@ If you use `provideIxIcons()`, copy icon assets from the package into your app b
 ```ts
 // main.ts
 import { bootstrapApplication } from '@angular/platform-browser';
-import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideIxIcons } from '@pyrophire/ix-libs';
 import { AppComponent } from './app/app.component';
 
 bootstrapApplication(AppComponent, {
-  providers: [provideAnimations(), provideIxIcons()]
+  providers: [provideIxIcons()]
 });
 ```
 

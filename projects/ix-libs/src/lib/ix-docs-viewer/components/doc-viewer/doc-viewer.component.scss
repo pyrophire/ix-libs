@@ -126,10 +126,12 @@ nav.doc-sidebar {
                 background-color: color-mix(in srgb, var(--mat-sys-primary) 15%, transparent);
                 color: var(--mat-sys-primary);
                 font-weight: 600;
+                border-left: 2px solid var(--mat-sys-primary);
             }
         }
     }
 }
+
 
 button.sidebar-toggle {
     position: sticky;
